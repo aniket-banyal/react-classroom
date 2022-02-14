@@ -45,7 +45,7 @@ function Dashboard() {
     return (
         <div>
             <CreateClassroom onCreate={createNewClassroom} />
-            {classroomList.map((classroom) => <ClassCard key={classroom.id} classroom={classroom} />)}
+            {classroomList.map((classroom) => <ClassCard key={classroom.code} classroom={classroom} />)}
         </div>
     )
 }
