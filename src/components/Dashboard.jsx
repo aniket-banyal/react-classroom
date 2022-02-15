@@ -1,6 +1,7 @@
 import ClassCard from "./ClassroomCard"
 import { useEffect, useState } from "react"
 import CreateClassroom from "./CreateClassroom"
+import JoinClassroom from "./JoinClassroom"
 
 
 function Dashboard() {
@@ -41,10 +42,25 @@ function Dashboard() {
         setNewDataAvailable(true)
     }
 
+    const joinClassroom = async (code) => {
+        const options = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ code })
+        }
+
+        const response = await fetch('http://localhost:8000/api/join_class', options)
+        setNewDataAvailable(true)
+    }
+
 
     return (
         <div>
-            <CreateClassroom onCreate={createNewClassroom} />
+            <CreateClassroom onSubmit={createNewClassroom} />
+            <JoinClassroom onSubmit={joinClassroom} />
             {classroomList.map((classroom) => <ClassCard key={classroom.code} classroom={classroom} />)}
         </div>
     )

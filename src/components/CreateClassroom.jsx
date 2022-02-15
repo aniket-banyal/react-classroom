@@ -1,14 +1,14 @@
 import { useState } from "react"
 
 
-function CreateClassroom({ onCreate }) {
+function CreateClassroom({ onSubmit }) {
     console.log('CreateClassroom')
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
 
     const handleSubmit = e => {
         e.preventDefault()
-        onCreate(name, subject)
+        onSubmit(name, subject)
         setName('')
         setSubject('')
     }
