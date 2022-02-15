@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Classroom from "./components/Classroom";
 import Dashboard from './components/Dashboard'
 import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
@@ -21,6 +22,7 @@ function App() {
 
               <Route path="/" element={<RequireAuth />} >
                 <Route path='/' element={<Dashboard />} />
+                <Route path='/classes/:code' element={<Classroom />} />
               </Route>
 
               <Route path="/login" element={<LoginPage />} />
