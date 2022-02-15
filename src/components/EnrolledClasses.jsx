@@ -3,7 +3,7 @@ import JoinClassroom from "./JoinClassroom"
 
 
 function EnrolledClasses({ setClassrooms }) {
-    const [newDataAvailable, setNewDataAvailable] = useState(false)
+    const [newDataAvailable, setNewDataAvailable] = useState(true)
 
     useEffect(() => {
         const fetchClassroomList = async () => {
@@ -20,7 +20,8 @@ function EnrolledClasses({ setClassrooms }) {
             setClassrooms(data)
             setNewDataAvailable(false)
         }
-        fetchClassroomList()
+        if (newDataAvailable)
+            fetchClassroomList()
     }, [newDataAvailable])
 
     const joinClassroom = async (code) => {

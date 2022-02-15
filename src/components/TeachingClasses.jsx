@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import CreateClassroom from "./CreateClassroom"
 
 function TeachingClasses({ setClassrooms }) {
-    const [newDataAvailable, setNewDataAvailable] = useState(false)
+    const [newDataAvailable, setNewDataAvailable] = useState(true)
 
     useEffect(() => {
         const fetchClassroomList = async () => {
@@ -19,7 +19,8 @@ function TeachingClasses({ setClassrooms }) {
             setClassrooms(data)
             setNewDataAvailable(false)
         }
-        fetchClassroomList()
+        if (newDataAvailable)
+            fetchClassroomList()
     }, [newDataAvailable])
 
     const createNewClassroom = async (name, subject) => {
