@@ -4,7 +4,6 @@ import useAuth from "../hooks/useAuth"
 import Login from "./Login"
 
 function LoginPage() {
-    console.log('LoginPage')
     const navigate = useNavigate()
     const { isAuth } = useAuth()
 

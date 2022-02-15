@@ -2,7 +2,6 @@ import { useState } from "react"
 
 
 function CreateClassroom({ onSubmit }) {
-    console.log('CreateClassroom')
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
 

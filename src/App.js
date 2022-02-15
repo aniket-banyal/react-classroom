@@ -5,23 +5,27 @@ import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./context/AuthContext";
+import { UserContext } from "./context/UserContext";
 
 function App() {
-  console.log('App')
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+
   return (
     <div>
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-          <Navbar />
-          <Routes>
+          <UserContext.Provider value={{ user, setUser }}>
+            <Navbar />
+            <Routes>
 
-            <Route path="/" element={<RequireAuth />} >
-              <Route path='/' element={<Dashboard />} />
-            </Route>
+              <Route path="/" element={<RequireAuth />} >
+                <Route path='/' element={<Dashboard />} />
+              </Route>
 
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
+          </UserContext.Provider>
         </AuthContext.Provider>
       </Router>
     </div>
