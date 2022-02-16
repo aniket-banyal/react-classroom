@@ -14,8 +14,20 @@ function CreateClassroom({ onSubmit }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder='Name' value={name} onChange={e => setName(e.target.value)} />
-            <input type="text" placeholder='Subject' value={subject} onChange={e => setSubject(e.target.value)} />
+            <input
+                type="text"
+                placeholder='Name'
+                value={name}
+                required
+                onChange={e => setName(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder='Subject'
+                value={subject}
+                required
+                onChange={e => setSubject(e.target.value)}
+            />
             <input type='submit' value="Create new classroom" />
         </form>
     )

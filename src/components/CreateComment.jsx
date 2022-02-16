@@ -11,7 +11,13 @@ function CreateComment({ onSubmit }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder='New Comment..' value={text} onChange={e => setText(e.target.value)} />
+            <input
+                type="text"
+                placeholder='New Comment..'
+                value={text}
+                required
+                onChange={e => setText(e.target.value)}
+            />
             <input type='submit' value="Post" />
         </form>
     )

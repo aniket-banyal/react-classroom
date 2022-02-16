@@ -11,7 +11,13 @@ function JoinClassroom({ onSubmit }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder='Classroom code' value={code} onChange={e => setCode(e.target.value)} />
+            <input
+                type="text"
+                placeholder='Classroom code'
+                value={code}
+                required
+                onChange={e => setCode(e.target.value)}
+            />
             <input type='submit' value="Join Classroom" />
         </form>
     )

@@ -16,6 +16,7 @@ function CreateAnnouncement({ onSubmit }) {
                 cols={50}
                 placeholder="New Announcement"
                 value={text}
+                required
                 onChange={e => setText(e.target.value)}
             />
             <input type="submit" value='Create Announcement' />
