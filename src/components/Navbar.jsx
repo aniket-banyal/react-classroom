@@ -21,7 +21,7 @@ function Navbar() {
         <div>
             {isAuth &&
                 <>
-                    {user && <p> {user.first_name} {user.last_name} ({user.email}) </p>}
+                    {user && <p> {user.name} ({user.email}) </p>}
 
                     <GoogleLogout
                         clientId='411542087259-8ets43a5n6tu5qkmrfnauep52kh9uij0.apps.googleusercontent.com'
