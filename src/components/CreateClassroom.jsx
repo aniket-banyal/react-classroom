@@ -1,13 +1,30 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 
-function CreateClassroom({ onSubmit }) {
+function CreateClassroom() {
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
+    const navigate = useNavigate()
+
+    const createNewClassroom = async (name, subject) => {
+        const options = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ name, subject })
+        }
+
+        const response = await fetch('http://localhost:8000/api/classes_teaching', options)
+        const data = await response.json()
+        navigate(`/classes/${data.code}`)
+    }
 
     const handleSubmit = e => {
         e.preventDefault()
-        onSubmit(name, subject)
+        createNewClassroom(name, subject)
         setName('')
         setSubject('')
     }
