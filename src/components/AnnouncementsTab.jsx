@@ -20,6 +20,19 @@ function AnnouncementsTab({ code }) {
         setNewDataAvailable(true)
     }
 
+    const editAnnouncement = async (id, text) => {
+        const options = {
+            method: 'PUT',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ text })
+        }
+
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/announcements/${id}`, options)
+        setNewDataAvailable(true)
+    }
 
     useEffect(() => {
         const fetchAnnouncement = async () => {
@@ -55,6 +68,7 @@ function AnnouncementsTab({ code }) {
                         key={announcement.id}
                         announcement={announcement}
                         code={code}
+                        onEdit={editAnnouncement}
                     />
                 )
             })}
