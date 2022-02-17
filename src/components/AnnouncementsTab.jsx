@@ -33,6 +33,18 @@ function AnnouncementsTab({ code }) {
         const response = await fetch(`http://localhost:8000/api/classes/${code}/announcements/${id}`, options)
         setNewDataAvailable(true)
     }
+    const deleteAnnouncement = async (id) => {
+        const options = {
+            method: 'DELETE',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+        }
+
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/announcements/${id}`, options)
+        setNewDataAvailable(true)
+    }
 
     useEffect(() => {
         const fetchAnnouncement = async () => {
@@ -69,6 +81,7 @@ function AnnouncementsTab({ code }) {
                         announcement={announcement}
                         code={code}
                         onEdit={editAnnouncement}
+                        onDelete={deleteAnnouncement}
                     />
                 )
             })}

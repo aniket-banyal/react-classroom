@@ -4,7 +4,7 @@ import BasicModal from "./BasicModal";
 import CommentSection from "./CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
 
-function Announcement({ announcement, code, onEdit }) {
+function Announcement({ announcement, code, onEdit, onDelete }) {
     const [dateTime, setDateTime] = useState()
     const [editing, setEditing] = useState(false)
 
@@ -40,7 +40,10 @@ function Announcement({ announcement, code, onEdit }) {
                         {dateTime && <p> {dateTime.date} - {dateTime.time} </p>}
                     </div>
 
-                    <Button onClick={() => setEditing(true)} >Edit</Button>
+                    <div>
+                        <Button onClick={() => setEditing(true)} > Edit </Button>
+                        <Button onClick={() => onDelete(announcement.id)} > Delete </Button>
+                    </div>
                 </div>
                 <pre> {announcement.text} </pre>
 
