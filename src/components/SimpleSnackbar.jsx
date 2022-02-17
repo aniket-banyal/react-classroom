@@ -1,8 +1,7 @@
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
-import { Alert } from '@mui/material';
 
-function SimpleSnackbar({ message, open, setOpen }) {
+function SimpleSnackbar({ message, open, setOpen, action }) {
     const [state, setState] = useState({
         vertical: 'top',
         horizontal: 'right',
@@ -16,18 +15,11 @@ function SimpleSnackbar({ message, open, setOpen }) {
         <Snackbar
             open={open}
             autoHideDuration={6000}
+            anchorOrigin={{ vertical, horizontal }}
             onClose={handleClose}
             message={message}
-            anchorOrigin={{ vertical, horizontal }}
-        >
-            <Alert
-                onClose={handleClose}
-                severity="error"
-                variant="filled"
-            >
-                {message}
-            </Alert>
-        </Snackbar>
+            action={action}
+        />
     )
 }
 
