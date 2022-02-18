@@ -6,6 +6,12 @@ import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../hooks/useUser'
 
 
+function getDateAndTimeInLocale(date, locale = 'en-US', dateStyle = 'medium', timeStyle = 'short') {
+    const localeDate = date.toLocaleDateString(locale, { dateStyle: dateStyle })
+    const localeTime = date.toLocaleTimeString(locale, { timeStyle: timeStyle })
+    return [localeDate, localeTime]
+}
+
 function Announcement({ announcement, code, onEdit, onDelete, role }) {
     const [dateTime, setDateTime] = useState()
     const [editing, setEditing] = useState(false)
@@ -16,11 +22,19 @@ function Announcement({ announcement, code, onEdit, onDelete, role }) {
     const { user } = useUser()
 
     useEffect(() => {
-        const created_at = new Date(announcement.created_at)
-        const date = created_at.toLocaleDateString('en-US', { dateStyle: 'medium' })
-        const time = created_at.toLocaleTimeString('en-US', { timeStyle: 'short' })
-        setDateTime({ date, time })
-    }, [announcement.created_at])
+        const createdAt = new Date(announcement.created_at)
+        const editedAt = new Date(announcement.edited_at)
+        const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
+
+        if (createdAt.getTime() == editedAt.getTime()) {
+            setDateTime(`${createdDate} - ${createdTime}`)
+        }
+        else {
+            const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
+            setDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
+        }
+
+    }, [announcement.created_at, announcement.edited_at])
 
 
     const editAnnouncement = async (text) => {
@@ -55,7 +69,7 @@ function Announcement({ announcement, code, onEdit, onDelete, role }) {
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
                     <div>
                         <p> {announcement.author.name} </p>
-                        {dateTime && <p> {dateTime.date} - {dateTime.time} </p>}
+                        <p> {dateTime} </p>
                     </div>
 
                     <div>
