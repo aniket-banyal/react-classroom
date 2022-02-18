@@ -33,6 +33,7 @@ function AnnouncementsTab({ code, role }) {
         const response = await fetch(`http://localhost:8000/api/classes/${code}/announcements/${id}`, options)
         setNewDataAvailable(true)
     }
+
     const deleteAnnouncement = async (id) => {
         const options = {
             method: 'DELETE',

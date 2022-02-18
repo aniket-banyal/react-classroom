@@ -74,7 +74,7 @@ function Announcement({ announcement, code, onEdit, onDelete, role }) {
                 </div>
                 <pre> {announcement.text} </pre>
 
-                <CommentSection code={code} id={announcement.id} />
+                <CommentSection code={code} announcementId={announcement.id} role={role} />
             </Box>
         </>
     )
