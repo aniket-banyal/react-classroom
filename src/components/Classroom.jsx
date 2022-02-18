@@ -65,6 +65,7 @@ function Classroom() {
                 <Box sx={{ border: 1, borderColor: 'divider', marginTop: 5, marginBottom: 5 }}>
                     <h1> {classroomDetails.name} </h1>
                     <p> Subject: {classroomDetails.subject} </p>
+                    <p> Teacher: {classroomDetails.teacher.name} </p>
                 </Box>
             }
 
