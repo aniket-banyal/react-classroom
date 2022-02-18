@@ -4,13 +4,8 @@ import BasicModal from "./BasicModal";
 import CommentSection from "./CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../hooks/useUser'
+import { getDateAndTimeInLocale } from "../helpers/dateTime";
 
-
-function getDateAndTimeInLocale(date, locale = 'en-US', dateStyle = 'medium', timeStyle = 'short') {
-    const localeDate = date.toLocaleDateString(locale, { dateStyle: dateStyle })
-    const localeTime = date.toLocaleTimeString(locale, { timeStyle: timeStyle })
-    return [localeDate, localeTime]
-}
 
 function Announcement({ announcement, code, onEdit, onDelete, role }) {
     const [dateTime, setDateTime] = useState()
