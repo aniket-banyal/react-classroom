@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import StudentsTab from "./StudentsTab";
 import AnnouncementsTab from "./AnnouncementsTab";
+import AssignmentsTab from "./AssignmentsTab";
 
 function Classroom() {
     const { code } = useParams()
@@ -74,6 +75,10 @@ function Classroom() {
                     {
                         label: 'Announcements',
                         element: <AnnouncementsTab code={code} role={role} />
+                    },
+                    {
+                        label: 'Assignment',
+                        element: <AssignmentsTab code={code} role={role} />
                     },
                     {
                         label: 'Students',
