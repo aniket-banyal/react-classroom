@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Announcement from "./Announcement"
 import CreateAnnouncement from "./CreateAnnouncement"
 
-function AnnouncementsTab({ code }) {
+function AnnouncementsTab({ code, role }) {
     const [announcements, setAnnouncements] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
 
@@ -47,7 +47,7 @@ function AnnouncementsTab({ code }) {
     }
 
     useEffect(() => {
-        const fetchAnnouncement = async () => {
+        const fetchAnnouncements = async () => {
             const options = {
                 method: 'GET',
                 headers: new Headers({
@@ -66,7 +66,7 @@ function AnnouncementsTab({ code }) {
             setNewDataAvailable(false)
         }
         if (newDataAvailable)
-            fetchAnnouncement()
+            fetchAnnouncements()
     }, [code, newDataAvailable])
 
 
@@ -82,6 +82,7 @@ function AnnouncementsTab({ code }) {
                         code={code}
                         onEdit={editAnnouncement}
                         onDelete={deleteAnnouncement}
+                        role={role}
                     />
                 )
             })}

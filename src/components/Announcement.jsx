@@ -3,10 +3,17 @@ import { useEffect, useState } from "react";
 import BasicModal from "./BasicModal";
 import CommentSection from "./CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
+import useUser from '../hooks/useUser'
 
-function Announcement({ announcement, code, onEdit, onDelete }) {
+
+function Announcement({ announcement, code, onEdit, onDelete, role }) {
     const [dateTime, setDateTime] = useState()
     const [editing, setEditing] = useState(false)
+    const [contextMenu, setContextMenu] = useState({
+        allowEdit: false,
+        allowDelete: false
+    })
+    const { user } = useUser()
 
     useEffect(() => {
         const created_at = new Date(announcement.created_at)
@@ -20,6 +27,17 @@ function Announcement({ announcement, code, onEdit, onDelete }) {
         onEdit(announcement.id, text)
         setEditing(false)
     }
+
+    useEffect(() => {
+        setContextMenu(
+            {
+                //teacher is allowed to edit his own announcements
+                allowEdit: role == 'teacher' && user.email == announcement.author.email,
+                //announcement can be deleted by the teacher as well as author of the announcement 
+                allowDelete: role == 'teacher' || user.email == announcement.author.email
+            }
+        )
+    }, [role, announcement.author.email])
 
 
     return (
@@ -36,13 +54,13 @@ function Announcement({ announcement, code, onEdit, onDelete }) {
             <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
                     <div>
-                        <p> {announcement.author_name} </p>
+                        <p> {announcement.author.name} </p>
                         {dateTime && <p> {dateTime.date} - {dateTime.time} </p>}
                     </div>
 
                     <div>
-                        <Button onClick={() => setEditing(true)} > Edit </Button>
-                        <Button onClick={() => onDelete(announcement.id)} > Delete </Button>
+                        {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
+                        {contextMenu.allowDelete && <Button onClick={() => onDelete(announcement.id)}> Delete </Button>}
                     </div>
                 </div>
                 <pre> {announcement.text} </pre>
