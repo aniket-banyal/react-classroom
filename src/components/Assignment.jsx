@@ -4,7 +4,7 @@ import { getDateAndTimeInLocale } from "../helpers/dateTime";
 import { Link } from "react-router-dom";
 
 
-function Assignment({ assignment, code, onEdit, onDelete, role }) {
+function Assignment({ assignment, code, onEdit, onDelete }) {
     const [createdDateTime, setCreatedDateTime] = useState()
     const [dueDateTime, setDueDateTime] = useState()
 

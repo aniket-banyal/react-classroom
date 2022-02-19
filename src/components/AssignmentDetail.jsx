@@ -1,7 +1,9 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useUser from "../hooks/useUser"
+
 
 const getDatePosted = (assignment) => {
     const createdAt = new Date(assignment.created_at)
@@ -29,6 +31,7 @@ function AssignmentDetail() {
     const [assignment, setAssignment] = useState()
     const [createdDateTime, setCreatedDateTime] = useState()
     const [dueDateTime, setDueDateTime] = useState()
+    const { user } = useUser()
 
     useEffect(() => {
         const fetchAssignment = async () => {
@@ -68,9 +71,7 @@ function AssignmentDetail() {
                         </div>
                         <pre> {assignment.text} </pre>
                     </Box>
-                    <div>
-                        <h2>Your Work</h2>
-                    </div>
+                    {user.role == 'teacher' ? <Link to='submissions'> Submissions </Link> : <h2>Your Work</h2>}
                 </>
                 :
                 <h1>Loading...</h1>

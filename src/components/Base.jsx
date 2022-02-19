@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { Outlet, useParams } from "react-router-dom"
-import useUser from "./hooks/useUser"
+import useUser from "../hooks/useUser"
 
 function Base() {
     const { code } = useParams()

@@ -2,11 +2,14 @@ import { useEffect, useState } from "react"
 import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
 import SimpleSnackbar from "./SimpleSnackbar"
+import useUser from '../hooks/useUser'
 
-function AssignmentsTab({ code, role }) {
+
+function AssignmentsTab({ code }) {
     const [assignments, setAssignments] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
     const [error, setError] = useState(false)
+    const { user } = useUser()
 
     const createNewAssignment = async (title, text, due_date_time) => {
         const options = {
@@ -59,7 +62,7 @@ function AssignmentsTab({ code, role }) {
                 setOpen={setError}
             />
 
-            {role == 'teacher' && <CreateAssignment onSubmit={createNewAssignment} />}
+            {user.role == 'teacher' && <CreateAssignment onSubmit={createNewAssignment} />}
 
             {assignments.length > 0 ?
                 <>
@@ -70,7 +73,6 @@ function AssignmentsTab({ code, role }) {
                                     key={assignment.id}
                                     assignment={assignment}
                                     code={code}
-                                    role={role}
                                 />
                             )
                         })

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Base from "./Base";
+import Base from "./components/Base";
 import AssignmentDetail from "./components/AssignmentDetail";
 import Classroom from "./components/Classroom";
 import Dashboard from './components/Dashboard'
@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./context/AuthContext";
 import { UserContext } from "./context/UserContext";
+import Submissions from "./components/Submissions";
+import AssignmentDetailAndSubmissionBase from "./components/AssignmentDetailAndSubmissionBase";
 
 function App() {
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
@@ -26,7 +28,10 @@ function App() {
                 <Route path='/' element={<Dashboard />} />
                 <Route path='/classes/:code' element={<Base />} >
                   <Route index element={<Classroom />} />
-                  <Route path='assignments/:assignment_id' element={<AssignmentDetail />} />
+                  <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
+                    <Route index element={<AssignmentDetail />} />
+                    <Route path='submissions' element={<Submissions />} />
+                  </Route>
                 </Route>
               </Route>
 
