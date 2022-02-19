@@ -7,7 +7,8 @@ import { getDateAndTimeInLocale } from "../helpers/dateTime";
 
 
 function Assignment({ assignment, code, onEdit, onDelete, role }) {
-    const [dateTime, setDateTime] = useState()
+    const [createdDateTime, setCreatedDateTime] = useState()
+    const [dueDateTime, setDueDateTime] = useState()
 
     useEffect(() => {
         const createdAt = new Date(assignment.created_at)
@@ -15,14 +16,22 @@ function Assignment({ assignment, code, onEdit, onDelete, role }) {
         const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
 
         // if (createdAt.getTime() == editedAt.getTime()) {
-        setDateTime(`${createdDate} - ${createdTime}`)
+        setCreatedDateTime(`${createdDate} - ${createdTime}`)
         // }
         // else {
         //     const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
-        //     setDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
+        //     setCreatedDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
         // }
 
     }, [assignment.created_at, assignment.edited_at])
+
+    useEffect(() => {
+        const dueDateTime = new Date(assignment.due_date_time)
+        const [dueDate, dueTime] = getDateAndTimeInLocale(dueDateTime)
+
+        setDueDateTime(`${dueDate} - ${dueTime}`)
+
+    }, [assignment.due_date_time])
 
 
     return (
@@ -31,7 +40,8 @@ function Assignment({ assignment, code, onEdit, onDelete, role }) {
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
                     <div>
                         <h1> {assignment.title} </h1>
-                        <p> {dateTime} </p>
+                        <p> Posted at - {createdDateTime} </p>
+                        <p> Due date - {dueDateTime} </p>
                     </div>
                 </div>
                 <pre> {assignment.text} </pre>
