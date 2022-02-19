@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Comment from "./Comment"
 import CreateComment from "./CreateComment"
 
-function CommentSection({ code, announcementId, role }) {
+function CommentSection({ code, announcementId }) {
     const [comments, setComments] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
 
@@ -62,7 +62,7 @@ function CommentSection({ code, announcementId, role }) {
         <>
             <Box sx={{ borderTop: 1, borderColor: 'black' }}>
                 {comments.length > 0 && <h3>Comments</h3>}
-                {comments.map(comment => <Comment key={comment.id} comment={comment} onDelete={deleteComment} role={role} />)}
+                {comments.map(comment => <Comment key={comment.id} comment={comment} onDelete={deleteComment} />)}
             </Box>
 
             <CreateComment onSubmit={createNewComment} />

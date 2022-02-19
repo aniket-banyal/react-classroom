@@ -10,7 +10,6 @@ function Classroom() {
     const { code } = useParams()
     const [classroomDetails, setClassroomDetails] = useState(null)
     const [error, setError] = useState(false)
-    const [role, setRole] = useState('')
 
     useEffect(() => {
         const fetchClassroomDetails = async () => {
@@ -32,25 +31,6 @@ function Classroom() {
         }
         fetchClassroomDetails()
     }, [code])
-
-
-    useEffect(() => {
-        const fetchUserRole = async () => {
-            const options = {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                    'content-Type': 'application/json',
-                }),
-            }
-
-            const response = await fetch(`http://localhost:8000/api/classes/${code}/user_role`, options)
-            const data = await response.json()
-            setRole(data.role)
-        }
-        fetchUserRole()
-    }, [code])
-
 
     if (error)
         return (
@@ -74,11 +54,11 @@ function Classroom() {
                 [
                     {
                         label: 'Announcements',
-                        element: <AnnouncementsTab code={code} role={role} />
+                        element: <AnnouncementsTab code={code} />
                     },
                     {
                         label: 'Assignment',
-                        element: <AssignmentsTab code={code} role={role} />
+                        element: <AssignmentsTab code={code} />
                     },
                     {
                         label: 'Students',

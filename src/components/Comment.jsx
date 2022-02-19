@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getDateAndTimeInLocale } from "../helpers/dateTime"
 import useUser from "../hooks/useUser"
 
-function Comment({ comment, onDelete, role }) {
+function Comment({ comment, onDelete }) {
     const [dateTime, setDateTime] = useState()
     const [contextMenu, setContextMenu] = useState({
         allowDelete: false
@@ -23,10 +23,10 @@ function Comment({ comment, onDelete, role }) {
         setContextMenu(
             {
                 //comment can be deleted by the teacher as well as author of the comment 
-                allowDelete: role == 'teacher' || user.email == comment.author.email
+                allowDelete: user.role == 'teacher' || user.email == comment.author.email
             }
         )
-    }, [role, comment.author.email])
+    }, [user.role, comment.author.email])
 
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'black' }}>

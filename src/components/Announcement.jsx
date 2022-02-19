@@ -7,7 +7,7 @@ import useUser from '../hooks/useUser'
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
 
 
-function Announcement({ announcement, code, onEdit, onDelete, role }) {
+function Announcement({ announcement, code, onEdit, onDelete }) {
     const [dateTime, setDateTime] = useState()
     const [editing, setEditing] = useState(false)
     const [contextMenu, setContextMenu] = useState({
@@ -41,12 +41,12 @@ function Announcement({ announcement, code, onEdit, onDelete, role }) {
         setContextMenu(
             {
                 //teacher is allowed to edit his own announcements
-                allowEdit: role == 'teacher' && user.email == announcement.author.email,
+                allowEdit: user.role == 'teacher' && user.email == announcement.author.email,
                 //announcement can be deleted by the teacher as well as author of the announcement 
-                allowDelete: role == 'teacher' || user.email == announcement.author.email
+                allowDelete: user.role == 'teacher' || user.email == announcement.author.email
             }
         )
-    }, [role, announcement.author.email])
+    }, [user.role, announcement.author.email])
 
 
     return (
@@ -74,7 +74,7 @@ function Announcement({ announcement, code, onEdit, onDelete, role }) {
                 </div>
                 <pre> {announcement.text} </pre>
 
-                <CommentSection code={code} announcementId={announcement.id} role={role} />
+                <CommentSection code={code} announcementId={announcement.id} />
             </Box>
         </>
     )

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Announcement from "./Announcement"
 import CreateAnnouncement from "./CreateAnnouncement"
 
-function AnnouncementsTab({ code, role }) {
+function AnnouncementsTab({ code }) {
     const [announcements, setAnnouncements] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
 
@@ -83,7 +83,6 @@ function AnnouncementsTab({ code, role }) {
                         code={code}
                         onEdit={editAnnouncement}
                         onDelete={deleteAnnouncement}
-                        role={role}
                     />
                 )
             })}
