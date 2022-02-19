@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
+import SimpleSnackbar from "./SimpleSnackbar"
 
 function AssignmentsTab({ code, role }) {
     const [assignments, setAssignments] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
+    const [error, setError] = useState(false)
 
     const createNewAssignment = async (title, text, due_date_time) => {
         const options = {
@@ -17,6 +19,11 @@ function AssignmentsTab({ code, role }) {
         }
 
         const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments`, options)
+
+        if (response.status == 400) {
+            const data = await response.json()
+            setError(data.due_date_time)
+        }
         setNewDataAvailable(true)
     }
 
@@ -46,6 +53,12 @@ function AssignmentsTab({ code, role }) {
 
     return (
         <>
+            <SimpleSnackbar
+                message={error}
+                open={error.length > 0}
+                setOpen={setError}
+            />
+
             {role == 'teacher' && <CreateAssignment onSubmit={createNewAssignment} />}
 
             {assignments.length > 0 ?
