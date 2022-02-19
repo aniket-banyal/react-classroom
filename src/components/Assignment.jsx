@@ -1,9 +1,7 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import BasicModal from "./BasicModal";
-import CommentSection from "./CommentSection";
-import useUser from '../hooks/useUser'
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
+import { Link } from "react-router-dom";
 
 
 function Assignment({ assignment, code, onEdit, onDelete, role }) {
@@ -37,14 +35,15 @@ function Assignment({ assignment, code, onEdit, onDelete, role }) {
     return (
         <>
             <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
-                    <div>
-                        <h1> {assignment.title} </h1>
-                        <p> Posted at - {createdDateTime} </p>
-                        <p> Due date - {dueDateTime} </p>
+                <Link to={`/classes/${code}/assignments/${assignment.id}`}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
+                        <div>
+                            <h1> {assignment.title} </h1>
+                            <p> Posted at - {createdDateTime} </p>
+                            <p> Due date - {dueDateTime} </p>
+                        </div>
                     </div>
-                </div>
-                <pre> {assignment.text} </pre>
+                </Link>
             </Box>
         </>
     )

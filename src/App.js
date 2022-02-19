@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AssignmentDetail from "./components/AssignmentDetail";
 import Classroom from "./components/Classroom";
 import Dashboard from './components/Dashboard'
 import LoginPage from "./components/LoginPage";
@@ -23,6 +24,7 @@ function App() {
               <Route path="/" element={<RequireAuth />} >
                 <Route path='/' element={<Dashboard />} />
                 <Route path='/classes/:code' element={<Classroom />} />
+                <Route path='/classes/:code/assignments/:assignment_id' element={<AssignmentDetail />} />
               </Route>
 
               <Route path="/login" element={<LoginPage />} />
