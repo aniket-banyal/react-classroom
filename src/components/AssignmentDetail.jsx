@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
 import { Link, useParams } from "react-router-dom";
 import useUser from "../hooks/useUser"
+import StudentSubmission from "./StudentSubmission";
 
 
 const getDatePosted = (assignment) => {
@@ -71,7 +72,7 @@ function AssignmentDetail() {
                         </div>
                         <pre> {assignment.text} </pre>
                     </Box>
-                    {user.role == 'teacher' ? <Link to='submissions'> Submissions </Link> : <h2>Your Work</h2>}
+                    {user.role == 'teacher' ? <Link to='submissions'> Submissions </Link> : <StudentSubmission />}
                 </>
                 :
                 <h1>Loading...</h1>
