@@ -1,8 +1,8 @@
-import { Button } from "@mui/material"
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getDateAndTimeInLocale } from "../helpers/dateTime"
+import CreateSubmission from "./CreateSubmission"
 
 
 const getSubmittedDate = (submission) => {
@@ -16,6 +16,7 @@ function StudentSubmission() {
     const [submission, setSubmission] = useState()
     const { code, assignment_id } = useParams()
     const [submittedDateTime, setSubmittedDateTime] = useState()
+    const [newDataAvailable, setNewDataAvailable] = useState(true)
 
 
     useEffect(() => {
@@ -36,10 +37,27 @@ function StudentSubmission() {
             const data = await response.json()
             setSubmission(data)
             setSubmittedDateTime(getSubmittedDate(data))
+            setNewDataAvailable(false)
         }
-        fetchSubmission()
-    }, [code, assignment_id])
 
+        if (newDataAvailable)
+            fetchSubmission()
+    }, [code, assignment_id, newDataAvailable])
+
+
+    const createNewSubmission = async (text) => {
+        const options = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ text })
+        }
+
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}/submissions`, options)
+        setNewDataAvailable(true)
+    }
 
     return (
         <>
@@ -60,7 +78,7 @@ function StudentSubmission() {
                     }
                     {(submission.status == 'Assigned' || submission.status == 'Missing') &&
                         <Box sx={{ border: 1, padding: 2 }}>
-                            <Button> Submit </Button>
+                            <CreateSubmission onSubmit={createNewSubmission} />
                         </Box>
                     }
                 </>
