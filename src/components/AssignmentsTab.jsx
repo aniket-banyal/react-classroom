@@ -30,6 +30,24 @@ function AssignmentsTab({ code }) {
         setNewDataAvailable(true)
     }
 
+    const editAssignment = async (id, title, text, due_date_time) => {
+        const options = {
+            method: 'PUT',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ title, text, due_date_time })
+        }
+
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${id}`, options)
+        if (response.status == 400) {
+            const data = await response.json()
+            setError(data.due_date_time)
+        }
+        setNewDataAvailable(true)
+    }
+
     const deleteAssignment = async (id) => {
         const options = {
             method: 'DELETE',
@@ -87,6 +105,7 @@ function AssignmentsTab({ code }) {
                                     assignment={assignment}
                                     code={code}
                                     onDelete={deleteAssignment}
+                                    onEdit={editAssignment}
                                 />
                             )
                         })

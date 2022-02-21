@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
 import { Link } from "react-router-dom";
 import useUser from "../hooks/useUser";
+import BasicModal from "./BasicModal";
+import EditAssignment from "./EditAssignment";
 
 
 function Assignment({ assignment, code, onEdit, onDelete }) {
     const [createdDateTime, setCreatedDateTime] = useState()
     const [dueDateTime, setDueDateTime] = useState()
+    const [editing, setEditing] = useState(false)
     const { user } = useUser()
     const [contextMenu, setContextMenu] = useState({
         allowEdit: false,
@@ -47,8 +50,23 @@ function Assignment({ assignment, code, onEdit, onDelete }) {
     }, [user.role])
 
 
+    const editAssginment = async (title, text, due_date_time) => {
+        onEdit(assignment.id, title, text, due_date_time)
+        setEditing(false)
+    }
+
+
     return (
         <>
+            {
+                editing &&
+                <BasicModal open={editing} setOpen={setEditing} >
+                    <span>
+                        <EditAssignment assignment_id={assignment.id} onSubmit={editAssginment} />
+                    </span>
+                </BasicModal>
+            }
+
             <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
@@ -60,7 +78,7 @@ function Assignment({ assignment, code, onEdit, onDelete }) {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {/* {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>} */}
+                        {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
 
                         {contextMenu.allowDelete && <Button onClick={() => onDelete(assignment.id)}> Delete </Button>}
 
