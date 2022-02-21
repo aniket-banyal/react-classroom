@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { Outlet, useParams } from "react-router-dom"
 import useUser from "../hooks/useUser"
+import BasicTabs from "./BasicTabs"
 
 function Base() {
     const { code } = useParams()
@@ -23,9 +24,27 @@ function Base() {
         fetchUserRole()
     }, [code])
 
+    const tabs = [
+        {
+            label: 'Announcements',
+            link: ''
+        },
+        {
+            label: 'Assignment',
+            link: 'assignments'
+        },
+        {
+            label: 'Students',
+            link: 'students'
+        }
+    ]
+
 
     return (
-        <Outlet />
+        <>
+            <BasicTabs tabs={tabs} />
+            <Outlet />
+        </>
     )
 
 }

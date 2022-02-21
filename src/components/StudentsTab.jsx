@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import Student from "./Student"
 
-function StudentsTab({ code }) {
+function StudentsTab() {
     const [students, setStudents] = useState([])
+    const { code } = useParams()
 
 
     useEffect(() => {

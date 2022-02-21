@@ -1,10 +1,7 @@
-import Tabs from "./Tabs";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import StudentsTab from "./StudentsTab";
 import AnnouncementsTab from "./AnnouncementsTab";
-import AssignmentsTab from "./AssignmentsTab";
 
 function Classroom() {
     const { code } = useParams()
@@ -50,25 +47,7 @@ function Classroom() {
                 </Box>
             }
 
-            <Tabs tabs={
-                [
-                    {
-                        label: 'Announcements',
-                        element: <AnnouncementsTab code={code} />
-                    },
-                    {
-                        label: 'Assignment',
-                        element: <AssignmentsTab code={code} />
-                    },
-                    {
-                        label: 'Students',
-                        element: <StudentsTab code={code} />
-                    }
-                ]
-            }
-            />
-
-
+            <AnnouncementsTab />
         </div>
     )
 }

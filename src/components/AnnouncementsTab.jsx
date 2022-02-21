@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import Announcement from "./Announcement"
 import CreateAnnouncement from "./CreateAnnouncement"
 
-function AnnouncementsTab({ code }) {
+function AnnouncementsTab() {
     const [announcements, setAnnouncements] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
+    const { code } = useParams()
+
 
     const createNewAnnouncement = async (text) => {
         const options = {

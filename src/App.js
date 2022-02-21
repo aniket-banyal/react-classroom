@@ -11,6 +11,9 @@ import { AuthContext } from "./context/AuthContext";
 import { UserContext } from "./context/UserContext";
 import Submissions from "./components/Submissions";
 import AssignmentDetailAndSubmissionBase from "./components/AssignmentDetailAndSubmissionBase";
+import AnnouncementsTab from "./components/AnnouncementsTab";
+import StudentsTab from "./components/StudentsTab";
+import AssignmentsTab from "./components/AssignmentsTab";
 
 
 function App() {
@@ -28,7 +31,11 @@ function App() {
               <Route path="/" element={<RequireAuth />} >
                 <Route path='/' element={<Dashboard />} />
                 <Route path='/classes/:code' element={<Base />} >
+
                   <Route index element={<Classroom />} />
+                  <Route path='assignments' element={<AssignmentsTab />} />
+                  <Route path='students' element={<StudentsTab />} />
+
                   <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
                     <Route index element={<AssignmentDetail />} />
                     <Route path='submissions' element={<Submissions />} />

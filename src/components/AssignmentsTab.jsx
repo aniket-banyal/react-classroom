@@ -3,12 +3,14 @@ import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
 import SimpleSnackbar from "./SimpleSnackbar"
 import useUser from '../hooks/useUser'
+import { useParams } from "react-router-dom"
 
 
-function AssignmentsTab({ code }) {
+function AssignmentsTab() {
     const [assignments, setAssignments] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
     const [error, setError] = useState(false)
+    const { code } = useParams()
     const { user } = useUser()
 
     const createNewAssignment = async (title, text, due_date_time) => {
