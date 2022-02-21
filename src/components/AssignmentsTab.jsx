@@ -30,6 +30,19 @@ function AssignmentsTab({ code }) {
         setNewDataAvailable(true)
     }
 
+    const deleteAssignment = async (id) => {
+        const options = {
+            method: 'DELETE',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+        }
+
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${id}`, options)
+        setNewDataAvailable(true)
+    }
+
     useEffect(() => {
         const fetchAssignments = async () => {
             const options = {
@@ -73,6 +86,7 @@ function AssignmentsTab({ code }) {
                                     key={assignment.id}
                                     assignment={assignment}
                                     code={code}
+                                    onDelete={deleteAssignment}
                                 />
                             )
                         })
