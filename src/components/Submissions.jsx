@@ -33,7 +33,7 @@ function Submissions() {
     return (
         <div>
             <h1> Submissions </h1>
-            {submissions.map(submission => <Submission key={submission.id} submission={submission} />)}
+            {submissions.map(submission => <Submission key={submission.student.email} submission={submission} />)}
         </div>
     )
 }
