@@ -3,6 +3,23 @@ import { Outlet, useParams } from "react-router-dom"
 import useUser from "../hooks/useUser"
 import BasicTabs from "./BasicTabs"
 
+
+const tabs = [
+    {
+        label: 'Announcements',
+        link: ''
+    },
+    {
+        label: 'Assignment',
+        link: 'assignments'
+    },
+    {
+        label: 'Students',
+        link: 'students'
+    }
+]
+
+
 function Base() {
     const { code } = useParams()
     const { user, setUser } = useUser()
@@ -23,21 +40,6 @@ function Base() {
         }
         fetchUserRole()
     }, [code])
-
-    const tabs = [
-        {
-            label: 'Announcements',
-            link: ''
-        },
-        {
-            label: 'Assignment',
-            link: 'assignments'
-        },
-        {
-            label: 'Students',
-            link: 'students'
-        }
-    ]
 
 
     return (
