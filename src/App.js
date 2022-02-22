@@ -11,7 +11,7 @@ import { AuthContext } from "./context/AuthContext";
 import { UserContext } from "./context/UserContext";
 import Submissions from "./components/Submissions";
 import AssignmentDetailAndSubmissionBase from "./components/AssignmentDetailAndSubmissionBase";
-import StudentsTab from "./components/StudentsTab";
+import StudentsTab from "./components/Student/StudentsTab";
 import AssignmentsTab from "./components/AssignmentsTab";
 
 
