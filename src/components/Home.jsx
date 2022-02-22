@@ -5,7 +5,7 @@ import TeachingClasses from "./TeachingClasses"
 import ClassCard from "./ClassroomCard"
 
 
-function Dashboard() {
+function Home() {
     const [classrooms, setClassrooms] = useState([])
 
     return (
@@ -29,4 +29,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default Home

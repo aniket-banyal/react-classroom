@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
 import AssignmentDetail from "./components/AssignmentDetail";
 import Classroom from "./components/Classroom";
-import Dashboard from './components/Dashboard'
+import Home from './components/Home'
 import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
@@ -11,7 +11,6 @@ import { AuthContext } from "./context/AuthContext";
 import { UserContext } from "./context/UserContext";
 import Submissions from "./components/Submissions";
 import AssignmentDetailAndSubmissionBase from "./components/AssignmentDetailAndSubmissionBase";
-import AnnouncementsTab from "./components/AnnouncementsTab";
 import StudentsTab from "./components/StudentsTab";
 import AssignmentsTab from "./components/AssignmentsTab";
 
@@ -29,12 +28,14 @@ function App() {
             <Routes>
 
               <Route path="/" element={<RequireAuth />} >
-                <Route path='/' element={<Dashboard />} />
-                <Route path='/classes/:code' element={<Base />} >
+                <Route path='/' element={<Home />} />
+                <Route path='/classes/:code'>
 
-                  <Route index element={<Classroom />} />
-                  <Route path='assignments' element={<AssignmentsTab />} />
-                  <Route path='students' element={<StudentsTab />} />
+                  <Route path='dashboard' element={<Base />} >
+                    <Route index element={<Classroom />} />
+                    <Route path='assignments' element={<AssignmentsTab />} />
+                    <Route path='students' element={<StudentsTab />} />
+                  </Route>
 
                   <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
                     <Route index element={<AssignmentDetail />} />
