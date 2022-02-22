@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import BasicModal from "./BasicModal";
-import CommentSection from "./CommentSection";
+import CommentSection from "./Comment/CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../hooks/useUser'
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
