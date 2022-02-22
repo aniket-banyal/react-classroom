@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AnnouncementsTab from "./AnnouncementsTab";
+import AnnouncementsTab from "./Announcement/AnnouncementsTab";
 
 function Classroom() {
     const { code } = useParams()
