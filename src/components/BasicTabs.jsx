@@ -5,18 +5,16 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
+function getInitialValue(location, tabs) {
+    let x = location.pathname.split('/')
+    let last = (x.length === 3) ? '' : x.pop()
+    return tabs.findIndex((tab) => last === tab.link)
+}
+
+
 function BasicTabs({ tabs }) {
     let location = useLocation()
-    let x = location.pathname.split('/')
-    let initialValue = 0
-    if (x.length === 3)
-        initialValue = 0
-
-    let last = x.pop()
-    if (last === 'assignments')
-        initialValue = 1
-    else if (last === 'students')
-        initialValue = 2
+    let initialValue = getInitialValue(location, tabs);
 
     const [value, setValue] = useState(initialValue)
     const navigate = useNavigate()
