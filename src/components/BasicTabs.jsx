@@ -2,7 +2,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 function getInitialValue(location, tabs) {
@@ -11,27 +11,29 @@ function getInitialValue(location, tabs) {
     return tabs.findIndex((tab) => last === tab.link)
 }
 
-
 function BasicTabs({ tabs }) {
-    let location = useLocation()
-    let initialValue = getInitialValue(location, tabs);
+    const [value, setValue] = useState(0)
+    const location = useLocation()
 
-    const [value, setValue] = useState(initialValue)
-    const navigate = useNavigate()
+    useEffect(() => {
+        setValue(getInitialValue(location, tabs))
+    }, [location.pathname])
 
 
     const handleChange = (event, newValue) => { setValue(newValue) }
-
-    useEffect(() => {
-        navigate(tabs[value].link)
-    }, [value, navigate, tabs])
-
 
     return (
         <Box sx={{ width: '100%', marginBottom: 5 }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange}>
-                    {tabs.map(tab => <Tab key={tab.label} label={tab.label} />)}
+                    {tabs.map(tab =>
+                        <Tab
+                            key={tab.label}
+                            label={tab.label}
+                            to={tab.link}
+                            component={Link}
+                        />
+                    )}
                 </Tabs>
             </Box>
         </Box>
