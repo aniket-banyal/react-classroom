@@ -1,21 +1,22 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getDateAndTimeInLocale } from "../helpers/dateTime";
-import { Link } from "react-router-dom";
-import useUser from "../hooks/useUser";
-import BasicModal from "./BasicModal";
+import { getDateAndTimeInLocale } from "../../helpers/dateTime";
+import { Link, useParams } from "react-router-dom";
+import useUser from "../../hooks/useUser";
+import BasicModal from "../BasicModal";
 import EditAssignment from "./EditAssignment";
 
 
-function Assignment({ assignment, code, onEdit, onDelete }) {
+function Assignment({ assignment, onEdit, onDelete }) {
     const [createdDateTime, setCreatedDateTime] = useState()
     const [dueDateTime, setDueDateTime] = useState()
     const [editing, setEditing] = useState(false)
-    const { user } = useUser()
     const [contextMenu, setContextMenu] = useState({
         allowEdit: false,
         allowDelete: false
     })
+    const { user } = useUser()
+    const { code } = useParams()
 
     useEffect(() => {
         const createdAt = new Date(assignment.created_at)
@@ -43,8 +44,8 @@ function Assignment({ assignment, code, onEdit, onDelete }) {
     useEffect(() => {
         setContextMenu(
             {
-                allowEdit: user.role == 'teacher',
-                allowDelete: user.role == 'teacher'
+                allowEdit: user.role === 'teacher',
+                allowDelete: user.role === 'teacher'
             }
         )
     }, [user.role])
@@ -59,7 +60,6 @@ function Assignment({ assignment, code, onEdit, onDelete }) {
     return (
         <>
             {
-                editing &&
                 <BasicModal open={editing} setOpen={setEditing} >
                     <span>
                         <EditAssignment assignment_id={assignment.id} onSubmit={editAssginment} />

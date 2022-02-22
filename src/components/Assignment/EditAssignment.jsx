@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import BaseDateTimePicker from "./BasicDateTimePicker"
+import BaseDateTimePicker from "../BasicDateTimePicker"
 
 
 function EditAssignment({ onSubmit, assignment_id }) {

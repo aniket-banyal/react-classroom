@@ -10,7 +10,7 @@ const tabs = [
         link: ''
     },
     {
-        label: 'Assignment',
+        label: 'Assignments',
         link: 'assignments'
     },
     {

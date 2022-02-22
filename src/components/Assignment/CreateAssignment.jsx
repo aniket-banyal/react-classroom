@@ -1,5 +1,5 @@
 import { useState } from "react"
-import BaseDateTimePicker from "./BasicDateTimePicker"
+import BaseDateTimePicker from "../BasicDateTimePicker"
 
 function CreateAssignment({ onSubmit }) {
     const [title, setTitle] = useState('')

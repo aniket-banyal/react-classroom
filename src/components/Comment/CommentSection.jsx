@@ -1,11 +1,13 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import Comment from "./Comment"
 import CreateComment from "./CreateComment"
 
-function CommentSection({ code, announcementId }) {
+function CommentSection({ announcementId }) {
     const [comments, setComments] = useState([])
     const [newDataAvailable, setNewDataAvailable] = useState(true)
+    const { code } = useParams()
 
     const createNewComment = async (text) => {
         const options = {
@@ -55,7 +57,7 @@ function CommentSection({ code, announcementId }) {
         }
         if (newDataAvailable)
             fetchComments()
-    }, [code, newDataAvailable])
+    }, [code, announcementId, newDataAvailable])
 
 
     return (

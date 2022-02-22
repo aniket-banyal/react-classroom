@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
-import SimpleSnackbar from "./SimpleSnackbar"
-import useUser from '../hooks/useUser'
+import SimpleSnackbar from "../SimpleSnackbar"
 import { useParams } from "react-router-dom"
+import useUser from "../../hooks/useUser"
 
 
 function AssignmentsTab() {
@@ -25,9 +25,10 @@ function AssignmentsTab() {
 
         const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments`, options)
 
-        if (response.status == 400) {
+        if (response.status === 400) {
             const data = await response.json()
             setError(data.due_date_time)
+            return
         }
         setNewDataAvailable(true)
     }
@@ -43,9 +44,10 @@ function AssignmentsTab() {
         }
 
         const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${id}`, options)
-        if (response.status == 400) {
+        if (response.status === 400) {
             const data = await response.json()
             setError(data.due_date_time)
+            return
         }
         setNewDataAvailable(true)
     }
@@ -95,7 +97,7 @@ function AssignmentsTab() {
                 setOpen={setError}
             />
 
-            {user.role == 'teacher' && <CreateAssignment onSubmit={createNewAssignment} />}
+            {user.role === 'teacher' && <CreateAssignment onSubmit={createNewAssignment} />}
 
             {assignments.length > 0 ?
                 <>
@@ -105,7 +107,6 @@ function AssignmentsTab() {
                                 <Assignment
                                     key={assignment.id}
                                     assignment={assignment}
-                                    code={code}
                                     onDelete={deleteAssignment}
                                     onEdit={editAssignment}
                                 />

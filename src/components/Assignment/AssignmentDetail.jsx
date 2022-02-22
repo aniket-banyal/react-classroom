@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getDateAndTimeInLocale } from "../helpers/dateTime";
+import { getDateAndTimeInLocale } from "../../helpers/dateTime";
 import { Link, useParams } from "react-router-dom";
-import useUser from "../hooks/useUser"
-import StudentSubmission from "./StudentSubmission";
+import useUser from "../../hooks/useUser"
+import StudentSubmission from "../Submission/Student/StudentSubmission";
 
 
 const getDatePosted = (assignment) => {
@@ -11,7 +11,7 @@ const getDatePosted = (assignment) => {
     // const editedAt = new Date(assignment.edited_at)
     const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
 
-    // if (createdAt.getTime() == editedAt.getTime()) {
+    // if (createdAt.getTime() === editedAt.getTime()) {
     return `${createdDate} - ${createdTime}`
     // }
     // else {
@@ -28,10 +28,10 @@ const getDueDate = (assignment) => {
 }
 
 function AssignmentDetail() {
-    const { code, assignment_id } = useParams()
     const [assignment, setAssignment] = useState()
     const [createdDateTime, setCreatedDateTime] = useState()
     const [dueDateTime, setDueDateTime] = useState()
+    const { code, assignment_id } = useParams()
     const { user } = useUser()
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function AssignmentDetail() {
                         </div>
                         <pre> {assignment.text} </pre>
                     </Box>
-                    {user.role == 'teacher' ? <Link to='submissions'> Submissions </Link> : <StudentSubmission />}
+                    {user.role === 'teacher' ? <Link to='submissions'> Submissions </Link> : <StudentSubmission />}
                 </>
                 :
                 <h1>Loading...</h1>

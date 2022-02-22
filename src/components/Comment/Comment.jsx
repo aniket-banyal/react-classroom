@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material"
 import { useEffect, useState } from "react"
-import { getDateAndTimeInLocale } from "../helpers/dateTime"
-import useUser from "../hooks/useUser"
+import { getDateAndTimeInLocale } from "../../helpers/dateTime"
+import useUser from "../../hooks/useUser"
 
 function Comment({ comment, onDelete }) {
     const [dateTime, setDateTime] = useState()
@@ -23,10 +23,10 @@ function Comment({ comment, onDelete }) {
         setContextMenu(
             {
                 //comment can be deleted by the teacher as well as author of the comment 
-                allowDelete: user.role == 'teacher' || user.email == comment.author.email
+                allowDelete: user.role === 'teacher' || user.email === comment.author.email
             }
         )
-    }, [user.role, comment.author.email])
+    }, [user.role, user.email, comment.author.email])
 
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'black' }}>

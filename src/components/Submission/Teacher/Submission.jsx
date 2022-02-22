@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
-import { getDateAndTimeInLocale } from "../helpers/dateTime"
+import { getDateAndTimeInLocale } from "../../../helpers/dateTime"
 
 
 const getDatePosted = (date) => {
