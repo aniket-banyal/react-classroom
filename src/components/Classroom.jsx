@@ -44,6 +44,7 @@ function Classroom() {
                     <h1> {classroomDetails.name} </h1>
                     <p> Subject: {classroomDetails.subject} </p>
                     <p> Teacher: {classroomDetails.teacher.name} </p>
+                    <p> Code: {classroomDetails.code} </p>
                 </Box>
             }
 
