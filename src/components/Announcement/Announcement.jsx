@@ -4,32 +4,17 @@ import BasicModal from "../BasicModal";
 import CommentSection from "../Comment/CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../../hooks/useUser'
-import { getDateAndTimeInLocale } from "../../helpers/dateTime";
+import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 
 
 function Announcement({ announcement, onEdit, onDelete }) {
-    const [dateTime, setDateTime] = useState()
     const [editing, setEditing] = useState(false)
     const [contextMenu, setContextMenu] = useState({
         allowEdit: false,
         allowDelete: false
     })
     const { user } = useUser()
-
-    useEffect(() => {
-        const createdAt = new Date(announcement.created_at)
-        const editedAt = new Date(announcement.edited_at)
-        const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
-
-        if (createdAt.getTime() === editedAt.getTime()) {
-            setDateTime(`${createdDate} - ${createdTime}`)
-        }
-        else {
-            const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
-            setDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
-        }
-    }, [announcement.created_at, announcement.edited_at])
-
+    const dateTime = useCreateEditDateTime(announcement.created_at, announcement.edited_at)
 
     const editAnnouncement = async (text) => {
         onEdit(announcement.id, text)

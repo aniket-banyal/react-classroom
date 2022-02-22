@@ -1,23 +1,14 @@
 import { Box, Button } from "@mui/material"
 import { useEffect, useState } from "react"
-import { getDateAndTimeInLocale } from "../../helpers/dateTime"
+import useCreateDateTime from "../../hooks/useCreateDateTime"
 import useUser from "../../hooks/useUser"
 
 function Comment({ comment, onDelete }) {
-    const [dateTime, setDateTime] = useState()
     const [contextMenu, setContextMenu] = useState({
         allowDelete: false
     })
     const { user } = useUser()
-
-
-    useEffect(() => {
-        const createdAt = new Date(comment.created_at)
-        const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
-        setDateTime(`${createdDate} - ${createdTime}`)
-
-    }, [comment.created_at])
-
+    const dateTime = useCreateDateTime(comment.created_at)
 
     useEffect(() => {
         setContextMenu(
