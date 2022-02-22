@@ -1,7 +1,7 @@
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getDateAndTimeInLocale } from "../helpers/dateTime"
+import { getDateAndTimeInLocale } from "../../../helpers/dateTime"
 import CreateSubmission from "./CreateSubmission"
 
 
@@ -14,9 +14,9 @@ const getSubmittedDate = (submission) => {
 
 function StudentSubmission() {
     const [submission, setSubmission] = useState()
-    const { code, assignment_id } = useParams()
     const [submittedDateTime, setSubmittedDateTime] = useState()
     const [newDataAvailable, setNewDataAvailable] = useState(true)
+    const { code, assignment_id } = useParams()
 
 
     useEffect(() => {
@@ -68,7 +68,7 @@ function StudentSubmission() {
                         <p>{submission.status}</p>
                     </div>
 
-                    {(submission.status == 'Done' || submission.status == 'Submitted Late') &&
+                    {(submission.status === 'Done' || submission.status === 'Submitted Late') &&
                         <>
                             <p> {submittedDateTime}</p>
                             <Box sx={{ border: 1, padding: 2 }}>
@@ -76,7 +76,7 @@ function StudentSubmission() {
                             </Box>
                         </>
                     }
-                    {(submission.status == 'Assigned' || submission.status == 'Missing') &&
+                    {(submission.status === 'Assigned' || submission.status === 'Missing') &&
                         <Box sx={{ border: 1, padding: 2 }}>
                             <CreateSubmission onSubmit={createNewSubmission} />
                         </Box>

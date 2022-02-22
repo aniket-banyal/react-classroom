@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
-import AssignmentDetail from "./components/AssignmentDetail";
+import AssignmentDetail from "./components/Assignment/AssignmentDetail";
 import Classroom from "./components/Classroom";
 import Dashboard from './components/Dashboard'
 import LoginPage from "./components/LoginPage";
@@ -9,10 +9,10 @@ import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./context/AuthContext";
 import { UserContext } from "./context/UserContext";
-import Submissions from "./components/Submissions";
-import AssignmentDetailAndSubmissionBase from "./components/AssignmentDetailAndSubmissionBase";
+import Submissions from "./components/Submission/Teacher/Submissions";
+import AssignmentDetailAndSubmissionBase from "./components/Assignment/AssignmentDetailAndSubmissionBase";
 import StudentsTab from "./components/Student/StudentsTab";
-import AssignmentsTab from "./components/AssignmentsTab";
+import AssignmentsTab from "./components/Assignment/AssignmentsTab";
 
 
 function App() {
