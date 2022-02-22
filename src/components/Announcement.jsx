@@ -7,7 +7,7 @@ import useUser from '../hooks/useUser'
 import { getDateAndTimeInLocale } from "../helpers/dateTime";
 
 
-function Announcement({ announcement, code, onEdit, onDelete }) {
+function Announcement({ announcement, onEdit, onDelete }) {
     const [dateTime, setDateTime] = useState()
     const [editing, setEditing] = useState(false)
     const [contextMenu, setContextMenu] = useState({
@@ -21,14 +21,13 @@ function Announcement({ announcement, code, onEdit, onDelete }) {
         const editedAt = new Date(announcement.edited_at)
         const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
 
-        if (createdAt.getTime() == editedAt.getTime()) {
+        if (createdAt.getTime() === editedAt.getTime()) {
             setDateTime(`${createdDate} - ${createdTime}`)
         }
         else {
             const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
             setDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
         }
-
     }, [announcement.created_at, announcement.edited_at])
 
 
@@ -41,21 +40,20 @@ function Announcement({ announcement, code, onEdit, onDelete }) {
         setContextMenu(
             {
                 //teacher is allowed to edit his own announcements
-                allowEdit: user.role == 'teacher' && user.email == announcement.author.email,
+                allowEdit: user.role === 'teacher' && user.email === announcement.author.email,
                 //announcement can be deleted by the teacher as well as author of the announcement 
-                allowDelete: user.role == 'teacher' || user.email == announcement.author.email
+                allowDelete: user.role === 'teacher' || user.email === announcement.author.email
             }
         )
-    }, [user.role, announcement.author.email])
+    }, [user.role, user.email, announcement.author.email])
 
 
     return (
         <>
             {
-                editing &&
                 <BasicModal open={editing} setOpen={setEditing} >
                     <span>
-                        <EditAnnouncement initialText={announcement.text} onSubmit={editAnnouncement} />
+                        <EditAnnouncement announcement={announcement} onSubmit={editAnnouncement} />
                     </span>
                 </BasicModal>
             }
@@ -74,7 +72,7 @@ function Announcement({ announcement, code, onEdit, onDelete }) {
                 </div>
                 <pre> {announcement.text} </pre>
 
-                <CommentSection code={code} announcementId={announcement.id} />
+                <CommentSection announcementId={announcement.id} />
             </Box>
         </>
     )

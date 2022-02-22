@@ -74,16 +74,15 @@ function AnnouncementsTab() {
     }, [code, newDataAvailable])
 
 
-
     return (
         <>
             <CreateAnnouncement onSubmit={createNewAnnouncement} />
+
             {announcements.map(announcement => {
                 return (
                     <Announcement
                         key={announcement.id}
                         announcement={announcement}
-                        code={code}
                         onEdit={editAnnouncement}
                         onDelete={deleteAnnouncement}
                     />

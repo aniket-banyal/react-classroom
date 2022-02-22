@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-function EditAnnouncement({ onSubmit, initialText }) {
-    const [text, setText] = useState(initialText)
+function EditAnnouncement({ onSubmit, announcement }) {
+    const [text, setText] = useState(announcement.text)
 
     const handleSubmit = e => {
         e.preventDefault()
