@@ -1,24 +1,6 @@
 import { useEffect } from "react"
 import { Outlet, useParams } from "react-router-dom"
 import useUser from "../hooks/useUser"
-import BasicTabs from "./BasicTabs"
-
-
-const tabs = [
-    {
-        label: 'Announcements',
-        link: ''
-    },
-    {
-        label: 'Assignments',
-        link: 'assignments'
-    },
-    {
-        label: 'Students',
-        link: 'students'
-    }
-]
-
 
 function Base() {
     const { code } = useParams()
@@ -43,12 +25,8 @@ function Base() {
 
 
     return (
-        <>
-            <BasicTabs tabs={tabs} />
-            <Outlet />
-        </>
+        <Outlet />
     )
-
 }
 
 export default Base

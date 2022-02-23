@@ -13,6 +13,7 @@ import Submissions from "./components/Submission/Teacher/Submissions";
 import AssignmentDetailAndSubmissionBase from "./components/Assignment/AssignmentDetailAndSubmissionBase";
 import StudentsTab from "./components/Student/StudentsTab";
 import AssignmentsTab from "./components/Assignment/AssignmentsTab";
+import Dashboard from "./components/Dashboard";
 
 
 function App() {
@@ -29,9 +30,9 @@ function App() {
 
               <Route path="/" element={<RequireAuth />} >
                 <Route path='/' element={<Home />} />
-                <Route path='/classes/:code'>
+                <Route path='/classes/:code' element={<Base />}>
 
-                  <Route path='dashboard' element={<Base />} >
+                  <Route path='dashboard' element={<Dashboard />} >
                     <Route index element={<Classroom />} />
                     <Route path='assignments' element={<AssignmentsTab />} />
                     <Route path='students' element={<StudentsTab />} />
