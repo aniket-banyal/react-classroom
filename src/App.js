@@ -29,8 +29,8 @@ function App() {
             <Routes>
 
               <Route path="/" element={<RequireAuth />} >
-                <Route path='/' element={<Home />} />
-                <Route path='/classes/:code' element={<Base />}>
+                <Route index element={<Home />} />
+                <Route path=':code' element={<Base />}>
 
                   <Route path='dashboard' element={<Dashboard />} >
                     <Route index element={<Classroom />} />

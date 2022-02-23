@@ -60,7 +60,7 @@ function Assignment({ assignment, onEdit, onDelete }) {
 
                         {contextMenu.allowDelete && <Button onClick={() => onDelete(assignment.id)}> Delete </Button>}
 
-                        <Link to={`/classes/${code}/assignments/${assignment.id}`}>
+                        <Link to={`/${code}/assignments/${assignment.id}`}>
                             <Button> Details </Button>
                         </Link>
                     </div>
