@@ -59,7 +59,8 @@ function AssignmentDetail() {
                         </div>
                         <pre> {assignment.text} </pre>
                     </Box>
-                    {user.role === 'teacher' ? <Link to='submissions'> Submissions </Link> : <StudentSubmission />}
+                    {user.role === 'teacher' && <Link to='submissions'> Submissions </Link>}
+                    {user.role === 'student' && <StudentSubmission />}
                 </>
                 :
                 <h1>Loading...</h1>
