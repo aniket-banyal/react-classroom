@@ -19,7 +19,7 @@ function CreateClassroom() {
 
         const response = await fetch('http://localhost:8000/api/classes_teaching', options)
         const data = await response.json()
-        navigate(`/classes/${data.code}`)
+        navigate(`${data.code}/dashboard`)
     }
 
     const handleSubmit = e => {

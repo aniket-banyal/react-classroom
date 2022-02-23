@@ -6,6 +6,7 @@ function ClassCard({ classroom }) {
             <Link to={`${classroom.code}/dashboard`}>
                 <h3>{classroom.name}</h3>
                 <p>Subject: {classroom.subject}</p>
+                <p>Teacher: {classroom.teacher.name}</p>
                 <p>Code: {classroom.code}</p>
             </ Link>
         </div>

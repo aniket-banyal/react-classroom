@@ -39,7 +39,7 @@ function JoinClassroom() {
             return
         }
 
-        navigate(`/classes/${code}`)
+        navigate(`${code}/dashboard`)
     }
 
 
