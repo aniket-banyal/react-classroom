@@ -4,21 +4,9 @@ import { getDateAndTimeInLocale } from "../../helpers/dateTime";
 import { Link, useParams } from "react-router-dom";
 import useUser from "../../hooks/useUser"
 import StudentSubmission from "../Submission/Student/StudentSubmission";
+import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
+import useCreateDateTime from "../../hooks/useCreateDateTime";
 
-
-const getDatePosted = (assignment) => {
-    const createdAt = new Date(assignment.created_at)
-    // const editedAt = new Date(assignment.edited_at)
-    const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
-
-    // if (createdAt.getTime() === editedAt.getTime()) {
-    return `${createdDate} - ${createdTime}`
-    // }
-    // else {
-    //     const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
-    // return `${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`
-    // }
-}
 
 const getDueDate = (assignment) => {
     const dueDateTime = new Date(assignment.due_date_time)
@@ -29,10 +17,11 @@ const getDueDate = (assignment) => {
 
 function AssignmentDetail() {
     const [assignment, setAssignment] = useState()
-    const [createdDateTime, setCreatedDateTime] = useState()
-    const [dueDateTime, setDueDateTime] = useState()
     const { code, assignment_id } = useParams()
     const { user } = useUser()
+    const createdDateTime = useCreateEditDateTime(assignment?.created_at, assignment?.edited_at)
+    const dueDateTime = useCreateDateTime(assignment?.due_date_time)
+
 
     useEffect(() => {
         const fetchAssignment = async () => {
@@ -51,8 +40,6 @@ function AssignmentDetail() {
             }
             const data = await response.json()
             setAssignment(data)
-            setCreatedDateTime(getDatePosted(data))
-            setDueDateTime(getDueDate(data))
         }
         fetchAssignment()
     }, [code, assignment_id])

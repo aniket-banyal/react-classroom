@@ -2,14 +2,20 @@ import { useEffect, useState } from "react"
 import { getDateAndTimeInLocale } from "../helpers/dateTime"
 
 export default function useCreateEditDateTime(_createdAt, _editedAt) {
-    const createdAt = new Date(_createdAt)
-    const editedAt = new Date(_editedAt)
     const [createEditDateTime, setCreateEditDateTime] = useState('')
 
     useEffect(() => {
+        if (!_createdAt) {
+            setCreateEditDateTime('')
+            return
+        }
+
+        const createdAt = new Date(_createdAt)
+        const editedAt = new Date(_editedAt)
+
         const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
 
-        if (!editedAt || (createdAt.getTime() === editedAt.getTime())) {
+        if (!_editedAt || (createdAt.getTime() === editedAt.getTime())) {
             setCreateEditDateTime(`${createdDate} - ${createdTime}`)
         }
         else {

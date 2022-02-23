@@ -1,15 +1,14 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getDateAndTimeInLocale } from "../../helpers/dateTime";
 import { Link, useParams } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import BasicModal from "../BasicModal";
 import EditAssignment from "./EditAssignment";
+import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
+import useCreateDateTime from "../../hooks/useCreateDateTime";
 
 
 function Assignment({ assignment, onEdit, onDelete }) {
-    const [createdDateTime, setCreatedDateTime] = useState()
-    const [dueDateTime, setDueDateTime] = useState()
     const [editing, setEditing] = useState(false)
     const [contextMenu, setContextMenu] = useState({
         allowEdit: false,
@@ -17,29 +16,8 @@ function Assignment({ assignment, onEdit, onDelete }) {
     })
     const { user } = useUser()
     const { code } = useParams()
-
-    useEffect(() => {
-        const createdAt = new Date(assignment.created_at)
-        // const editedAt = new Date(assignment.edited_at)
-        const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
-
-        // if (createdAt.getTime() == editedAt.getTime()) {
-        setCreatedDateTime(`${createdDate} - ${createdTime}`)
-        // }
-        // else {
-        //     const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
-        //     setCreatedDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
-        // }
-
-    }, [assignment.created_at, assignment.edited_at])
-
-    useEffect(() => {
-        const dueDateTime = new Date(assignment.due_date_time)
-        const [dueDate, dueTime] = getDateAndTimeInLocale(dueDateTime)
-
-        setDueDateTime(`${dueDate} - ${dueTime}`)
-
-    }, [assignment.due_date_time])
+    const createdDateTime = useCreateEditDateTime(assignment.created_at, assignment.edited_at)
+    const dueDateTime = useCreateDateTime(assignment.due_date_time)
 
     useEffect(() => {
         setContextMenu(
