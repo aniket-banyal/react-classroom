@@ -1,22 +1,15 @@
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getDateAndTimeInLocale } from "../../../helpers/dateTime"
+import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
 
 
-const getSubmittedDate = (submission) => {
-    const submittedDateTime = new Date(submission.created_at)
-    const [submittedDate, submittedTime] = getDateAndTimeInLocale(submittedDateTime)
-
-    return `${submittedDate} - ${submittedTime}`
-}
-
 function StudentSubmission() {
     const [submission, setSubmission] = useState()
-    const [submittedDateTime, setSubmittedDateTime] = useState()
     const [newDataAvailable, setNewDataAvailable] = useState(true)
     const { code, assignment_id } = useParams()
+    const submittedDateTime = useCreateDateTime(submission?.created_at)
 
 
     useEffect(() => {
@@ -36,7 +29,6 @@ function StudentSubmission() {
             }
             const data = await response.json()
             setSubmission(data)
-            setSubmittedDateTime(getSubmittedDate(data))
             setNewDataAvailable(false)
         }
 
