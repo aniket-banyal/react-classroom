@@ -27,7 +27,7 @@ function Navbar() {
 
     return (
         <div>
-            <AppBar position="sticky">
+            <AppBar position="fixed">
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -55,6 +55,7 @@ function Navbar() {
                     }
                 </Toolbar>
             </AppBar>
+            <Toolbar />
 
             <TemporaryDrawer toggleDrawer={toggleDrawer} open={drawerOpen} />
         </div>
