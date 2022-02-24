@@ -3,10 +3,11 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
-import { Typography } from '@mui/material';
+import { ListItemButton, ListItemText, Typography } from '@mui/material';
 import useClassrooms from '../hooks/useClassrooms';
 import useUser from '../hooks/useUser';
-
+import { Link } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 function Sidebar({ toggleDrawer }) {
     const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
@@ -26,6 +27,13 @@ function Sidebar({ toggleDrawer }) {
             role="presentation"
             onClick={toggleDrawer}
         >
+            <ListItemButton component={Link} to={`/`} sx={{ mb: 2 }}>
+                <HomeIcon sx={{ mr: 2 }} />
+                <ListItemText primary='Classes' />
+            </ListItemButton>
+
+            <Divider />
+
             <Typography sx={{ margin: 1 }}> Enrolled </Typography>
             <List>
                 {classrooms.enrolledClassrooms.map(classroom =>
