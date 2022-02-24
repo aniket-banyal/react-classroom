@@ -69,8 +69,7 @@ function AnnouncementsTab() {
             setAnnouncements(data)
             setNewDataAvailable(false)
         }
-        if (newDataAvailable)
-            fetchAnnouncements()
+        fetchAnnouncements()
     }, [code, newDataAvailable])
 
 

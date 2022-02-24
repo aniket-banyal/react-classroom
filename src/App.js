@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
 import AssignmentDetail from "./components/Assignment/AssignmentDetail";
-import Classroom from "./components/Classroom";
+import AnnouncementsTab from "./components/Announcement/AnnouncementsTab";
 import Home from './components/Home'
 import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
@@ -55,7 +55,7 @@ function App() {
                   <Route path=':code' element={<Base />}>
 
                     <Route path='dashboard' element={<Dashboard />} >
-                      <Route index element={<Classroom />} />
+                      <Route index element={<AnnouncementsTab />} />
                       <Route path='assignments' element={<AssignmentsTab />} />
                       <Route path='students' element={<StudentsTab />} />
                     </Route>
