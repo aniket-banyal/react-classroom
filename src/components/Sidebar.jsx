@@ -4,45 +4,20 @@ import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
 import { Typography } from '@mui/material';
+import useClassrooms from '../hooks/useClassrooms';
+import useUser from '../hooks/useUser';
 
 
 function Sidebar({ toggleDrawer }) {
-    const [enrolledClassrooms, setEnrolledClassrooms] = useState([])
-    const [teachingClassrooms, setTeachingClassrooms] = useState([])
+    const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
+    const allClassrooms = useClassrooms()
+    const { user } = useUser()
 
     useEffect(() => {
-        const fetchEnrolledClassroom = async () => {
-            const options = {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                    'content-Type': 'application/json',
-                }),
-            }
-
-            const response = await fetch(`http://localhost:8000/api/classes_enrolled`, options)
-            const data = await response.json()
-            setEnrolledClassrooms(data)
-        }
-        fetchEnrolledClassroom()
-    }, [])
-
-    useEffect(() => {
-        const fetchTeachingClassroom = async () => {
-            const options = {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                    'content-Type': 'application/json',
-                }),
-            }
-
-            const response = await fetch(`http://localhost:8000/api/classes_teaching`, options)
-            const data = await response.json()
-            setTeachingClassrooms(data)
-        }
-        fetchTeachingClassroom()
-    }, [])
+        const teachingClassrooms = allClassrooms.filter(classroom => classroom.teacher.email === user.email)
+        const enrolledClassrooms = allClassrooms.filter(classroom => !teachingClassrooms.includes(classroom))
+        setClassrooms({ teachingClassrooms, enrolledClassrooms })
+    }, [allClassrooms, user.email])
 
 
     return (
@@ -53,14 +28,24 @@ function Sidebar({ toggleDrawer }) {
         >
             <Typography sx={{ margin: 1 }}> Enrolled </Typography>
             <List>
-                {enrolledClassrooms.map(classroom => <SidebarClassroomCard key={classroom.code} classroom={classroom} />)}
+                {classrooms.enrolledClassrooms.map(classroom =>
+                    <SidebarClassroomCard
+                        key={classroom.code}
+                        classroom={classroom}
+                    />
+                )}
             </List>
 
             <Divider />
 
             <Typography sx={{ margin: 1 }}> Teaching </Typography>
             <List>
-                {teachingClassrooms.map(classroom => <SidebarClassroomCard key={classroom.code} classroom={classroom} />)}
+                {classrooms.teachingClassrooms.map(classroom =>
+                    <SidebarClassroomCard
+                        key={classroom.code}
+                        classroom={classroom}
+                    />
+                )}
             </List>
         </Box>
     )

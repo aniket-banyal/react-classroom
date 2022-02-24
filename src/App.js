@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
 import AssignmentDetail from "./components/Assignment/AssignmentDetail";
@@ -14,11 +14,31 @@ import AssignmentDetailAndSubmissionBase from "./components/Assignment/Assignmen
 import StudentsTab from "./components/Student/StudentsTab";
 import AssignmentsTab from "./components/Assignment/AssignmentsTab";
 import Dashboard from "./components/Dashboard";
+import { ClassroomsContext } from "./context/ClassroomsContext";
 
 
 function App() {
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [classrooms, setClassrooms] = useState([])
+
+  useEffect(() => {
+    const fetchClassroomList = async () => {
+      const options = {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+          'content-Type': 'application/json',
+        }),
+      }
+
+      const response = await fetch('http://localhost:8000/api/classes', options)
+      const data = await response.json()
+      setClassrooms(data)
+    }
+    if (isAuth)
+      fetchClassroomList()
+  }, [isAuth])
 
 
   return (
@@ -26,28 +46,30 @@ function App() {
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <UserContext.Provider value={{ user, setUser }}>
-            {isAuth && <Navbar />}
-            <Routes>
+            <ClassroomsContext.Provider value={classrooms}>
+              {isAuth && <Navbar />}
+              <Routes>
 
-              <Route path="/" element={<RequireAuth />} >
-                <Route index element={<Home />} />
-                <Route path=':code' element={<Base />}>
+                <Route path="/" element={<RequireAuth />} >
+                  <Route index element={<Home />} />
+                  <Route path=':code' element={<Base />}>
 
-                  <Route path='dashboard' element={<Dashboard />} >
-                    <Route index element={<Classroom />} />
-                    <Route path='assignments' element={<AssignmentsTab />} />
-                    <Route path='students' element={<StudentsTab />} />
-                  </Route>
+                    <Route path='dashboard' element={<Dashboard />} >
+                      <Route index element={<Classroom />} />
+                      <Route path='assignments' element={<AssignmentsTab />} />
+                      <Route path='students' element={<StudentsTab />} />
+                    </Route>
 
-                  <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
-                    <Route index element={<AssignmentDetail />} />
-                    <Route path='submissions' element={<Submissions />} />
+                    <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
+                      <Route index element={<AssignmentDetail />} />
+                      <Route path='submissions' element={<Submissions />} />
+                    </Route>
                   </Route>
                 </Route>
-              </Route>
 
-              <Route path="/login" element={<LoginPage />} />
-            </Routes>
+                <Route path="/login" element={<LoginPage />} />
+              </Routes>
+            </ClassroomsContext.Provider>
           </UserContext.Provider>
         </AuthContext.Provider>
       </Router>
