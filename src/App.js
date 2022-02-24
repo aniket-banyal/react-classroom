@@ -26,7 +26,7 @@ function App() {
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <UserContext.Provider value={{ user, setUser }}>
-            <Navbar />
+            {isAuth && <Navbar />}
             <Routes>
 
               <Route path="/" element={<RequireAuth />} >
