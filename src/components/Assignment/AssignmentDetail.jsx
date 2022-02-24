@@ -1,19 +1,11 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getDateAndTimeInLocale } from "../../helpers/dateTime";
 import { Link, useParams } from "react-router-dom";
 import useUser from "../../hooks/useUser"
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
 
-
-const getDueDate = (assignment) => {
-    const dueDateTime = new Date(assignment.due_date_time)
-    const [dueDate, dueTime] = getDateAndTimeInLocale(dueDateTime)
-
-    return `${dueDate} - ${dueTime}`
-}
 
 function AssignmentDetail() {
     const [assignment, setAssignment] = useState()
@@ -50,9 +42,13 @@ function AssignmentDetail() {
             {assignment ?
                 <>
                     <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
-                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <div>
                                 <h1> {assignment.title} </h1>
+                                <p> {assignment.points} points</p>
+                            </div>
+
+                            <div>
                                 <p> Posted at - {createdDateTime} </p>
                                 <p> Due date - {dueDateTime} </p>
                             </div>

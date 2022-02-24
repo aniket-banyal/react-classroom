@@ -13,14 +13,20 @@ function AssignmentsTab() {
     const { code } = useParams()
     const { user } = useUser()
 
-    const createNewAssignment = async (title, text, due_date_time) => {
+    const createNewAssignment = async (assignment) => {
         const options = {
             method: 'POST',
             headers: new Headers({
                 Authorization: 'Bearer ' + localStorage.getItem('access_token'),
                 'content-Type': 'application/json',
             }),
-            body: JSON.stringify({ title, text, due_date_time })
+            body: JSON.stringify(
+                {
+                    title: assignment.title,
+                    text: assignment.text,
+                    due_date_time: assignment.dueDateTime,
+                    points: assignment.points
+                })
         }
 
         const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments`, options)
@@ -33,17 +39,23 @@ function AssignmentsTab() {
         setNewDataAvailable(true)
     }
 
-    const editAssignment = async (id, title, text, due_date_time) => {
+    const editAssignment = async (assignment) => {
         const options = {
             method: 'PUT',
             headers: new Headers({
                 Authorization: 'Bearer ' + localStorage.getItem('access_token'),
                 'content-Type': 'application/json',
             }),
-            body: JSON.stringify({ title, text, due_date_time })
+            body: JSON.stringify(
+                {
+                    title: assignment.title,
+                    text: assignment.text,
+                    due_date_time: assignment.dueDateTime,
+                    points: assignment.points
+                })
         }
 
-        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${id}`, options)
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment.id}`, options)
         if (response.status === 400) {
             const data = await response.json()
             setError(data.due_date_time)

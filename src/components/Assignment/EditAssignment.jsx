@@ -2,18 +2,16 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import BaseDateTimePicker from "../BasicDateTimePicker"
 
+const initialAssignment = {
+    title: '',
+    text: '',
+    points: '',
+    dueDateTime: new Date()
+}
 
 function EditAssignment({ onSubmit, assignment_id }) {
     const { code } = useParams()
-    const [title, setTitle] = useState('')
-    const [text, setText] = useState('')
-    const [dueDateTime, setDueDateTime] = useState(new Date())
-
-
-    const getDueDate = (assignment) => {
-        const dueDateTime = new Date(assignment.due_date_time)
-        return dueDateTime.getTime()
-    }
+    const [assignment, setAssignment] = useState(initialAssignment)
 
 
     useEffect(() => {
@@ -32,21 +30,23 @@ function EditAssignment({ onSubmit, assignment_id }) {
                 return
             }
             const data = await response.json()
-            setTitle(data.title)
-            setText(data.text)
-            setDueDateTime(getDueDate(data))
+            setAssignment({
+                title: data.title,
+                text: data.text,
+                dueDateTime: data.due_date_time,
+                points: data.points
+            })
         }
+
         fetchAssignment()
     }, [code, assignment_id])
 
 
     const handleSubmit = e => {
         e.preventDefault()
-        const due_date_time = new Date(dueDateTime).getTime()
-        onSubmit(title, text, due_date_time)
-        setText('')
-        setTitle('')
-        setDueDateTime(new Date())
+        assignment.dueDateTime = new Date(assignment.dueDateTime).getTime()
+        onSubmit(assignment)
+        setAssignment(initialAssignment)
     }
 
 
@@ -56,23 +56,44 @@ function EditAssignment({ onSubmit, assignment_id }) {
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <input
                         type="text"
-                        value={title}
                         placeholder="Title"
-                        onChange={e => setTitle(e.target.value)}
+                        required
+                        value={assignment.title}
+                        onChange={e => setAssignment({
+                            ...assignment,
+                            title: e.target.value,
+                        })}
                     />
                     <textarea
                         rows={10}
                         cols={50}
                         placeholder="New Assignment"
-                        value={text}
                         required
-                        onChange={e => setText(e.target.value)}
+                        value={assignment.text}
+                        onChange={e => setAssignment({
+                            ...assignment,
+                            text: e.target.value,
+                        })}
+                    />
+                    <input
+                        type="number"
+                        placeholder='Points'
+                        required
+                        min={0}
+                        value={assignment.points}
+                        onChange={e => setAssignment({
+                            ...assignment,
+                            points: e.target.value,
+                        })}
                     />
                 </div>
                 <div>
                     <BaseDateTimePicker
-                        value={dueDateTime}
-                        onChange={setDueDateTime}
+                        value={assignment.dueDateTime}
+                        onChange={value => setAssignment({
+                            ...assignment,
+                            dueDateTime: value,
+                        })}
                     />
                 </div>
             </div>

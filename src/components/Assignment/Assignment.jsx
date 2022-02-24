@@ -29,8 +29,9 @@ function Assignment({ assignment, onEdit, onDelete }) {
     }, [user.role])
 
 
-    const editAssginment = async (title, text, due_date_time) => {
-        onEdit(assignment.id, title, text, due_date_time)
+    const editAssginment = async (newAssignment) => {
+        newAssignment.id = assignment.id
+        onEdit(newAssignment)
         setEditing(false)
     }
 
