@@ -1,23 +1,22 @@
 import { useState } from "react"
 
 function CreateSubmission({ onSubmit }) {
-    const [text, setText] = useState()
+    const [url, setUrl] = useState('')
 
     const handleSubmit = e => {
         e.preventDefault()
-        onSubmit(text)
-        setText('')
+        onSubmit(url)
+        setUrl('')
     }
 
     return (
         <form onSubmit={handleSubmit} >
-            <textarea
-                rows={10}
-                cols={50}
-                placeholder="Submission..."
-                value={text}
+            <input
+                type='url'
+                placeholder="File url..."
+                value={url}
                 required
-                onChange={e => setText(e.target.value)}
+                onChange={e => setUrl(e.target.value)}
             />
             <input type="submit" value='Submit' />
         </form>

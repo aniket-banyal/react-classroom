@@ -1,3 +1,4 @@
+import { Button } from "@mui/material"
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
@@ -37,14 +38,14 @@ function StudentSubmission() {
     }, [code, assignment_id, newDataAvailable])
 
 
-    const createNewSubmission = async (text) => {
+    const createNewSubmission = async (url) => {
         const options = {
             method: 'POST',
             headers: new Headers({
                 Authorization: 'Bearer ' + localStorage.getItem('access_token'),
                 'content-Type': 'application/json',
             }),
-            body: JSON.stringify({ text })
+            body: JSON.stringify({ url })
         }
 
         const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}/submissions`, options)
@@ -63,9 +64,13 @@ function StudentSubmission() {
                     {(submission.status === 'Done' || submission.status === 'Submitted Late') &&
                         <>
                             <p> {submittedDateTime}</p>
-                            <Box sx={{ border: 1, padding: 2 }}>
-                                <pre> {submission.text}</pre>
-                            </Box>
+                            <Button
+                                variant="contained"
+                                target="_blank"
+                                href={submission.url}
+                            >
+                                Submission
+                            </Button>
                         </>
                     }
                     {(submission.status === 'Assigned' || submission.status === 'Missing') &&
