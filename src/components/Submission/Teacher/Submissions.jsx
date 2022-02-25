@@ -4,8 +4,23 @@ import Submission from "./Submission"
 
 
 function Submissions() {
-    const { code, assignment_id } = useParams()
     const [submissions, setSubmissions] = useState([])
+    const [newDataAvailable, setNewDataAvailable] = useState(true)
+    const { code, assignment_id } = useParams()
+
+    const gradeSubmission = async (id, points) => {
+        const options = {
+            method: 'PUT',
+            headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ points })
+        }
+
+        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}/submissions/${id}`, options)
+        setNewDataAvailable(true)
+    }
 
 
     useEffect(() => {
@@ -25,15 +40,24 @@ function Submissions() {
             }
             const data = await response.json()
             setSubmissions(data)
+            setNewDataAvailable(false)
         }
-        fetchSubmissions()
-    }, [code, assignment_id])
+
+        if (newDataAvailable)
+            fetchSubmissions()
+    }, [code, assignment_id, newDataAvailable])
 
 
     return (
         <div>
             <h1> Submissions </h1>
-            {submissions.map(submission => <Submission key={submission.student.email} submission={submission} />)}
+            {submissions.map(submission =>
+                <Submission
+                    key={submission.student.email}
+                    submission={submission}
+                    gradeSubmission={gradeSubmission}
+                />
+            )}
         </div>
     )
 }

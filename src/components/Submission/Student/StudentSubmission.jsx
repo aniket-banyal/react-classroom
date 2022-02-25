@@ -61,7 +61,7 @@ function StudentSubmission() {
                         <p>{submission.status}</p>
                     </div>
 
-                    {(submission.status === 'Done' || submission.status === 'Submitted Late') &&
+                    {(submission.status === 'Done' || submission.status === 'Submitted Late' || submission.status === 'Graded') &&
                         <>
                             <p> {submittedDateTime}</p>
                             <Button
