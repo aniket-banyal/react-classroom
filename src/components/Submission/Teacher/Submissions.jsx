@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import SimpleSnackbar from "../../SimpleSnackbar"
 import Submission from "./Submission"
 
 
@@ -7,6 +8,7 @@ function Submissions() {
     const [submissions, setSubmissions] = useState([])
     const [totalPoints, setTotalPoints] = useState('')
     const [newDataAvailable, setNewDataAvailable] = useState(true)
+    const [error, setError] = useState(false)
     const { code, assignment_id } = useParams()
 
     const gradeSubmission = async (id, points) => {
@@ -20,6 +22,12 @@ function Submissions() {
         }
 
         const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}/submissions/${id}`, options)
+
+        if (response.status === 400) {
+            const data = await response.json()
+            setError(data.points)
+            return
+        }
         setNewDataAvailable(true)
     }
 
@@ -72,6 +80,12 @@ function Submissions() {
 
     return (
         <div>
+            <SimpleSnackbar
+                message={error}
+                open={error.length > 0}
+                setOpen={setError}
+            />
+
             <h1> Submissions </h1>
             {submissions.map(submission =>
                 <Submission
