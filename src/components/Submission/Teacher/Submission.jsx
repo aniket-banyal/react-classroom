@@ -8,10 +8,11 @@ function Submission({ submission, gradeSubmission, totalPoints }) {
     const [points, setPoints] = useState('')
     const submittedAt = useCreateDateTime(submission.submission?.created_at)
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-        gradeSubmission(submission.submission.id, points)
-        setShowGradingInp(false)
+        const success = await gradeSubmission(submission.submission.id, points)
+        if (success)
+            setShowGradingInp(false)
     }
 
     useEffect(() => {

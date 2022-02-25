@@ -26,9 +26,10 @@ function Submissions() {
         if (response.status === 400) {
             const data = await response.json()
             setError(data.points)
-            return
+            return false
         }
         setNewDataAvailable(true)
+        return true
     }
 
 
