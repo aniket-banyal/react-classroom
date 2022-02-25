@@ -6,7 +6,7 @@ import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
 
 
-function StudentSubmission() {
+function StudentSubmission({ totalPoints }) {
     const [submission, setSubmission] = useState()
     const [newDataAvailable, setNewDataAvailable] = useState(true)
     const { code, assignment_id } = useParams()
@@ -71,8 +71,11 @@ function StudentSubmission() {
                             >
                                 Submission
                             </Button>
-                            {submission.points && <p>
-                                Graded: {submission.points} points</p>}
+                            {submission.points &&
+                                <p>
+                                    Graded: {`${submission.points}/${totalPoints}`} points
+                                </p>
+                            }
                         </>
                     }
                     {(submission.status === 'Assigned' || submission.status === 'Missing') &&

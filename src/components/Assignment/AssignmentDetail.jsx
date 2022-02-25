@@ -56,7 +56,7 @@ function AssignmentDetail() {
                         <pre> {assignment.text} </pre>
                     </Box>
                     {user.role === 'teacher' && <Link to='submissions'> Submissions </Link>}
-                    {user.role === 'student' && <StudentSubmission />}
+                    {user.role === 'student' && <StudentSubmission totalPoints={assignment.points} />}
                 </>
                 :
                 <h1>Loading...</h1>

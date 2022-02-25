@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 
 
-function Submission({ submission, gradeSubmission }) {
+function Submission({ submission, gradeSubmission, totalPoints }) {
     const [showGradingInp, setShowGradingInp] = useState(false)
     const [points, setPoints] = useState('')
     const submittedAt = useCreateDateTime(submission.submission?.created_at)
@@ -44,10 +44,12 @@ function Submission({ submission, gradeSubmission }) {
 
                     {showGradingInp &&
                         <form onSubmit={handleSubmit} >
+                            <label> {`Grade (out of ${totalPoints})`} : </label>
                             <input
                                 type="number"
                                 placeholder='Points'
                                 min={0}
+                                max={totalPoints}
                                 value={points}
                                 onChange={e => setPoints(e.target.value)}
                             />
@@ -56,7 +58,7 @@ function Submission({ submission, gradeSubmission }) {
                         </form>
                     }
 
-                    {submission.submission.points && <p> Graded: {submission.submission.points} points</p>}
+                    {submission.submission.points && <p> Graded: {`${submission.submission.points}/${totalPoints}`} points</p>}
                 </>
             }
         </Box>

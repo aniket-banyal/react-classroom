@@ -5,6 +5,7 @@ import Submission from "./Submission"
 
 function Submissions() {
     const [submissions, setSubmissions] = useState([])
+    const [totalPoints, setTotalPoints] = useState('')
     const [newDataAvailable, setNewDataAvailable] = useState(true)
     const { code, assignment_id } = useParams()
 
@@ -48,6 +49,27 @@ function Submissions() {
     }, [code, assignment_id, newDataAvailable])
 
 
+    useEffect(() => {
+        const fetchAssignmentTotalPoints = async () => {
+            const options = {
+                method: 'GET',
+                headers: new Headers({
+                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                    'content-Type': 'application/json',
+                }),
+            }
+
+            const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}`, options)
+            if (!response.ok) {
+                return
+            }
+            const data = await response.json()
+            setTotalPoints(data.points)
+        }
+        fetchAssignmentTotalPoints()
+    }, [code, assignment_id])
+
+
     return (
         <div>
             <h1> Submissions </h1>
@@ -56,6 +78,7 @@ function Submissions() {
                     key={submission.student.email}
                     submission={submission}
                     gradeSubmission={gradeSubmission}
+                    totalPoints={totalPoints}
                 />
             )}
         </div>
