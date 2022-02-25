@@ -15,13 +15,17 @@ function Submission({ submission }) {
                 </div>
             </div>
             {submission.submission &&
-                <Button
-                    variant="contained"
-                    target="_blank"
-                    href={submission.submission.url}
-                >
-                    Submission
-                </Button>
+                <>
+                    <Button
+                        variant="contained"
+                        target="_blank"
+                        href={submission.submission.url}
+                    >
+                        Submission
+                    </Button>
+
+                    {submission.submission.points && <p> Graded: {submission.submission.points} points</p>}
+                </>
             }
         </Box>
     )

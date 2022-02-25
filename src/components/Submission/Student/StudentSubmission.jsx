@@ -71,6 +71,8 @@ function StudentSubmission() {
                             >
                                 Submission
                             </Button>
+                            {submission.points && <p>
+                                Graded: {submission.points} points</p>}
                         </>
                     }
                     {(submission.status === 'Assigned' || submission.status === 'Missing') &&
