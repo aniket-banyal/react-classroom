@@ -1,5 +1,7 @@
 import { useState } from "react"
+import { useMutation } from "react-query"
 import { useNavigate } from "react-router-dom"
+import { createClassroom } from "../api/api"
 
 
 function CreateClassroom() {
@@ -7,24 +9,14 @@ function CreateClassroom() {
     const [subject, setSubject] = useState('')
     const navigate = useNavigate()
 
-    const createNewClassroom = async (name, subject) => {
-        const options = {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                'content-Type': 'application/json',
-            }),
-            body: JSON.stringify({ name, subject })
-        }
-
-        const response = await fetch('http://localhost:8000/api/classes_teaching', options)
-        const data = await response.json()
-        navigate(`${data.code}/dashboard`)
-    }
+    const { mutate } = useMutation(createClassroom)
 
     const handleSubmit = e => {
         e.preventDefault()
-        createNewClassroom(name, subject)
+        mutate({ name, subject }, {
+            onSuccess: ({ data }) => navigate(`${data.code}/dashboard`)
+        })
+
         setName('')
         setSubject('')
     }

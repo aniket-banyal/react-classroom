@@ -13,3 +13,5 @@ export const api = axios.create({
 
 
 export const getClassrooms = () => api.get('/classes').then(res => res.data)
+
+export const createClassroom = (classroom) => api.post('/classes_teaching', { ...classroom })
