@@ -1,11 +1,23 @@
 import ClassCard from "./ClassroomCard"
 import JoinClassroom from "./JoinClassroom"
 import CreateClassroom from "./CreateClassroom"
-import useClassrooms from "../hooks/useClassrooms"
-
+import { getClassrooms } from "../api/api"
+import { useQuery } from 'react-query'
 
 function Home() {
-    const classrooms = useClassrooms()
+    const { data: classrooms, isLoading, isError, error } = useQuery('classrooms', getClassrooms)
+
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+
+    if (isError) {
+        return (
+            <h1> Error: {error.message} </h1>
+        )
+    }
 
     return (
         <div>

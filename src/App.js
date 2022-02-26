@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
 import AssignmentDetail from "./components/Assignment/AssignmentDetail";
@@ -14,31 +14,15 @@ import AssignmentDetailAndSubmissionBase from "./components/Assignment/Assignmen
 import PeopleTab from "./components/People/PeopleTab";
 import AssignmentsTab from "./components/Assignment/AssignmentsTab";
 import Dashboard from "./components/Dashboard";
-import { ClassroomsContext } from "./context/ClassroomsContext";
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 
 function App() {
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
-  const [classrooms, setClassrooms] = useState([])
 
-  useEffect(() => {
-    const fetchClassroomList = async () => {
-      const options = {
-        method: 'GET',
-        headers: new Headers({
-          Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-          'content-Type': 'application/json',
-        }),
-      }
-
-      const response = await fetch('http://localhost:8000/api/classes', options)
-      const data = await response.json()
-      setClassrooms(data)
-    }
-    if (isAuth)
-      fetchClassroomList()
-  }, [isAuth])
+  const queryClient = new QueryClient()
 
 
   return (
@@ -46,7 +30,7 @@ function App() {
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <UserContext.Provider value={{ user, setUser }}>
-            <ClassroomsContext.Provider value={classrooms}>
+            <QueryClientProvider client={queryClient}>
               {isAuth && <Navbar />}
               <Routes>
 
@@ -69,7 +53,10 @@ function App() {
 
                 <Route path="/login" element={<LoginPage />} />
               </Routes>
-            </ClassroomsContext.Provider>
+
+              <ReactQueryDevtools initialIsOpen={false} />
+
+            </QueryClientProvider>
           </UserContext.Provider>
         </AuthContext.Provider>
       </Router>

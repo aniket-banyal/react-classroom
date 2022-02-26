@@ -4,17 +4,22 @@ import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
 import { ListItemButton, ListItemText, Typography } from '@mui/material';
-import useClassrooms from '../hooks/useClassrooms';
 import useUser from '../hooks/useUser';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
+import { useQuery } from 'react-query'
+import { getClassrooms } from "../api/api"
+
 
 function Sidebar({ toggleDrawer }) {
     const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
-    const allClassrooms = useClassrooms()
+    const { data: allClassrooms, isLoading, isError, error } = useQuery('classrooms', getClassrooms)
     const { user } = useUser()
 
     useEffect(() => {
+        if (!allClassrooms)
+            return
+
         const teachingClassrooms = allClassrooms.filter(classroom => classroom.teacher.email === user.email)
         const enrolledClassrooms = allClassrooms.filter(classroom => !teachingClassrooms.includes(classroom))
         setClassrooms({ teachingClassrooms, enrolledClassrooms })
@@ -34,27 +39,32 @@ function Sidebar({ toggleDrawer }) {
 
             <Divider />
 
-            <Typography sx={{ margin: 1 }}> Enrolled </Typography>
-            <List>
-                {classrooms.enrolledClassrooms.map(classroom =>
-                    <SidebarClassroomCard
-                        key={classroom.code}
-                        classroom={classroom}
-                    />
-                )}
-            </List>
+            {!isLoading &&
+                <>
+                    <Typography sx={{ margin: 1 }}> Enrolled </Typography>
+                    <List>
+                        {classrooms.enrolledClassrooms.map(classroom =>
+                            <SidebarClassroomCard
+                                key={classroom.code}
+                                classroom={classroom}
+                            />
+                        )}
+                    </List>
 
-            <Divider />
+                    <Divider />
 
-            <Typography sx={{ margin: 1 }}> Teaching </Typography>
-            <List>
-                {classrooms.teachingClassrooms.map(classroom =>
-                    <SidebarClassroomCard
-                        key={classroom.code}
-                        classroom={classroom}
-                    />
-                )}
-            </List>
+                    <Typography sx={{ margin: 1 }}> Teaching </Typography>
+                    <List>
+                        {classrooms.teachingClassrooms.map(classroom =>
+                            <SidebarClassroomCard
+                                key={classroom.code}
+                                classroom={classroom}
+                            />
+                        )}
+                    </List>
+                </>
+            }
+
         </Box>
     )
 }

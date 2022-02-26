@@ -1,5 +1,6 @@
 import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
+import { api } from '../api/api'
 import useAuth from '../hooks/useAuth'
 import useUser from '../hooks/useUser'
 
@@ -47,6 +48,8 @@ function Login() {
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('refresh_token', data.refresh_token)
         localStorage.setItem('is_auth', true)
+
+        api.defaults.headers['Authorization'] = `Bearer ${data.access_token}`
 
         const user = await fetchUser()
         setUser(user)
