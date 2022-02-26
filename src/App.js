@@ -17,12 +17,11 @@ import Dashboard from "./components/Dashboard";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
+const queryClient = new QueryClient()
 
 function App() {
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
-
-  const queryClient = new QueryClient()
 
 
   return (
