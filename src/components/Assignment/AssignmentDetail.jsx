@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useUser from "../../hooks/useUser"
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
@@ -55,7 +55,6 @@ function AssignmentDetail() {
                         </div>
                         <pre> {assignment.text} </pre>
                     </Box>
-                    {user.role === 'teacher' && <Link to='submissions'> Submissions </Link>}
                     {user.role === 'student' && <StudentSubmission totalPoints={assignment.points} />}
                 </>
                 :

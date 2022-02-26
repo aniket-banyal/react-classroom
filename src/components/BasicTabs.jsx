@@ -7,8 +7,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 function getInitialValue(location, tabs) {
     let x = location.pathname.split('/')
-    let last = (x.length === 3) ? '' : x.pop()
-    return tabs.findIndex((tab) => last === tab.link)
+    let last = x.pop()
+    let initialValue = tabs.findIndex((tab) => last === tab.link)
+    if (initialValue === -1)
+        return 0
+    return initialValue
 }
 
 function BasicTabs({ tabs }) {
