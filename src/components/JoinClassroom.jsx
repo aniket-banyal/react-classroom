@@ -2,6 +2,8 @@ import { Button } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import SimpleSnackbar from "./SimpleSnackbar"
+import { useMutation } from "react-query"
+import { joinClassroom } from "../api/api"
 
 function JoinClassroom() {
     const [code, setCode] = useState('')
@@ -9,44 +11,35 @@ function JoinClassroom() {
     const [isInvalidCode, setIsInvalidCode] = useState(false)
     const [action, setAction] = useState()
     const navigate = useNavigate()
-
-    const joinClassroom = async (code) => {
-        const options = {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                'content-Type': 'application/json',
-            }),
-            body: JSON.stringify({ code })
-        }
-
-        const response = await fetch('http://localhost:8000/api/join_class', options)
-        if (response.status == 409) {
-            setIsAlreadyJoined(true)
-            setAction((
-                <Link to={`/classes/${code}`}>
-                    <Button color="primary">
-                        Go to Class
-                    </Button>
-                </Link>
-            ))
-            return
-        }
-
-        if (!response.ok) {
-            // setIsInvalidCode is set to false in SimpleSnackbar when it is dismissed
-            setIsInvalidCode(true)
-            return
-        }
-
-        navigate(`${code}/dashboard`)
-    }
+    const { mutate } = useMutation(joinClassroom)
 
 
     const handleSubmit = e => {
         e.preventDefault()
-        joinClassroom(code)
-        setCode('')
+
+        mutate(code, {
+            onSuccess: ({ data }) => {
+                navigate(`${data.code}/dashboard`)
+            },
+            onError: (error) => {
+                const status = error.response.status
+
+                if (status === 409) {
+                    setIsAlreadyJoined(true)
+                    setAction((
+                        <Link to={`/${code}/dashboard`}>
+                            <Button color="primary">
+                                Go to Class
+                            </Button>
+                        </Link>
+                    ))
+                }
+                else if (status === 404) {
+                    // setIsInvalidCode is set to false in SimpleSnackbar when it is dismissed
+                    setIsInvalidCode(true)
+                }
+            }
+        })
     }
 
     return (
