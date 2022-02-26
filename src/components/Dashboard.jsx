@@ -16,8 +16,8 @@ const tabs = [
         link: 'assignments'
     },
     {
-        label: 'Students',
-        link: 'students'
+        label: 'People',
+        link: 'people'
     }
 ]
 
