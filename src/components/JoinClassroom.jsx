@@ -2,8 +2,7 @@ import { Button } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import SimpleSnackbar from "./SimpleSnackbar"
-import { useMutation } from "react-query"
-import { joinClassroom } from "../api/api"
+import useJoinClassroom from "../hooks/api/useJoinClassroom"
 
 function JoinClassroom() {
     const [code, setCode] = useState('')
@@ -11,7 +10,7 @@ function JoinClassroom() {
     const [isInvalidCode, setIsInvalidCode] = useState(false)
     const [action, setAction] = useState()
     const navigate = useNavigate()
-    const { mutate } = useMutation(joinClassroom)
+    const { mutate } = useJoinClassroom()
 
 
     const handleSubmit = e => {

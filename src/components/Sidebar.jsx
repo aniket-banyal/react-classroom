@@ -7,13 +7,12 @@ import { ListItemButton, ListItemText, Typography } from '@mui/material';
 import useUser from '../hooks/useUser';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
-import { useQuery } from 'react-query'
-import { getClassrooms } from "../api/api"
+import useClassrooms from '../hooks/api/useClassrooms';
 
 
 function Sidebar({ toggleDrawer }) {
     const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
-    const { data: allClassrooms, isLoading, isError, error } = useQuery('classrooms', getClassrooms)
+    const { data: allClassrooms, isLoading, isError, error } = useClassrooms()
     const { user } = useUser()
 
     useEffect(() => {

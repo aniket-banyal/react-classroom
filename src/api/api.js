@@ -10,10 +10,3 @@ export const api = axios.create({
         'Content-Type': 'application/json',
     }
 })
-
-
-export const getClassrooms = () => api.get('/classes').then(res => res.data)
-
-export const createClassroom = (classroom) => api.post('/classes_teaching', { ...classroom }).then(res => res.data)
-
-export const joinClassroom = (code) => api.post('/join_class', { code }).then(res => res.data)

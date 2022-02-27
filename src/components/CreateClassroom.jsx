@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { useMutation } from "react-query"
 import { useNavigate } from "react-router-dom"
-import { createClassroom } from "../api/api"
+import useCreateClassroom from "../hooks/api/useCreateClassroom"
 
 
 function CreateClassroom() {
@@ -9,7 +8,7 @@ function CreateClassroom() {
     const [subject, setSubject] = useState('')
     const navigate = useNavigate()
 
-    const { mutate } = useMutation(createClassroom)
+    const { mutate } = useCreateClassroom()
 
     const handleSubmit = e => {
         e.preventDefault()
