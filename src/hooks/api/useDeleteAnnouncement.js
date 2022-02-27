@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { api } from "../../api/api";
 
 
@@ -9,5 +9,11 @@ const deleteAnnouncement = async ({ code, announcement_id }) => {
 
 
 export default function useDeleteAnnouncement() {
-    return useMutation(deleteAnnouncement)
+    const queryClient = useQueryClient()
+
+    return useMutation(deleteAnnouncement, {
+        onSuccess: (data, { code }) => {
+            queryClient.invalidateQueries(['announcements', code])
+        }
+    })
 }

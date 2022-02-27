@@ -6,7 +6,6 @@ import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../../hooks/useUser'
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import { useParams } from "react-router-dom";
-import { useQueryClient } from "react-query";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
 
 
@@ -20,18 +19,13 @@ function Announcement({ announcement }) {
     const dateTime = useCreateEditDateTime(announcement.created_at, announcement.edited_at)
     const { code } = useParams()
     const { mutate } = useDeleteAnnouncement()
-    const queryClient = useQueryClient()
 
     const onEdit = async () => {
         setEditing(false)
     }
 
     const onDelete = async () => {
-        mutate({ code, announcement_id: announcement.id }, {
-            onSuccess: () => {
-                queryClient.invalidateQueries(['announcements', code])
-            }
-        })
+        mutate({ code, announcement_id: announcement.id })
     }
 
     useEffect(() => {

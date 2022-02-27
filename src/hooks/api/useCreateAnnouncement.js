@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { api } from "../../api/api";
 
 
@@ -9,5 +9,11 @@ const createAnnouncement = async ({ code, body }) => {
 
 
 export default function useCreateAnnouncement() {
-    return useMutation(createAnnouncement)
+    const queryClient = useQueryClient()
+
+    return useMutation(createAnnouncement, {
+        onSuccess: (data, { code }) => {
+            queryClient.invalidateQueries(['announcements', code])
+        }
+    })
 }
