@@ -1,12 +1,23 @@
 import { useState } from "react"
+import useCreateAnnouncement from "../../hooks/api/useCreateAnnouncement"
+import { useParams } from "react-router-dom"
+import { useQueryClient } from "react-query"
 
-function CreateAnnouncement({ onSubmit }) {
+function CreateAnnouncement() {
     const [text, setText] = useState('')
+    const { code } = useParams()
+    const { mutate } = useCreateAnnouncement()
+    const queryClient = useQueryClient()
 
     const handleSubmit = e => {
         e.preventDefault()
-        onSubmit(text)
-        setText('')
+        const body = { text }
+        mutate({ code, body }, {
+            onSuccess: () => {
+                queryClient.invalidateQueries(['announcements', code])
+                setText('')
+            }
+        })
     }
 
     return (
