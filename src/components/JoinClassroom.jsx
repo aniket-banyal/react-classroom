@@ -18,7 +18,7 @@ function JoinClassroom() {
         e.preventDefault()
 
         mutate(code, {
-            onSuccess: ({ data }) => {
+            onSuccess: (data) => {
                 navigate(`${data.code}/dashboard`)
             },
             onError: (error) => {

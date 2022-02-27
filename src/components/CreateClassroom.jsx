@@ -14,7 +14,7 @@ function CreateClassroom() {
     const handleSubmit = e => {
         e.preventDefault()
         mutate({ name, subject }, {
-            onSuccess: ({ data }) => navigate(`${data.code}/dashboard`)
+            onSuccess: (data) => navigate(`${data.code}/dashboard`)
         })
 
         setName('')
