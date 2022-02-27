@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom"
 import BasicTabs from "./BasicTabs"
 import { Typography } from '@mui/material';
 import useClassroom from "../hooks/api/useClassroom";
+import { useEffect } from "react";
 
 
 const tabs = [
@@ -25,6 +26,12 @@ const tabs = [
 function Dashboard() {
     const { code } = useParams()
     const { data: classroom, isLoading, isError } = useClassroom(code)
+
+    useEffect(() => {
+        //when going to some other class using sidebar, scroll state may remain same because the child components don't re-render if data comes from cache (react-query)
+        window.scrollTo({ top: 0 })
+    }, [classroom])
+
 
     if (isLoading) {
         return (

@@ -1,14 +1,22 @@
 import { Box, Button } from "@mui/material"
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import useDeleteComment from "../../hooks/api/useDeleteComment"
 import useCreateDateTime from "../../hooks/useCreateDateTime"
 import useUser from "../../hooks/useUser"
 
-function Comment({ comment, onDelete }) {
+function Comment({ comment, announcementId }) {
     const [contextMenu, setContextMenu] = useState({
         allowDelete: false
     })
     const { user } = useUser()
     const dateTime = useCreateDateTime(comment.created_at)
+    const { code } = useParams()
+    const { mutate } = useDeleteComment()
+
+    const onDelete = () => {
+        mutate({ code, announcementId, commentId: comment.id })
+    }
 
     useEffect(() => {
         setContextMenu(
@@ -27,7 +35,7 @@ function Comment({ comment, onDelete }) {
                     <p> {dateTime} </p>
                 </div>
 
-                {contextMenu.allowDelete && <Button onClick={() => onDelete(comment.id)}> Delete </Button>}
+                {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
             </div>
 
             <p> {comment.text} </p>

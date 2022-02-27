@@ -1,12 +1,22 @@
 import { useState } from "react"
+import useCreateComment from "../../hooks/api/useCreateComment"
+import { useParams } from "react-router-dom"
 
-function CreateComment({ onSubmit }) {
+
+function CreateComment({ announcementId }) {
     const [text, setText] = useState('')
+    const { code } = useParams()
+    const { mutate } = useCreateComment()
+
 
     const handleSubmit = e => {
         e.preventDefault()
-        onSubmit(text)
-        setText('')
+        const body = { text }
+        mutate({ code, announcementId, body }, {
+            onSuccess: () => {
+                setText('')
+            }
+        })
     }
 
     return (
