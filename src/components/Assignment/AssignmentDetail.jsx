@@ -4,7 +4,7 @@ import useUser from "../../hooks/useUser"
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
-import useAssignment from "../../hooks/api/useAssignment";
+import { useAssignment } from "../../hooks/api/useAssignment";
 
 
 function AssignmentDetail() {

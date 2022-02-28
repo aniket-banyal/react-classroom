@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import useAssignment from "../../hooks/api/useAssignment"
+import { useAssignment } from "../../hooks/api/useAssignment"
 import useEditAssignment from "../../hooks/api/useEditAssignment"
 import EditAssignmentForm from "./EditAssignmentForm"
 

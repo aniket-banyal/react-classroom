@@ -8,6 +8,10 @@ const getAssignment = async ({ queryKey }) => {
     return data
 }
 
-export default function useAssignment(code, assignmentId) {
-    return useQuery(['assignment', code, assignmentId], getAssignment)
+export function useAssignment(code, assignmentId, select) {
+    return useQuery(['assignment', code, assignmentId], getAssignment, { select })
+}
+
+export function useAssignmentPoints(code, assignmentId) {
+    return useAssignment(code, assignmentId, (data) => data.points)
 }
