@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
-import useUser from "../../hooks/useUser"
+import { Outlet, useParams } from "react-router-dom"
+import useUserRole from "../../hooks/api/useUserRole"
 import BasicTabs from "../BasicTabs"
 
 const tabs = [
@@ -14,11 +14,12 @@ const tabs = [
 ]
 
 function AssignmentDetailAndSubmissionBase() {
-    const { user } = useUser()
+    const { code } = useParams()
+    const { data: userRole } = useUserRole(code)
 
     return (
         <>
-            {user.role === 'teacher' && <BasicTabs tabs={tabs} />}
+            {userRole === 'teacher' && <BasicTabs tabs={tabs} />}
             <Outlet />
         </>
     )

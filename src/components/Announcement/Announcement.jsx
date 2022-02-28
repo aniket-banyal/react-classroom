@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import BasicModal from "../BasicModal";
 import CommentSection from "../Comment/CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
-import useUser from '../../hooks/useUser'
+import useUser from '../../hooks/api/useUser'
+import useUserRole from '../../hooks/api/useUserRole'
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import { useParams } from "react-router-dom";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
@@ -15,9 +16,10 @@ function Announcement({ announcement }) {
         allowEdit: false,
         allowDelete: false
     })
-    const { user } = useUser()
-    const dateTime = useCreateEditDateTime(announcement.created_at, announcement.edited_at)
     const { code } = useParams()
+    const { data: user } = useUser()
+    const { data: userRole } = useUserRole(code)
+    const dateTime = useCreateEditDateTime(announcement.created_at, announcement.edited_at)
     const { mutate } = useDeleteAnnouncement()
 
     const onEdit = async () => {
@@ -32,12 +34,12 @@ function Announcement({ announcement }) {
         setContextMenu(
             {
                 //teacher is allowed to edit his own announcements
-                allowEdit: user.role === 'teacher' && user.email === announcement.author.email,
+                allowEdit: userRole === 'teacher' && user?.email === announcement.author.email,
                 //announcement can be deleted by the teacher as well as author of the announcement 
-                allowDelete: user.role === 'teacher' || user.email === announcement.author.email
+                allowDelete: userRole === 'teacher' || user?.email === announcement.author.email
             }
         )
-    }, [user.role, user.email, announcement.author.email])
+    }, [userRole, user?.email, announcement.author.email])
 
 
     return (

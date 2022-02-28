@@ -1,7 +1,7 @@
 import { GoogleLogout } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import useAuth from '../hooks/useAuth'
-import useUser from '../hooks/useUser'
+import useUser from '../hooks/api/useUser'
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import TemporaryDrawer from './TemporaryDrawer';
@@ -12,7 +12,7 @@ function Navbar() {
     const navigate = useNavigate()
     const [drawerOpen, setDrawerOpen] = useState(false)
     const { isAuth, setIsAuth } = useAuth()
-    const { user } = useUser()
+    const { data: user } = useUser()
 
     const toggleDrawer = () => { setDrawerOpen(!drawerOpen) }
 
@@ -21,7 +21,6 @@ function Navbar() {
         localStorage.setItem('is_auth', false)
         localStorage.removeItem('access_token')
         localStorage.removeItem('refresh_token')
-        localStorage.removeItem('user')
         navigate('/login')
     }
 

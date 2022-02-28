@@ -3,15 +3,17 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import useDeleteComment from "../../hooks/api/useDeleteComment"
 import useCreateDateTime from "../../hooks/useCreateDateTime"
-import useUser from "../../hooks/useUser"
+import useUser from "../../hooks/api/useUser"
+import useUserRole from "../../hooks/api/useUserRole"
 
 function Comment({ comment, announcementId }) {
     const [contextMenu, setContextMenu] = useState({
         allowDelete: false
     })
-    const { user } = useUser()
-    const dateTime = useCreateDateTime(comment.created_at)
     const { code } = useParams()
+    const { data: user } = useUser()
+    const { data: userRole } = useUserRole(code)
+    const dateTime = useCreateDateTime(comment.created_at)
     const { mutate } = useDeleteComment()
 
     const onDelete = () => {
@@ -22,10 +24,10 @@ function Comment({ comment, announcementId }) {
         setContextMenu(
             {
                 //comment can be deleted by the teacher as well as author of the comment 
-                allowDelete: user.role === 'teacher' || user.email === comment.author.email
+                allowDelete: userRole === 'teacher' || user?.email === comment.author.email
             }
         )
-    }, [user.role, user.email, comment.author.email])
+    }, [userRole, user?.email, comment.author.email])
 
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'black' }}>

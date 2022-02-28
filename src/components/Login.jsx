@@ -2,28 +2,11 @@ import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import { api } from '../api/api'
 import useAuth from '../hooks/useAuth'
-import useUser from '../hooks/useUser'
-
-
-const fetchUser = async () => {
-    const options = {
-        method: 'GET',
-        headers: new Headers({
-            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-            'content-Type': 'application/json',
-        }),
-    }
-
-    const response = await fetch('http://localhost:8000/api/user_details', options)
-    const data = await response.json()
-    return data
-}
 
 
 function Login() {
     const navigate = useNavigate()
     const { setIsAuth } = useAuth()
-    const { setUser } = useUser()
 
     const onGoogleLoginSuccess = async res => {
         const body = {
@@ -50,10 +33,6 @@ function Login() {
         localStorage.setItem('is_auth', true)
 
         api.defaults.headers['Authorization'] = `Bearer ${data.access_token}`
-
-        const user = await fetchUser()
-        setUser(user)
-        localStorage.setItem('user', JSON.stringify(user))
         navigate('/')
     }
 

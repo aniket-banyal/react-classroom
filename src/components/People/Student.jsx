@@ -1,16 +1,16 @@
 import { Button } from "@mui/material"
 import { useEffect, useState } from "react"
 import useRemoveStudent from "../../hooks/api/useRemoveStudent"
-import useUser from "../../hooks/useUser"
 import { useParams } from "react-router-dom"
+import useUserRole from "../../hooks/api/useUserRole"
 
 
 function Student({ student }) {
     const [contextMenu, setContextMenu] = useState({
         allowRemove: false
     })
-    const { user } = useUser()
     const { code } = useParams()
+    const { data: userRole } = useUserRole(code)
     const { mutate } = useRemoveStudent()
 
     const onRemove = () => {
@@ -20,10 +20,10 @@ function Student({ student }) {
     useEffect(() => {
         setContextMenu(
             {
-                allowRemove: user.role === 'teacher',
+                allowRemove: userRole === 'teacher',
             }
         )
-    }, [user.role])
+    }, [userRole])
 
 
     return (

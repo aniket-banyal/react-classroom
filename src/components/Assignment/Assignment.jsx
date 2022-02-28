@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useUser from "../../hooks/useUser";
+import useUserRole from "../../hooks/api/useUserRole";
 import BasicModal from "../BasicModal";
 import EditAssignment from "./EditAssignment";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
@@ -15,8 +15,8 @@ function Assignment({ assignment, onError }) {
         allowEdit: false,
         allowDelete: false
     })
-    const { user } = useUser()
     const { code } = useParams()
+    const { data: userRole } = useUserRole(code)
     const createdDateTime = useCreateEditDateTime(assignment.created_at, assignment.edited_at)
     const dueDateTime = useCreateDateTime(assignment.due_date_time)
     const { mutate } = useDeleteAssignment()
@@ -25,11 +25,11 @@ function Assignment({ assignment, onError }) {
     useEffect(() => {
         setContextMenu(
             {
-                allowEdit: user.role === 'teacher',
-                allowDelete: user.role === 'teacher'
+                allowEdit: userRole === 'teacher',
+                allowDelete: userRole === 'teacher'
             }
         )
-    }, [user.role])
+    }, [userRole])
 
 
     const onEdit = () => setEditing(false)

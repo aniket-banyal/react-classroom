@@ -8,7 +8,6 @@ import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./context/AuthContext";
-import { UserContext } from "./context/UserContext";
 import Submissions from "./components/Submission/Teacher/Submissions";
 import AssignmentDetailAndSubmissionBase from "./components/Assignment/AssignmentDetailAndSubmissionBase";
 import PeopleTab from "./components/People/PeopleTab";
@@ -21,42 +20,38 @@ const queryClient = new QueryClient()
 
 function App() {
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
-
 
   return (
     <div>
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-          <UserContext.Provider value={{ user, setUser }}>
-            <QueryClientProvider client={queryClient}>
-              {isAuth && <Navbar />}
-              <Routes>
+          <QueryClientProvider client={queryClient}>
+            {isAuth && <Navbar />}
+            <Routes>
 
-                <Route path="/" element={<RequireAuth />} >
-                  <Route index element={<Home />} />
-                  <Route path=':code' element={<Base />}>
+              <Route path="/" element={<RequireAuth />} >
+                <Route index element={<Home />} />
+                <Route path=':code' element={<Base />}>
 
-                    <Route path='dashboard' element={<Dashboard />} >
-                      <Route index element={<AnnouncementsTab />} />
-                      <Route path='assignments' element={<AssignmentsTab />} />
-                      <Route path='people' element={<PeopleTab />} />
-                    </Route>
+                  <Route path='dashboard' element={<Dashboard />} >
+                    <Route index element={<AnnouncementsTab />} />
+                    <Route path='assignments' element={<AssignmentsTab />} />
+                    <Route path='people' element={<PeopleTab />} />
+                  </Route>
 
-                    <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
-                      <Route index element={<AssignmentDetail />} />
-                      <Route path='submissions' element={<Submissions />} />
-                    </Route>
+                  <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
+                    <Route index element={<AssignmentDetail />} />
+                    <Route path='submissions' element={<Submissions />} />
                   </Route>
                 </Route>
+              </Route>
 
-                <Route path="/login" element={<LoginPage />} />
-              </Routes>
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
 
-              <ReactQueryDevtools initialIsOpen={false} />
+            <ReactQueryDevtools initialIsOpen={false} />
 
-            </QueryClientProvider>
-          </UserContext.Provider>
+          </QueryClientProvider>
         </AuthContext.Provider>
       </Router>
     </div>

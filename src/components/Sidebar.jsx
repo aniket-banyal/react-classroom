@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
 import { ListItemButton, ListItemText, Typography } from '@mui/material';
-import useUser from '../hooks/useUser';
+import useUser from '../hooks/api/useUser';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import useClassrooms from '../hooks/api/useClassrooms';
@@ -13,16 +13,16 @@ import useClassrooms from '../hooks/api/useClassrooms';
 function Sidebar({ toggleDrawer }) {
     const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
     const { data: allClassrooms, isLoading, isError, error } = useClassrooms()
-    const { user } = useUser()
+    const { data: user } = useUser()
 
     useEffect(() => {
         if (!allClassrooms)
             return
 
-        const teachingClassrooms = allClassrooms.filter(classroom => classroom.teacher.email === user.email)
+        const teachingClassrooms = allClassrooms.filter(classroom => classroom.teacher.email === user?.email)
         const enrolledClassrooms = allClassrooms.filter(classroom => !teachingClassrooms.includes(classroom))
         setClassrooms({ teachingClassrooms, enrolledClassrooms })
-    }, [allClassrooms, user.email])
+    }, [allClassrooms, user?.email])
 
 
     return (
