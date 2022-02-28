@@ -1,41 +1,25 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useUser from "../../hooks/useUser"
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
+import useAssignment from "../../hooks/api/useAssignment";
 
 
 function AssignmentDetail() {
-    const [assignment, setAssignment] = useState()
     const { code, assignment_id } = useParams()
     const { user } = useUser()
+    const { data: assignment, isLoading } = useAssignment(code, assignment_id)
     const createdDateTime = useCreateEditDateTime(assignment?.created_at, assignment?.edited_at)
     const dueDateTime = useCreateDateTime(assignment?.due_date_time)
 
 
-    useEffect(() => {
-        const fetchAssignment = async () => {
-            const options = {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                    'content-Type': 'application/json',
-                }),
-            }
-
-            const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}`, options)
-            if (!response.ok) {
-                // setError(true)
-                return
-            }
-            const data = await response.json()
-            setAssignment(data)
-        }
-        fetchAssignment()
-    }, [code, assignment_id])
-
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
 
     return (
         <>
