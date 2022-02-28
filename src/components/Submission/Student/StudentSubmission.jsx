@@ -1,55 +1,21 @@
 import { Button } from "@mui/material"
 import { Box } from "@mui/system"
-import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import useStudentSubmission from "../../../hooks/api/useStudentSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
 
 
 function StudentSubmission({ totalPoints }) {
-    const [submission, setSubmission] = useState()
-    const [newDataAvailable, setNewDataAvailable] = useState(true)
     const { code, assignment_id } = useParams()
+    const { data: submission, isLoading } = useStudentSubmission(code, assignment_id)
     const submittedDateTime = useCreateDateTime(submission?.created_at)
 
 
-    useEffect(() => {
-        const fetchSubmission = async () => {
-            const options = {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                    'content-Type': 'application/json',
-                }),
-            }
-
-            const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}/student_submission`, options)
-            if (!response.ok) {
-                // setError(true)
-                return
-            }
-            const data = await response.json()
-            setSubmission(data)
-            setNewDataAvailable(false)
-        }
-
-        if (newDataAvailable)
-            fetchSubmission()
-    }, [code, assignment_id, newDataAvailable])
-
-
-    const createNewSubmission = async (url) => {
-        const options = {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                'content-Type': 'application/json',
-            }),
-            body: JSON.stringify({ url })
-        }
-
-        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}/submissions`, options)
-        setNewDataAvailable(true)
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
     }
 
     return (
@@ -80,7 +46,7 @@ function StudentSubmission({ totalPoints }) {
                     }
                     {(submission.status === 'Assigned' || submission.status === 'Missing') &&
                         <Box sx={{ border: 1, padding: 2 }}>
-                            <CreateSubmission onSubmit={createNewSubmission} />
+                            <CreateSubmission />
                         </Box>
                     }
                 </>
