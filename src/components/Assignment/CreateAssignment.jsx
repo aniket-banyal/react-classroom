@@ -1,5 +1,7 @@
 import { useState } from "react"
+import { useParams } from "react-router-dom"
 import BaseDateTimePicker from "../BasicDateTimePicker"
+import useCreateAssignment from "../../hooks/api/useCreateAssignment"
 
 const initialAssignment = {
     title: '',
@@ -8,14 +10,31 @@ const initialAssignment = {
     dueDateTime: new Date()
 }
 
-function CreateAssignment({ onSubmit }) {
+function CreateAssignment({ onError }) {
     const [assignment, setAssignment] = useState(initialAssignment)
+    const { code } = useParams()
+    const { mutate } = useCreateAssignment()
+
 
     const handleSubmit = e => {
         e.preventDefault()
         assignment.dueDateTime = new Date(assignment.dueDateTime).getTime()
-        onSubmit(assignment)
-        setAssignment(initialAssignment)
+
+        const body = {
+            title: assignment.title,
+            text: assignment.text,
+            due_date_time: assignment.dueDateTime,
+            points: assignment.points
+        }
+
+        mutate({ code, body }, {
+            onSuccess: () => {
+                setAssignment(initialAssignment)
+            },
+            onError: (error) => {
+                onError(error)
+            }
+        })
     }
 
     return (

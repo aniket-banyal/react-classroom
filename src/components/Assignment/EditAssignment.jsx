@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import useEditAssignment from "../../hooks/api/useEditAssignment"
 import BaseDateTimePicker from "../BasicDateTimePicker"
 
 const initialAssignment = {
@@ -9,10 +10,10 @@ const initialAssignment = {
     dueDateTime: new Date()
 }
 
-function EditAssignment({ onSubmit, assignment_id }) {
+function EditAssignment({ assignmentId, onSubmit, onError }) {
     const { code } = useParams()
     const [assignment, setAssignment] = useState(initialAssignment)
-
+    const { mutate } = useEditAssignment()
 
     useEffect(() => {
         const fetchAssignment = async () => {
@@ -24,7 +25,7 @@ function EditAssignment({ onSubmit, assignment_id }) {
                 }),
             }
 
-            const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment_id}`, options)
+            const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignmentId}`, options)
             if (!response.ok) {
                 // setError(true)
                 return
@@ -39,14 +40,29 @@ function EditAssignment({ onSubmit, assignment_id }) {
         }
 
         fetchAssignment()
-    }, [code, assignment_id])
+    }, [code, assignmentId])
 
 
     const handleSubmit = e => {
         e.preventDefault()
         assignment.dueDateTime = new Date(assignment.dueDateTime).getTime()
-        onSubmit(assignment)
-        setAssignment(initialAssignment)
+
+        const body = {
+            title: assignment.title,
+            text: assignment.text,
+            due_date_time: assignment.dueDateTime,
+            points: assignment.points
+        }
+
+        mutate({ code, assignmentId, body }, {
+            onSuccess: () => {
+                setAssignment(initialAssignment)
+                onSubmit()
+            },
+            onError: (error) => {
+                onError(error)
+            }
+        })
     }
 
 

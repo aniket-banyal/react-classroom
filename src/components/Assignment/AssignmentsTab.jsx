@@ -1,105 +1,33 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
 import SimpleSnackbar from "../SimpleSnackbar"
 import { useParams } from "react-router-dom"
 import useUser from "../../hooks/useUser"
+import useAssignments from "../../hooks/api/useAssignments"
 
 
 function AssignmentsTab() {
-    const [assignments, setAssignments] = useState([])
-    const [newDataAvailable, setNewDataAvailable] = useState(true)
     const [error, setError] = useState(false)
     const { code } = useParams()
     const { user } = useUser()
+    const { data: assignments, isLoading } = useAssignments(code)
 
-    const createNewAssignment = async (assignment) => {
-        const options = {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                'content-Type': 'application/json',
-            }),
-            body: JSON.stringify(
-                {
-                    title: assignment.title,
-                    text: assignment.text,
-                    due_date_time: assignment.dueDateTime,
-                    points: assignment.points
-                })
-        }
 
-        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments`, options)
-
-        if (response.status === 400) {
-            const data = await response.json()
+    const onError = (error) => {
+        const { status, data } = error.response
+        if (status === 400) {
             setError(data.due_date_time)
             return
         }
-        setNewDataAvailable(true)
     }
 
-    const editAssignment = async (assignment) => {
-        const options = {
-            method: 'PUT',
-            headers: new Headers({
-                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                'content-Type': 'application/json',
-            }),
-            body: JSON.stringify(
-                {
-                    title: assignment.title,
-                    text: assignment.text,
-                    due_date_time: assignment.dueDateTime,
-                    points: assignment.points
-                })
-        }
 
-        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${assignment.id}`, options)
-        if (response.status === 400) {
-            const data = await response.json()
-            setError(data.due_date_time)
-            return
-        }
-        setNewDataAvailable(true)
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
     }
-
-    const deleteAssignment = async (id) => {
-        const options = {
-            method: 'DELETE',
-            headers: new Headers({
-                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                'content-Type': 'application/json',
-            }),
-        }
-
-        const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments/${id}`, options)
-        setNewDataAvailable(true)
-    }
-
-    useEffect(() => {
-        const fetchAssignments = async () => {
-            const options = {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-                    'content-Type': 'application/json',
-                }),
-            }
-
-            const response = await fetch(`http://localhost:8000/api/classes/${code}/assignments`, options)
-            if (!response.ok) {
-                // setError(true)
-                return
-            }
-            const data = await response.json()
-            setAssignments(data)
-            setNewDataAvailable(false)
-        }
-        if (newDataAvailable)
-            fetchAssignments()
-    }, [code, newDataAvailable])
-
 
     return (
         <>
@@ -109,7 +37,7 @@ function AssignmentsTab() {
                 setOpen={setError}
             />
 
-            {user.role === 'teacher' && <CreateAssignment onSubmit={createNewAssignment} />}
+            {user.role === 'teacher' && <CreateAssignment onError={onError} />}
 
             {assignments.length > 0 ?
                 <>
@@ -119,8 +47,7 @@ function AssignmentsTab() {
                                 <Assignment
                                     key={assignment.id}
                                     assignment={assignment}
-                                    onDelete={deleteAssignment}
-                                    onEdit={editAssignment}
+                                    onError={onError}
                                 />
                             )
                         })

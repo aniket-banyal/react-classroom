@@ -6,9 +6,10 @@ import BasicModal from "../BasicModal";
 import EditAssignment from "./EditAssignment";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
+import useDeleteAssignment from "../../hooks/api/useDeleteAssignment";
 
 
-function Assignment({ assignment, onEdit, onDelete }) {
+function Assignment({ assignment, onError }) {
     const [editing, setEditing] = useState(false)
     const [contextMenu, setContextMenu] = useState({
         allowEdit: false,
@@ -18,6 +19,8 @@ function Assignment({ assignment, onEdit, onDelete }) {
     const { code } = useParams()
     const createdDateTime = useCreateEditDateTime(assignment.created_at, assignment.edited_at)
     const dueDateTime = useCreateDateTime(assignment.due_date_time)
+    const { mutate } = useDeleteAssignment()
+
 
     useEffect(() => {
         setContextMenu(
@@ -29,10 +32,10 @@ function Assignment({ assignment, onEdit, onDelete }) {
     }, [user.role])
 
 
-    const editAssginment = async (newAssignment) => {
-        newAssignment.id = assignment.id
-        onEdit(newAssignment)
-        setEditing(false)
+    const onEdit = () => setEditing(false)
+
+    const onDelete = () => {
+        mutate({ code, assignmentId: assignment.id })
     }
 
 
@@ -41,7 +44,7 @@ function Assignment({ assignment, onEdit, onDelete }) {
             {
                 <BasicModal open={editing} setOpen={setEditing} >
                     <span>
-                        <EditAssignment assignment_id={assignment.id} onSubmit={editAssginment} />
+                        <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} onError={onError} />
                     </span>
                 </BasicModal>
             }
@@ -59,7 +62,7 @@ function Assignment({ assignment, onEdit, onDelete }) {
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
 
-                        {contextMenu.allowDelete && <Button onClick={() => onDelete(assignment.id)}> Delete </Button>}
+                        {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
 
                         <Link to={`/${code}/assignments/${assignment.id}`}>
                             <Button> Details </Button>
