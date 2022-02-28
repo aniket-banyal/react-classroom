@@ -1,18 +1,30 @@
 import { Box, Button } from "@mui/material"
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import useGradeSubmission from "../../../hooks/api/useGradeSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 
 
-function Submission({ submission, gradeSubmission, totalPoints }) {
+function Submission({ submission, onError, totalPoints }) {
     const [showGradingInp, setShowGradingInp] = useState(false)
     const [points, setPoints] = useState('')
     const submittedAt = useCreateDateTime(submission.submission?.created_at)
+    const { code, assignment_id } = useParams()
+    const { mutate } = useGradeSubmission()
+
 
     const handleSubmit = async e => {
         e.preventDefault()
-        const success = await gradeSubmission(submission.submission.id, points)
-        if (success)
-            setShowGradingInp(false)
+        const body = { points }
+
+        mutate({ code, assignmentId: assignment_id, submissionId: submission.submission.id, body }, {
+            onSuccess: () => {
+                setShowGradingInp(false)
+            },
+            onError: (error) => {
+                onError(error)
+            }
+        })
     }
 
     useEffect(() => {
