@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
 import AssignmentDetail from "./components/Assignment/AssignmentDetail";
@@ -16,15 +16,28 @@ import Dashboard from "./components/Dashboard";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
+import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material"
 
 
 const queryClient = new QueryClient()
 
 function App() {
   const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('is_auth')))
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  )
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <QueryClientProvider client={queryClient}>
@@ -67,7 +80,7 @@ function App() {
           </QueryClientProvider>
         </AuthContext.Provider>
       </Router>
-    </div>
+    </ThemeProvider>
   )
 }
 
