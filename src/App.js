@@ -15,6 +15,9 @@ import AssignmentsTab from "./components/Assignment/AssignmentsTab";
 import Dashboard from "./components/Dashboard";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
 
 const queryClient = new QueryClient()
 
@@ -27,6 +30,7 @@ function App() {
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <QueryClientProvider client={queryClient}>
             {isAuth && <Navbar />}
+            <ToastContainer theme="dark" closeButton={false} />
             <Routes>
 
               <Route path="/" element={<RequireAuth />} >
