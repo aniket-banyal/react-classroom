@@ -1,15 +1,25 @@
+import { Card, CardActionArea, CardContent, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 
 function ClassCard({ classroom }) {
     return (
-        <div style={{ border: '1px solid black', marginTop: 10 }} >
-            <Link to={`${classroom.code}/dashboard`}>
-                <h3>{classroom.name}</h3>
-                <p>Subject: {classroom.subject}</p>
-                <p>Teacher: {classroom.teacher.name}</p>
-                <p>Code: {classroom.code}</p>
-            </ Link>
-        </div>
+        <Card>
+            <CardActionArea component={Link} to={`${classroom.code}/dashboard`} >
+                <CardContent>
+                    <Typography variant="h4">
+                        {classroom.name}
+                    </Typography>
+
+                    <Typography variant="subtitle1">
+                        Subject: {classroom.subject}
+                    </Typography>
+
+                    <Typography variant="subtitle2">
+                        Teacher: {classroom.teacher.name}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
     )
 }
 
