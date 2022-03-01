@@ -45,7 +45,11 @@ function Announcement({ announcement }) {
     return (
         <>
             {
-                <BasicModal open={editing} setOpen={setEditing} >
+                <BasicModal
+                    open={editing}
+                    setOpen={setEditing}
+                    title='Edit Announcement'
+                >
                     <span>
                         <EditAnnouncement announcement={announcement} onSubmit={onEdit} />
                     </span>

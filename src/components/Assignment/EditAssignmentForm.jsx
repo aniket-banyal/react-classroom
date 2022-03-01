@@ -7,11 +7,10 @@ function EditAssignmentForm({ initialAssignment, handleSubmit }) {
 
     return (
         <form onSubmit={e => handleSubmit(e, assignment)}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <input
                         type="text"
-                        placeholder="Title"
                         required
                         value={assignment.title}
                         onChange={e => setAssignment({
@@ -22,7 +21,6 @@ function EditAssignmentForm({ initialAssignment, handleSubmit }) {
                     <textarea
                         rows={10}
                         cols={50}
-                        placeholder="New Assignment"
                         required
                         value={assignment.text}
                         onChange={e => setAssignment({
@@ -30,9 +28,11 @@ function EditAssignmentForm({ initialAssignment, handleSubmit }) {
                             text: e.target.value,
                         })}
                     />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <input
                         type="number"
-                        placeholder='Points'
                         required
                         min={0}
                         value={assignment.points}
@@ -41,8 +41,6 @@ function EditAssignmentForm({ initialAssignment, handleSubmit }) {
                             points: e.target.value,
                         })}
                     />
-                </div>
-                <div>
                     <BaseDateTimePicker
                         value={assignment.due_date_time}
                         onChange={value => setAssignment({

@@ -42,7 +42,11 @@ function Assignment({ assignment }) {
     return (
         <>
             {
-                <BasicModal open={editing} setOpen={setEditing} >
+                <BasicModal
+                    open={editing}
+                    setOpen={setEditing}
+                    title='Edit Assignment'
+                >
                     <span>
                         <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} />
                     </span>
