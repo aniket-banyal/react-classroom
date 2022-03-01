@@ -2,7 +2,6 @@ import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useUserRole from "../../hooks/api/useUserRole";
-import BasicModal from "../BasicModal";
 import EditAssignment from "./EditAssignment";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
@@ -41,13 +40,12 @@ function Assignment({ assignment }) {
 
     return (
         <>
-            {
-                <BasicModal open={editing} setOpen={setEditing} >
-                    <span>
-                        <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} />
-                    </span>
-                </BasicModal>
-            }
+            <EditAssignment
+                assignmentId={assignment.id}
+                onSubmit={onEdit}
+                open={editing}
+                setOpen={setEditing}
+            />
 
             <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>

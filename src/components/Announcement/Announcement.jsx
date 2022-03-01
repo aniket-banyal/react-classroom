@@ -1,6 +1,5 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import BasicModal from "../BasicModal";
 import CommentSection from "../Comment/CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../../hooks/api/useUser'
@@ -22,7 +21,7 @@ function Announcement({ announcement }) {
     const dateTime = useCreateEditDateTime(announcement.created_at, announcement.edited_at)
     const { mutate } = useDeleteAnnouncement()
 
-    const onEdit = async () => {
+    const onEdit = () => {
         setEditing(false)
     }
 
@@ -44,13 +43,12 @@ function Announcement({ announcement }) {
 
     return (
         <>
-            {
-                <BasicModal open={editing} setOpen={setEditing} >
-                    <span>
-                        <EditAnnouncement announcement={announcement} onSubmit={onEdit} />
-                    </span>
-                </BasicModal>
-            }
+            <EditAnnouncement
+                announcement={announcement}
+                onSubmit={onEdit}
+                open={editing}
+                setOpen={setEditing}
+            />
 
             <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >

@@ -5,13 +5,12 @@ import EditAssignmentForm from "./EditAssignmentForm"
 import { addErrorToast } from "../../helpers/addToast"
 
 
-function EditAssignment({ assignmentId, onSubmit }) {
+function EditAssignment({ assignmentId, onSubmit, open, setOpen }) {
     const { code } = useParams()
     const { mutate } = useEditAssignment()
     const { data: assignment, isLoading } = useAssignment(code, assignmentId)
 
-    const handleSubmit = (e, newAssignment) => {
-        e.preventDefault()
+    const handleSubmit = (newAssignment) => {
         newAssignment.due_date_time = new Date(newAssignment.due_date_time).getTime()
 
         const body = {
@@ -46,6 +45,8 @@ function EditAssignment({ assignmentId, onSubmit }) {
                 <EditAssignmentForm
                     initialAssignment={assignment}
                     handleSubmit={handleSubmit}
+                    open={open}
+                    setOpen={setOpen}
                 /> :
                 null
             }

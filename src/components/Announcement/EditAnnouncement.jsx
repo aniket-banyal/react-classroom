@@ -1,14 +1,15 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import useEditAnnouncement from "../../hooks/api/useEditAnnouncement"
+import BasicDialog from "../BasicDialog"
 
-function EditAnnouncement({ announcement, onSubmit }) {
+
+function EditAnnouncement({ announcement, onSubmit, open, setOpen }) {
     const [text, setText] = useState(announcement.text)
     const { code } = useParams()
     const { mutate } = useEditAnnouncement()
 
-    const handleSubmit = e => {
-        e.preventDefault()
+    const handleSubmit = () => {
         const body = { text }
         mutate({ code, announcement_id: announcement.id, body }, {
             onSuccess: () => {
@@ -19,7 +20,12 @@ function EditAnnouncement({ announcement, onSubmit }) {
     }
 
     return (
-        <form onSubmit={handleSubmit} >
+        <BasicDialog
+            open={open}
+            setOpen={setOpen}
+            title='Edit Announcement'
+            action={{ name: 'Save', run: handleSubmit }}
+        >
             <textarea
                 rows={10}
                 cols={50}
@@ -27,8 +33,7 @@ function EditAnnouncement({ announcement, onSubmit }) {
                 required
                 onChange={e => setText(e.target.value)}
             />
-            <input type="submit" value='Save' />
-        </form>
+        </BasicDialog>
     )
 
 }
