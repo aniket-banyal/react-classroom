@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Box } from "@mui/material"
+import { Card, CardContent } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import BasicTabs from "./BasicTabs"
 import { Typography } from '@mui/material';
@@ -49,14 +49,28 @@ function Dashboard() {
 
     return (
         <>
-            <Box>
-                <Box sx={{ border: 1, borderColor: 'divider', marginTop: 5, marginBottom: 5 }}>
-                    <Typography variant="h2" > {classroom.name} </Typography>
-                    <p> Subject: {classroom.subject} </p>
-                    <p> Teacher: {classroom.teacher.name} </p>
-                    <p> Code: {classroom.code} </p>
-                </Box>
-            </Box>
+            <Card
+                sx={{ mb: 2 }}
+            >
+                <CardContent>
+                    <Typography variant="h3">
+                        {classroom.name}
+                    </Typography>
+
+                    <Typography variant='subtitle1' gutterBottom>
+                        Subject: {classroom.subject}
+                    </Typography>
+
+                    <Typography variant='subtitle2'>
+                        Teacher: {classroom.teacher.name}
+                    </Typography>
+
+                    <Typography variant='subtitle2'>
+                        Code: {classroom.code}
+                    </Typography>
+                </CardContent>
+            </Card>
+
             <BasicTabs tabs={tabs} />
             <Outlet />
         </>
