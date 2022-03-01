@@ -1,3 +1,4 @@
+import { Box } from "@mui/system"
 import { Outlet, useParams } from "react-router-dom"
 import useUserRole from "../hooks/api/useUserRole"
 
@@ -7,7 +8,13 @@ function Base() {
     useUserRole(code)
 
     return (
-        <Outlet />
+        <Box
+            sx={{
+                p: 5
+            }}
+        >
+            <Outlet />
+        </Box>
     )
 }
 
