@@ -1,18 +1,12 @@
 import { useState } from "react"
 import BaseDateTimePicker from "../BasicDateTimePicker"
-import BasicDialog from "../BasicDialog"
 
 
-function EditAssignmentForm({ initialAssignment, handleSubmit, open, setOpen }) {
+function EditAssignmentForm({ initialAssignment, handleSubmit }) {
     const [assignment, setAssignment] = useState(initialAssignment)
 
     return (
-        <BasicDialog
-            open={open}
-            setOpen={setOpen}
-            title='Edit Assignment'
-            action={{ name: 'Save', run: () => handleSubmit(assignment) }}
-        >
+        <form onSubmit={e => handleSubmit(e, assignment)}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <input
@@ -58,7 +52,8 @@ function EditAssignmentForm({ initialAssignment, handleSubmit, open, setOpen }) 
                     />
                 </div>
             </div>
-        </BasicDialog >
+            <input type="submit" value='Save' />
+        </form>
     )
 }
 
