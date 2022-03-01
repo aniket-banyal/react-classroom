@@ -9,7 +9,7 @@ import useCreateDateTime from "../../hooks/useCreateDateTime";
 import useDeleteAssignment from "../../hooks/api/useDeleteAssignment";
 
 
-function Assignment({ assignment, onError }) {
+function Assignment({ assignment }) {
     const [editing, setEditing] = useState(false)
     const [contextMenu, setContextMenu] = useState({
         allowEdit: false,
@@ -44,7 +44,7 @@ function Assignment({ assignment, onError }) {
             {
                 <BasicModal open={editing} setOpen={setEditing} >
                     <span>
-                        <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} onError={onError} />
+                        <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} />
                     </span>
                 </BasicModal>
             }

@@ -1,7 +1,6 @@
 import { useState } from "react"
 import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
-import SimpleSnackbar from "../SimpleSnackbar"
 import { useParams } from "react-router-dom"
 import useAssignments from "../../hooks/api/useAssignments"
 import useUserRole from "../../hooks/api/useUserRole"
@@ -14,15 +13,6 @@ function AssignmentsTab() {
     const { data: assignments, isLoading } = useAssignments(code)
 
 
-    const onError = (error) => {
-        const { status, data } = error.response
-        if (status === 400) {
-            setError(data.due_date_time)
-            return
-        }
-    }
-
-
     if (isLoading) {
         return (
             <h1>Loading...</h1>
@@ -31,13 +21,7 @@ function AssignmentsTab() {
 
     return (
         <>
-            <SimpleSnackbar
-                message={error}
-                open={error.length > 0}
-                setOpen={setError}
-            />
-
-            {userRole === 'teacher' && <CreateAssignment onError={onError} />}
+            {userRole === 'teacher' && <CreateAssignment />}
 
             {assignments.length > 0 ?
                 <>
@@ -47,7 +31,6 @@ function AssignmentsTab() {
                                 <Assignment
                                     key={assignment.id}
                                     assignment={assignment}
-                                    onError={onError}
                                 />
                             )
                         })

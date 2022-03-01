@@ -1,14 +1,16 @@
 import { useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 import { useAssignment } from "../../hooks/api/useAssignment"
 import useEditAssignment from "../../hooks/api/useEditAssignment"
 import EditAssignmentForm from "./EditAssignmentForm"
 
 
-function EditAssignment({ assignmentId, onSubmit, onError }) {
+function EditAssignment({ assignmentId, onSubmit }) {
     const { code } = useParams()
     const { mutate } = useEditAssignment()
     const { data: assignment, isLoading } = useAssignment(code, assignmentId)
 
+    const notifyError = (msg) => toast(msg)
 
     const handleSubmit = (e, newAssignment) => {
         e.preventDefault()
@@ -26,7 +28,9 @@ function EditAssignment({ assignmentId, onSubmit, onError }) {
                 onSubmit()
             },
             onError: (error) => {
-                onError(error)
+                const { status, data } = error.response
+                if (status === 400)
+                    notifyError(data.due_date_time[0])
             }
         })
     }
