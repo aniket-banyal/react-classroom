@@ -3,7 +3,7 @@ import { api } from "../../api/api";
 
 
 const gradeSubmission = async ({ code, assignmentId, submissionId, body }) => {
-    const { data } = await api.put(`/classes/${code}/assignments/${assignmentId}/submissions/${submissionId}`, { ...body })
+    const { data } = await api.patch(`/classes/${code}/assignments/${assignmentId}/submissions/${submissionId}`, { ...body })
     return data
 }
 
