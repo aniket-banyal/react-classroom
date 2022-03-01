@@ -1,4 +1,3 @@
-import { useState } from "react"
 import Assignment from "./Assignment"
 import CreateAssignment from "./CreateAssignment"
 import { useParams } from "react-router-dom"
@@ -7,7 +6,6 @@ import useUserRole from "../../hooks/api/useUserRole"
 
 
 function AssignmentsTab() {
-    const [error, setError] = useState(false)
     const { code } = useParams()
     const { data: userRole } = useUserRole(code)
     const { data: assignments, isLoading } = useAssignments(code)
