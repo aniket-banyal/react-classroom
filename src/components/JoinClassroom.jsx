@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import useJoinClassroom from "../hooks/api/useJoinClassroom"
-import { toast } from "react-toastify"
+import { addErrorToast } from "../helpers/addToast"
+
 
 function JoinClassroom() {
     const [code, setCode] = useState('')
     const navigate = useNavigate()
     const { mutate } = useJoinClassroom()
 
-    const notifyInvalidCode = () => toast("Invalid Classroom Code")
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -23,7 +23,7 @@ function JoinClassroom() {
                 if (status === 409)
                     navigate(`/${code}/dashboard`)
                 else if (status === 404)
-                    notifyInvalidCode()
+                    addErrorToast('Invalid Classroom Code')
             }
         })
     }

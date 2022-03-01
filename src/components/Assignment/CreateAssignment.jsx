@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useParams } from "react-router-dom"
 import BaseDateTimePicker from "../BasicDateTimePicker"
 import useCreateAssignment from "../../hooks/api/useCreateAssignment"
-import { toast } from "react-toastify"
+import { addErrorToast } from "../../helpers/addToast"
 
 const initialAssignment = {
     title: '',
@@ -15,8 +15,6 @@ function CreateAssignment() {
     const [assignment, setAssignment] = useState(initialAssignment)
     const { code } = useParams()
     const { mutate } = useCreateAssignment()
-
-    const notifyError = (msg) => toast(msg)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -36,7 +34,7 @@ function CreateAssignment() {
             onError: (error) => {
                 const { status, data } = error.response
                 if (status === 400)
-                    notifyError(data.due_date_time[0])
+                    addErrorToast(data.due_date_time[0])
             }
         })
     }

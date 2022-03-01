@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { toast } from "react-toastify"
+import { addErrorToast } from "../../../helpers/addToast"
 import useGradeSubmission from "../../../hooks/api/useGradeSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 
@@ -12,8 +12,6 @@ function Submission({ submission, totalPoints }) {
     const submittedAt = useCreateDateTime(submission.submission?.created_at)
     const { code, assignment_id } = useParams()
     const { mutate } = useGradeSubmission()
-
-    const notifyError = (msg) => toast(msg)
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -26,7 +24,7 @@ function Submission({ submission, totalPoints }) {
             onError: (error) => {
                 const { status, data } = error.response
                 if (status === 400)
-                    notifyError(data.points[0])
+                    addErrorToast(data.points[0])
             }
         })
     }
