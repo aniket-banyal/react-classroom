@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material"
+import { Box, Button, Card, CardContent, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import useDeleteComment from "../../hooks/api/useDeleteComment"
@@ -30,18 +30,30 @@ function Comment({ comment, announcementId }) {
     }, [userRole, user?.email, comment.author.email])
 
     return (
-        <Box sx={{ borderBottom: 1, borderColor: 'black' }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
-                <div>
-                    <p> {comment.author.name} </p>
-                    <p> {dateTime} </p>
-                </div>
+        <Card>
+            <CardContent>
+                <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                    <Box>
+                        <Typography variant="subtitle1">
+                            {comment.author.name}
+                        </Typography>
 
-                {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
-            </div>
+                        <Typography variant="subtitle2" gutterBottom>
+                            {dateTime}
+                        </Typography>
+                    </Box>
 
-            <p> {comment.text} </p>
-        </Box>
+                    <Box>
+                        {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
+                    </Box>
+                </Box>
+
+                <Typography variant="subtitle1">
+                    {comment.text}
+                </Typography>
+
+            </CardContent>
+        </Card>
     )
 
 }

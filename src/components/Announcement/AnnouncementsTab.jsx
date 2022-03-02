@@ -1,3 +1,4 @@
+import { Stack } from "@mui/material"
 import { useParams } from "react-router-dom"
 import useAnnouncements from "../../hooks/api/useAnnouncements"
 import Announcement from "./Announcement"
@@ -16,14 +17,14 @@ function AnnouncementsTab() {
         <>
             <CreateAnnouncement />
 
-            {announcements.map(announcement => {
-                return (
+            <Stack spacing={3}>
+                {announcements.map(announcement =>
                     <Announcement
                         key={announcement.id}
                         announcement={announcement}
                     />
-                )
-            })}
+                )}
+            </Stack>
         </>
     )
 

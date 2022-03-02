@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Card, CardContent, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import BasicModal from "../BasicModal";
 import CommentSection from "../Comment/CommentSection";
@@ -56,22 +56,38 @@ function Announcement({ announcement }) {
                 </BasicModal>
             }
 
-            <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
-                    <div>
-                        <p> {announcement.author.name} </p>
-                        <p> {dateTime} </p>
-                    </div>
+            <Card>
+                <CardContent>
+                    <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
+                        <Box>
+                            <Typography variant="subtitle1">
+                                {announcement.author.name}
+                            </Typography>
 
-                    <div>
-                        {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
-                        {contextMenu.allowDelete && <Button onClick={() => onDelete()}> Delete </Button>}
-                    </div>
-                </div>
-                <pre> {announcement.text} </pre>
+                            <Typography variant="subtitle2">
+                                {dateTime}
+                            </Typography>
+                        </Box>
+
+                        <Box>
+                            {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
+                            {contextMenu.allowDelete && <Button onClick={() => onDelete()}> Delete </Button>}
+                        </Box>
+                    </Box>
+
+                    <pre style={{ whiteSpace: 'pre-line' }}>
+                        <Typography variant="subtitle1">
+                            {announcement.text}
+                        </Typography>
+                    </pre>
+
+                    <Divider />
+
+
+                </CardContent>
 
                 <CommentSection announcementId={announcement.id} />
-            </Box>
+            </Card>
         </>
     )
 }
