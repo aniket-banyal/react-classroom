@@ -1,7 +1,15 @@
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box } from '@mui/system';
+
 
 function BasicModal({ children, open, setOpen, title }) {
-    const handleClose = () => setOpen(false)
+    const handleClose = (e, reason) => {
+        if (reason === "backdropClick")
+            return
+        setOpen(false)
+    }
+
 
     return (
         <Dialog
@@ -10,7 +18,17 @@ function BasicModal({ children, open, setOpen, title }) {
             fullWidth
             maxWidth='md'
         >
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>
+                <Box display="flex" alignItems="center">
+                    <Box flexGrow={1}>
+                        {title}
+                    </Box>
+
+                    <IconButton onClick={handleClose}>
+                        <CloseIcon />
+                    </IconButton>
+                </Box>
+            </DialogTitle>
 
             <DialogContent>
                 {children}
