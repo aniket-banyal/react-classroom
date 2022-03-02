@@ -1,12 +1,13 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { useState } from "react"
 import useCreateAnnouncement from "../../hooks/api/useCreateAnnouncement"
 import { useParams } from "react-router-dom"
+import { LoadingButton } from "@mui/lab"
 
 function CreateAnnouncement({ onSubmit }) {
     const [text, setText] = useState('')
     const { code } = useParams()
-    const { mutate } = useCreateAnnouncement()
+    const { mutate, isLoading } = useCreateAnnouncement()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -32,12 +33,14 @@ function CreateAnnouncement({ onSubmit }) {
                     required
                     onChange={e => setText(e.target.value)}
                 />
-                <Button
+                <LoadingButton
                     type="submit"
-                    variant='contained'
+                    variant="contained"
+                    loadingIndicator="Posting..."
+                    loading={isLoading}
                 >
-                    Create Announcement
-                </Button>
+                    Post
+                </LoadingButton >
             </Stack>
         </form>
     )
