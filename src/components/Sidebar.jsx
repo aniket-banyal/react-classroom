@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
-import { ListItemButton, ListItemText, Typography } from '@mui/material';
+import { CircularProgress, ListItemButton, ListItemText, Typography } from '@mui/material';
 import useUser from '../hooks/api/useUser';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
@@ -38,7 +38,16 @@ function Sidebar({ toggleDrawer }) {
 
             <Divider />
 
-            {!isLoading &&
+            {isLoading ?
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ mt: 5 }}
+                >
+                    <CircularProgress />
+                </Box>
+                :
                 <>
                     <Typography sx={{ margin: 1 }}> Enrolled </Typography>
                     <List>
