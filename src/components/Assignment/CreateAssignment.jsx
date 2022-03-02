@@ -11,7 +11,7 @@ const initialAssignment = {
     dueDateTime: new Date()
 }
 
-function CreateAssignment() {
+function CreateAssignment({ onSubmit }) {
     const [assignment, setAssignment] = useState(initialAssignment)
     const { code } = useParams()
     const { mutate } = useCreateAssignment()
@@ -29,6 +29,7 @@ function CreateAssignment() {
 
         mutate({ code, body }, {
             onSuccess: () => {
+                onSubmit()
                 setAssignment(initialAssignment)
             },
             onError: (error) => {

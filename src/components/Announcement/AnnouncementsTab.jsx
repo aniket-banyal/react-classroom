@@ -14,11 +14,12 @@ const style = {
     bottom: 20,
     left: 'auto',
     position: 'fixed',
+    zIndex: 10
 }
 
 
 function AnnouncementsTab() {
-    const [creating, setCreating] = useState(true)
+    const [creating, setCreating] = useState(false)
     const { code } = useParams()
     const { data: announcements, isLoading } = useAnnouncements(code)
 
