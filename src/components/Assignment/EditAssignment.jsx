@@ -7,7 +7,7 @@ import { addErrorToast } from "../../helpers/addToast"
 
 function EditAssignment({ assignmentId, onSubmit }) {
     const { code } = useParams()
-    const { mutate } = useEditAssignment()
+    const { mutate, isLoading: isEditing } = useEditAssignment()
     const { data: assignment, isLoading } = useAssignment(code, assignmentId)
 
     const handleSubmit = (e, newAssignment) => {
@@ -46,6 +46,7 @@ function EditAssignment({ assignmentId, onSubmit }) {
                 <EditAssignmentForm
                     initialAssignment={assignment}
                     handleSubmit={handleSubmit}
+                    isEditing={isEditing}
                 /> :
                 null
             }
