@@ -2,7 +2,7 @@ import { useState } from "react"
 import useCreateAnnouncement from "../../hooks/api/useCreateAnnouncement"
 import { useParams } from "react-router-dom"
 
-function CreateAnnouncement() {
+function CreateAnnouncement({ onSubmit }) {
     const [text, setText] = useState('')
     const { code } = useParams()
     const { mutate } = useCreateAnnouncement()
@@ -12,6 +12,7 @@ function CreateAnnouncement() {
         const body = { text }
         mutate({ code, body }, {
             onSuccess: () => {
+                onSubmit()
                 setText('')
             }
         })

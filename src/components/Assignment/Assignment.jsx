@@ -41,17 +41,15 @@ function Assignment({ assignment }) {
 
     return (
         <>
-            {
-                <BasicModal
-                    open={editing}
-                    setOpen={setEditing}
-                    title='Edit Assignment'
-                >
-                    <span>
-                        <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} />
-                    </span>
-                </BasicModal>
-            }
+            <BasicModal
+                open={editing}
+                setOpen={setEditing}
+                title='Edit Assignment'
+            >
+                <span>
+                    <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} />
+                </span>
+            </BasicModal>
 
             <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
