@@ -1,6 +1,8 @@
 import { useState } from "react"
 import useCreateComment from "../../hooks/api/useCreateComment"
 import { useParams } from "react-router-dom"
+import { Button, Stack, TextField } from "@mui/material"
+import { Box } from "@mui/system"
 
 
 function CreateComment({ announcementId }) {
@@ -20,16 +22,29 @@ function CreateComment({ announcementId }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder='New Comment..'
-                value={text}
-                required
-                onChange={e => setText(e.target.value)}
-            />
-            <input type='submit' value="Post" />
-        </form>
+        <Box sx={{ p: 2 }}>
+            <form onSubmit={handleSubmit}>
+                <Stack direction='row' spacing={2}>
+                    <TextField
+                        sx={{ flexGrow: 1 }}
+                        variant="outlined"
+                        size="small"
+                        type="text"
+                        placeholder='New Comment...'
+                        value={text}
+                        required
+                        onChange={e => setText(e.target.value)}
+                    />
+                    <Button
+                        size="small"
+                        type="submit"
+                        variant="contained"
+                    >
+                        Post
+                    </Button>
+                </Stack>
+            </form>
+        </Box>
     )
 }
 
