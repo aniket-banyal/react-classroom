@@ -1,3 +1,4 @@
+import { Button, Stack, TextField } from "@mui/material";
 import { useState } from "react"
 import useCreateAnnouncement from "../../hooks/api/useCreateAnnouncement"
 import { useParams } from "react-router-dom"
@@ -19,16 +20,25 @@ function CreateAnnouncement({ onSubmit }) {
     }
 
     return (
-        <form onSubmit={handleSubmit} >
-            <textarea
-                rows={10}
-                cols={50}
-                placeholder="New Announcement"
-                value={text}
-                required
-                onChange={e => setText(e.target.value)}
-            />
-            <input type="submit" value='Create Announcement' />
+        <form onSubmit={handleSubmit}>
+            <Stack spacing={2}>
+                <TextField
+                    autoFocus
+                    multiline
+                    rows={10}
+                    type="text"
+                    placeholder='New Announcement...'
+                    value={text}
+                    required
+                    onChange={e => setText(e.target.value)}
+                />
+                <Button
+                    type="submit"
+                    variant='contained'
+                >
+                    Create Announcement
+                </Button>
+            </Stack>
         </form>
     )
 
