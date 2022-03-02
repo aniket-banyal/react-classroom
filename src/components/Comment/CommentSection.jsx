@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material"
+import { LinearProgress, Typography } from "@mui/material"
 import { useParams } from "react-router-dom"
 import useComments from "../../hooks/api/useComments"
 import Comment from "./Comment"
@@ -10,45 +10,40 @@ function CommentSection({ announcementId }) {
     const { code } = useParams()
     const { data: comments, isLoading } = useComments(code, announcementId)
 
-    if (isLoading) {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
 
     return (
         <>
-            {comments.length > 0 &&
-                <Grid
-                    container
-                    spacing={1}
-                    sx={{ pl: 2 }}
-                >
-                    <Grid item>
-                        <PeopleOutlineIcon />
-                    </Grid>
+            {isLoading ? <LinearProgress />
+                :
+                <>
+                    {comments.length > 0 &&
+                        <Stack
+                            direction='row'
+                            spacing={1}
+                            sx={{ pt: 1, pl: 2 }}
+                        >
+                            <PeopleOutlineIcon />
 
-                    <Grid item>
-                        <Typography variant="subtitle1">
-                            Comments
-                        </Typography>
-                    </Grid>
-                </Grid>
+                            <Typography variant="subtitle1">
+                                Comments
+                            </Typography>
+                        </Stack>
+                    }
+
+                    <Stack spacing={1}>
+                        {comments.map(comment =>
+                            <Comment
+                                key={comment.id}
+                                comment={comment}
+                                announcementId={announcementId}
+                            />
+                        )}
+                    </Stack>
+                    <CreateComment announcementId={announcementId} />
+                </>
             }
-
-            <Stack spacing={1}>
-                {comments.map(comment =>
-                    <Comment
-                        key={comment.id}
-                        comment={comment}
-                        announcementId={announcementId}
-                    />
-                )}
-            </Stack>
-
-            <CreateComment announcementId={announcementId} />
-        </>)
-
+        </>
+    )
 }
 
 export default CommentSection

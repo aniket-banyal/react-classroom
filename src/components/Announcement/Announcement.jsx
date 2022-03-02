@@ -73,16 +73,14 @@ function Announcement({ announcement }) {
                         </Box>
                     </Box>
 
-                    <pre style={{ whiteSpace: 'pre-line' }}>
+                    <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
                         <Typography variant="subtitle1">
                             {announcement.text}
                         </Typography>
                     </pre>
-
-                    <Divider />
-
-
                 </CardContent>
+
+                <Divider />
 
                 <CommentSection announcementId={announcement.id} />
             </Card>
