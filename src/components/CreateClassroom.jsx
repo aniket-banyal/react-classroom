@@ -1,3 +1,5 @@
+import { LoadingButton } from "@mui/lab"
+import { Stack, TextField } from "@mui/material"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useCreateClassroom from "../hooks/api/useCreateClassroom"
@@ -8,7 +10,7 @@ function CreateClassroom({ onSubmit }) {
     const [subject, setSubject] = useState('')
     const navigate = useNavigate()
 
-    const { mutate } = useCreateClassroom()
+    const { mutate, isLoading } = useCreateClassroom()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -18,28 +20,35 @@ function CreateClassroom({ onSubmit }) {
                 navigate(`${data.code}/dashboard`)
             }
         })
-
-        setName('')
-        setSubject('')
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder='Name'
-                value={name}
-                required
-                onChange={e => setName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder='Subject'
-                value={subject}
-                required
-                onChange={e => setSubject(e.target.value)}
-            />
-            <input type='submit' value="Create new classroom" />
+            <Stack spacing={2}>
+                <TextField
+                    autoFocus
+                    type="text"
+                    placeholder='Name...'
+                    value={name}
+                    required
+                    onChange={e => setName(e.target.value)}
+                />
+                <TextField
+                    type="text"
+                    placeholder='Subject...'
+                    value={subject}
+                    required
+                    onChange={e => setSubject(e.target.value)}
+                />
+                <LoadingButton
+                    type="submit"
+                    variant="contained"
+                    loadingIndicator="Creating..."
+                    loading={isLoading}
+                >
+                    Create
+                </LoadingButton >
+            </Stack>
         </form>
     )
 }

@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import useJoinClassroom from "../hooks/api/useJoinClassroom"
 import { addErrorToast } from "../helpers/addToast"
+import { Stack, TextField } from "@mui/material"
+import { LoadingButton } from "@mui/lab"
 
 
 function JoinClassroom({ onSubmit }) {
     const [code, setCode] = useState('')
     const navigate = useNavigate()
-    const { mutate } = useJoinClassroom()
+    const { mutate, isLoading } = useJoinClassroom()
 
 
     const handleSubmit = e => {
@@ -32,14 +34,24 @@ function JoinClassroom({ onSubmit }) {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder='Classroom code'
-                    value={code}
-                    required
-                    onChange={e => setCode(e.target.value)}
-                />
-                <input type='submit' value="Join Classroom" />
+                <Stack spacing={2}>
+                    <TextField
+                        autoFocus
+                        type="text"
+                        placeholder='Classroom Code...'
+                        value={code}
+                        required
+                        onChange={e => setCode(e.target.value)}
+                    />
+                    <LoadingButton
+                        type="submit"
+                        variant="contained"
+                        loadingIndicator="Joining..."
+                        loading={isLoading}
+                    >
+                        Join
+                    </LoadingButton >
+                </Stack>
             </form>
         </>
     )
