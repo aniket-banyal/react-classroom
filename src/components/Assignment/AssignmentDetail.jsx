@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
@@ -25,20 +25,41 @@ function AssignmentDetail() {
         <>
             {assignment ?
                 <>
-                    <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <div>
-                                <h1> {assignment.title} </h1>
-                                <p> {assignment.points} points</p>
-                            </div>
+                    <Card>
+                        <CardContent>
+                            <Box style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+                                <Box>
+                                    <Typography
+                                        variant="h5"
+                                        gutterBottom
+                                        color='primary'
+                                    >
+                                        {assignment.title}
+                                    </Typography>
 
-                            <div>
-                                <p> Posted at - {createdDateTime} </p>
-                                <p> Due date - {dueDateTime} </p>
-                            </div>
-                        </div>
-                        <pre> {assignment.text} </pre>
-                    </Box>
+                                    <Typography variant="subtitle2">
+                                        Posted at - {createdDateTime}
+                                    </Typography>
+
+                                    <Typography variant="subtitle2">
+                                        Due date - {dueDateTime}
+                                    </Typography>
+                                </Box>
+
+                                <Typography variant="subtitle2">
+                                    {assignment.points} points
+                                </Typography>
+                            </Box>
+
+                            <Divider sx={{ my: 2 }} />
+
+                            <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
+                                <Typography variant="subtitle1">
+                                    {assignment.text}
+                                </Typography>
+                            </pre>
+                        </CardContent>
+                    </Card>
                     {userRole === 'student' && <StudentSubmission totalPoints={assignment.points} />}
                 </>
                 :
