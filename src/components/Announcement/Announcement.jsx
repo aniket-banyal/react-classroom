@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Divider, Typography } from "@mui/material";
+import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import BasicModal from "../BasicModal";
 import CommentSection from "../Comment/CommentSection";
@@ -8,14 +8,12 @@ import useUserRole from '../../hooks/api/useUserRole'
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import { useParams } from "react-router-dom";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
+import ThreeDotMenu from "../ThreeDotMenu";
 
 
 function Announcement({ announcement }) {
     const [editing, setEditing] = useState(false)
-    const [contextMenu, setContextMenu] = useState({
-        allowEdit: false,
-        allowDelete: false
-    })
+    const [menuOptions, setMenuOptions] = useState([])
     const { code } = useParams()
     const { data: user } = useUser()
     const { data: userRole } = useUserRole(code)
@@ -31,14 +29,29 @@ function Announcement({ announcement }) {
     }
 
     useEffect(() => {
-        setContextMenu(
-            {
-                //teacher is allowed to edit his own announcements
-                allowEdit: userRole === 'teacher' && user?.email === announcement.author.email,
-                //announcement can be deleted by the teacher as well as author of the announcement 
-                allowDelete: userRole === 'teacher' || user?.email === announcement.author.email
-            }
-        )
+        //teacher is allowed to edit his own announcements
+        const allowEdit = userRole === 'teacher' && user?.email === announcement.author.email
+        //announcement can be deleted by the teacher as well as author of the announcement 
+        const allowDelete = userRole === 'teacher' || user?.email === announcement.author.email
+
+        if (allowEdit && allowDelete) {
+            setMenuOptions([
+                { name: 'Edit', onClick: () => setEditing(true) },
+                { name: 'Delete', onClick: onDelete }
+            ])
+        }
+
+        else if (allowEdit) {
+            setMenuOptions([
+                { name: 'Edit', onClick: () => setEditing(true) },
+            ])
+        }
+
+        else if (allowDelete) {
+            setMenuOptions([
+                { name: 'Delete', onClick: onDelete }
+            ])
+        }
     }, [userRole, user?.email, announcement.author.email])
 
 
@@ -67,10 +80,7 @@ function Announcement({ announcement }) {
                             </Typography>
                         </Box>
 
-                        <Box>
-                            {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
-                            {contextMenu.allowDelete && <Button onClick={() => onDelete()}> Delete </Button>}
-                        </Box>
+                        {menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
                     </Box>
 
                     <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
