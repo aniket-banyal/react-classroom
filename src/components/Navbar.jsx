@@ -2,7 +2,7 @@ import { GoogleLogout } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import useAuth from '../hooks/useAuth'
 import useUser from '../hooks/api/useUser'
-import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import TemporaryDrawer from './TemporaryDrawer';
 import { useState } from 'react';
@@ -15,6 +15,7 @@ import BasicModal from "./BasicModal"
 function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null)
+    const [accountAnchorEl, setAccountAnchorEl] = useState(null)
     const [joining, setJoining] = useState(false)
     const [creating, setCreating] = useState(false)
     const navigate = useNavigate()
@@ -33,6 +34,8 @@ function Navbar() {
 
     const handleMenu = event => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)
+    const handleAccountMenu = event => setAccountAnchorEl(event.currentTarget)
+    const handleAccountMenuClose = () => setAccountAnchorEl(null)
 
     const handleJoinClass = () => {
         setJoining(true)
@@ -96,18 +99,30 @@ function Navbar() {
                         <MenuItem onClick={handleCreateClass}>Create Class</MenuItem>
                     </Menu>
 
-                    {isAuth &&
-                        <div style={{ display: 'flex' }} >
-                            {user && <p> {user.name} ({user.email}) </p>}
+                    {isAuth && user &&
+                        <IconButton
+                            size='small'
+                            onClick={handleAccountMenu}
+                        >
+                            <Avatar> {user.name.at(0)}</Avatar>
+                        </IconButton>
+                    }
 
+                    <Menu
+                        anchorEl={accountAnchorEl}
+                        keepMounted
+                        open={Boolean(accountAnchorEl)}
+                        onClose={handleAccountMenuClose}
+                    >
+                        <MenuItem onClick={handleAccountMenuClose}>
                             <GoogleLogout
                                 clientId='411542087259-8ets43a5n6tu5qkmrfnauep52kh9uij0.apps.googleusercontent.com'
                                 buttonText="Logout"
                                 onLogoutSuccess={onGoogleLogoutSuccess}
                             >
                             </GoogleLogout>
-                        </div>
-                    }
+                        </MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
             <Toolbar />
