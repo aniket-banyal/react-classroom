@@ -10,7 +10,8 @@ function Base() {
     return (
         <Box
             sx={{
-                p: 5
+                px: 10,
+                py: 5
             }}
         >
             <Outlet />
