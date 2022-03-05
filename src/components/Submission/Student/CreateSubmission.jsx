@@ -1,3 +1,5 @@
+import { LoadingButton } from "@mui/lab"
+import { Stack, TextField } from "@mui/material"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import useCreateSubmission from "../../../hooks/api/useCreateSubmission"
@@ -5,7 +7,7 @@ import useCreateSubmission from "../../../hooks/api/useCreateSubmission"
 function CreateSubmission() {
     const [url, setUrl] = useState('')
     const { code, assignment_id } = useParams()
-    const { mutate } = useCreateSubmission()
+    const { mutate, isLoading } = useCreateSubmission()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -16,15 +18,25 @@ function CreateSubmission() {
     }
 
     return (
-        <form onSubmit={handleSubmit} >
-            <input
-                type='url'
-                placeholder="File url..."
-                value={url}
-                required
-                onChange={e => setUrl(e.target.value)}
-            />
-            <input type="submit" value='Submit' />
+        <form onSubmit={handleSubmit}>
+            <Stack spacing={2}>
+                <TextField
+                    type='url'
+                    placeholder="File url..."
+                    required
+                    value={url}
+                    onChange={e => setUrl(e.target.value)}
+                />
+
+                <LoadingButton
+                    type="submit"
+                    variant="contained"
+                    loadingIndicator="Submitting..."
+                    loading={isLoading}
+                >
+                    Submit
+                </LoadingButton >
+            </Stack>
         </form>
     )
 

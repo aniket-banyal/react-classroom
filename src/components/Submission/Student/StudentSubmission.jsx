@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button, Card, CardContent, Stack } from "@mui/material"
 import { Box } from "@mui/system"
 import { useParams } from "react-router-dom"
 import useStudentSubmission from "../../../hooks/api/useStudentSubmission"
@@ -14,41 +14,68 @@ function StudentSubmission({ totalPoints }) {
 
 
     return (
-        <>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <h2>Your Work</h2>
-            </div>
+        <Stack>
+            <Card sx={{
+                minWidth: 275
+            }}
+            >
+                <CardContent>
+                    <Typography variant='h5' gutterBottom>
+                        Your Work
+                    </Typography>
 
-            {isLoading ?
-                <CircularProgress />
-                :
-                <>
-                    <p>{submission.status}</p>
-                    {(submission.status === 'Done' || submission.status === 'Submitted Late' || submission.status === 'Graded') &&
+                    {isLoading ?
+                        <Box
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{ mt: 2 }}
+                        >
+                            <CircularProgress size={30} />
+                        </Box>
+                        :
                         <>
-                            <p> {submittedDateTime}</p>
-                            <Button
-                                variant="contained"
-                                target="_blank"
-                                href={submission.url}
-                            >
-                                Submission
-                            </Button>
-                            {submission.points &&
-                                <p>
-                                    Graded: {`${submission.points}/${totalPoints}`} points
-                                </p>
+                            <Stack direction='row' justifyContent='space-between' >
+                                <Typography variant='subtitle1' >
+                                    {submission.status}
+                                </Typography>
+
+                                {submission.points &&
+                                    <Typography variant='subtitle2' >
+                                        {`${submission.points}/${totalPoints}`}
+                                    </Typography>
+                                }
+                            </Stack>
+
+                            {(submission.status === 'Done' ||
+                                submission.status === 'Submitted Late' ||
+                                submission.status === 'Graded') &&
+                                <>
+                                    <Typography variant='subtitle2'>
+                                        {submittedDateTime}
+                                    </Typography>
+
+                                    <Button
+                                        variant="contained"
+                                        target="_blank"
+                                        href={submission.url}
+                                        sx={{ mt: 4 }}
+                                    >
+                                        Submission
+                                    </Button>
+                                </>
+                            }
+
+                            {(submission.status === 'Assigned' || submission.status === 'Missing') &&
+                                <Box sx={{ my: 2 }}>
+                                    <CreateSubmission />
+                                </Box>
                             }
                         </>
                     }
-                    {(submission.status === 'Assigned' || submission.status === 'Missing') &&
-                        <Box sx={{ border: 1, padding: 2 }}>
-                            <CreateSubmission />
-                        </Box>
-                    }
-                </>
-            }
-        </>
+                </CardContent>
+            </Card>
+        </Stack >
     )
 }
 

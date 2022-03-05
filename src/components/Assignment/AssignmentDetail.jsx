@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
+import { Box, Card, CardContent, CircularProgress, Divider, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
@@ -15,17 +15,19 @@ function AssignmentDetail() {
     const dueDateTime = useCreateDateTime(assignment?.due_date_time)
 
 
-    if (isLoading) {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
-
     return (
         <>
-            {assignment ?
-                <>
-                    <Card>
+            {isLoading ?
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <CircularProgress />
+                </Box>
+                :
+                <Stack direction='row' spacing={5}>
+                    <Card sx={{ flexGrow: 1 }}>
                         <CardContent>
                             <Box style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                                 <Box>
@@ -60,10 +62,9 @@ function AssignmentDetail() {
                             </pre>
                         </CardContent>
                     </Card>
+
                     {userRole === 'student' && <StudentSubmission totalPoints={assignment.points} />}
-                </>
-                :
-                <h1>Loading...</h1>
+                </Stack>
             }
         </>
     )
