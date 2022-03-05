@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import useCreateClassroom from "../hooks/api/useCreateClassroom"
 
 
-function CreateClassroom() {
+function CreateClassroom({ onSubmit }) {
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
     const navigate = useNavigate()
@@ -13,7 +13,10 @@ function CreateClassroom() {
     const handleSubmit = e => {
         e.preventDefault()
         mutate({ name, subject }, {
-            onSuccess: (data) => navigate(`${data.code}/dashboard`)
+            onSuccess: (data) => {
+                onSubmit()
+                navigate(`${data.code}/dashboard`)
+            }
         })
 
         setName('')

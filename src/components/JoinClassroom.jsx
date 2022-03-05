@@ -4,7 +4,7 @@ import useJoinClassroom from "../hooks/api/useJoinClassroom"
 import { addErrorToast } from "../helpers/addToast"
 
 
-function JoinClassroom() {
+function JoinClassroom({ onSubmit }) {
     const [code, setCode] = useState('')
     const navigate = useNavigate()
     const { mutate } = useJoinClassroom()
@@ -15,6 +15,7 @@ function JoinClassroom() {
 
         mutate(code, {
             onSuccess: (data) => {
+                onSubmit()
                 navigate(`${data.code}/dashboard`)
             },
             onError: (error) => {

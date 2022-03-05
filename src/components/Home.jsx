@@ -1,6 +1,4 @@
 import ClassCard from "./ClassroomCard"
-import JoinClassroom from "./JoinClassroom"
-import CreateClassroom from "./CreateClassroom"
 import useClassrooms from "../hooks/api/useClassrooms"
 import { Box, Grid } from "@mui/material"
 
@@ -20,12 +18,7 @@ function Home() {
     }
 
     return (
-        <Box>
-            <header style={{ margin: 20 }}>
-                <JoinClassroom />
-                <CreateClassroom />
-            </header>
-
+        <Box sx={{ p: 5 }}>
             <Grid container spacing={2}>
                 {classrooms.map((classroom) =>
                     <Grid item key={classroom.code} xs={6}>
