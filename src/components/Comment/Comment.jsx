@@ -1,15 +1,15 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material"
+import { Box, Card, CardContent, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import useDeleteComment from "../../hooks/api/useDeleteComment"
 import useCreateDateTime from "../../hooks/useCreateDateTime"
 import useUser from "../../hooks/api/useUser"
 import useUserRole from "../../hooks/api/useUserRole"
+import ThreeDotMenu from "../ThreeDotMenu"
 
 function Comment({ comment, announcementId }) {
-    const [contextMenu, setContextMenu] = useState({
-        allowDelete: false
-    })
+    const [menuOptions, setMenuOptions] = useState([])
+    const [showMenu, setShowMenu] = useState(false)
     const { code } = useParams()
     const { data: user } = useUser()
     const { data: userRole } = useUserRole(code)
@@ -20,17 +20,24 @@ function Comment({ comment, announcementId }) {
         mutate({ code, announcementId, commentId: comment.id })
     }
 
+
     useEffect(() => {
-        setContextMenu(
-            {
-                //comment can be deleted by the teacher as well as author of the comment 
-                allowDelete: userRole === 'teacher' || user?.email === comment.author.email
-            }
-        )
+        //comment can be deleted by the teacher as well as author of the comment 
+        const allowDelete = userRole === 'teacher' || user?.email === comment.author.email
+
+        if (allowDelete)
+            setMenuOptions(
+                [
+                    { name: 'Delete', onClick: onDelete }
+                ]
+            )
     }, [userRole, user?.email, comment.author.email])
 
     return (
-        <Card>
+        <Card
+            onMouseOver={() => setShowMenu(true)}
+            onMouseLeave={() => setShowMenu(false)}
+        >
             <CardContent>
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <Box>
@@ -43,9 +50,7 @@ function Comment({ comment, announcementId }) {
                         </Typography>
                     </Box>
 
-                    <Box>
-                        {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
-                    </Box>
+                    {showMenu && menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
                 </Box>
 
                 <Typography variant="subtitle1">
@@ -55,7 +60,6 @@ function Comment({ comment, announcementId }) {
             </CardContent>
         </Card>
     )
-
 }
 
 export default Comment
