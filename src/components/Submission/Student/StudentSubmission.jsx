@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import useStudentSubmission from "../../../hooks/api/useStudentSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
+import { CircularProgress, Typography } from '@mui/material';
 
 
 function StudentSubmission({ totalPoints }) {
@@ -12,21 +13,17 @@ function StudentSubmission({ totalPoints }) {
     const submittedDateTime = useCreateDateTime(submission?.created_at)
 
 
-    if (isLoading) {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
-
     return (
         <>
-            {submission ?
-                <>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                        <h2>Your Work</h2>
-                        <p>{submission.status}</p>
-                    </div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <h2>Your Work</h2>
+            </div>
 
+            {isLoading ?
+                <CircularProgress />
+                :
+                <>
+                    <p>{submission.status}</p>
                     {(submission.status === 'Done' || submission.status === 'Submitted Late' || submission.status === 'Graded') &&
                         <>
                             <p> {submittedDateTime}</p>
@@ -50,8 +47,6 @@ function StudentSubmission({ totalPoints }) {
                         </Box>
                     }
                 </>
-                :
-                <h1> Loading... </h1>
             }
         </>
     )

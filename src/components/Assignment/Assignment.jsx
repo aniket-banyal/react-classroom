@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useUserRole from "../../hooks/api/useUserRole";
@@ -51,28 +51,37 @@ function Assignment({ assignment }) {
                 </span>
             </BasicModal>
 
-            <Box sx={{ border: 1, borderColor: 'black', marginTop: 5 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
-                        <div>
-                            <h1> {assignment.title} </h1>
-                            <p> Posted at - {createdDateTime} </p>
-                            <p> Due date - {dueDateTime} </p>
-                        </div>
-                    </div>
+            <Card>
+                <CardContent>
+                    <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                        <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
+                            <Box>
+                                <Typography variant="h5" gutterBottom>{assignment.title}
+                                </Typography>
 
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
+                                <Typography variant="subtitle2">
+                                    Posted at - {createdDateTime}
+                                </Typography>
 
-                        {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
+                                <Typography variant="subtitle2">
+                                    Due date - {dueDateTime}
+                                </Typography>
+                            </Box>
+                        </Box>
 
-                        <Link to={`/${code}/assignments/${assignment.id}`}>
-                            <Button> Details </Button>
-                        </Link>
-                    </div>
+                        <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                            {contextMenu.allowEdit && <Button onClick={() => setEditing(true)}> Edit </Button>}
 
-                </div>
-            </Box>
+                            {contextMenu.allowDelete && <Button onClick={onDelete}> Delete </Button>}
+
+                            <Link to={`/${code}/assignments/${assignment.id}`}>
+                                <Button> Details </Button>
+                            </Link>
+                        </Box>
+
+                    </Box>
+                </CardContent>
+            </Card>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { Fab, Stack } from "@mui/material"
+import { Fab, Stack, Typography } from "@mui/material"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import useAnnouncements from "../../hooks/api/useAnnouncements"
@@ -49,14 +49,18 @@ function AnnouncementsTab() {
                 <CreateAnnouncement onSubmit={() => setCreating(false)} />
             </BasicModal>
 
-            <Stack spacing={3}>
-                {announcements.map(announcement =>
-                    <Announcement
-                        key={announcement.id}
-                        announcement={announcement}
-                    />
-                )}
-            </Stack>
+            {announcements.length > 0 ?
+                <Stack spacing={3}>
+                    {announcements.map(announcement =>
+                        <Announcement
+                            key={announcement.id}
+                            announcement={announcement}
+                        />
+                    )}
+                </Stack>
+                :
+                <Typography variant='h4'>No Announcements</Typography>
+            }
         </>
     )
 

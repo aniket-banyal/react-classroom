@@ -5,7 +5,7 @@ import useAssignments from "../../hooks/api/useAssignments"
 import useUserRole from "../../hooks/api/useUserRole"
 import BasicModal from "../BasicModal"
 import AddIcon from '@mui/icons-material/Add';
-import { Fab } from "@mui/material"
+import { Fab, Stack, Typography } from "@mui/material"
 import { useState } from "react"
 
 const style = {
@@ -34,7 +34,6 @@ function AssignmentsTab() {
 
     return (
         <>
-
             {userRole === 'teacher' &&
                 <>
                     <Fab
@@ -59,19 +58,16 @@ function AssignmentsTab() {
             }
 
             {assignments.length > 0 ?
-                <>
-                    {
-                        assignments.map(assignment => {
-                            return (
-                                <Assignment
-                                    key={assignment.id}
-                                    assignment={assignment}
-                                />
-                            )
-                        })
-                    }
-                </> :
-                <h1>No Assignments</h1>
+                <Stack spacing={3}>
+                    {assignments.map(assignment =>
+                        <Assignment
+                            key={assignment.id}
+                            assignment={assignment}
+                        />
+                    )}
+                </Stack>
+                :
+                <Typography variant='h4'>No Assignments</Typography>
             }
         </>
     )
