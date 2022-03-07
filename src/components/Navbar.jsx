@@ -2,7 +2,7 @@ import { GoogleLogout } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import useAuth from '../hooks/useAuth'
 import useUser from '../hooks/api/useUser'
-import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import TemporaryDrawer from './TemporaryDrawer';
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 import JoinClassroom from './JoinClassroom';
 import CreateClassroom from './CreateClassroom';
 import BasicModal from "./BasicModal"
+import UserAvatar from './UserAvatar';
 
 
 function Navbar() {
@@ -104,7 +105,7 @@ function Navbar() {
                             size='small'
                             onClick={handleAccountMenu}
                         >
-                            <Avatar> {user.name.at(0)}</Avatar>
+                            <UserAvatar name={user.name} />
                         </IconButton>
                     }
 

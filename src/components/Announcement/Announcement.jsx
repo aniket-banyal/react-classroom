@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
+import { Box, Card, CardContent, Divider, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import BasicModal from "../BasicModal";
 import CommentSection from "../Comment/CommentSection";
@@ -9,6 +9,7 @@ import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import { useParams } from "react-router-dom";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
 import ThreeDotMenu from "../ThreeDotMenu";
+import UserAvatar from "../UserAvatar";
 
 
 function Announcement({ announcement }) {
@@ -69,19 +70,24 @@ function Announcement({ announcement }) {
 
             <Card>
                 <CardContent>
-                    <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
-                        <Box>
-                            <Typography variant="subtitle1">
-                                {announcement.author.name}
-                            </Typography>
+                    <Stack direction='row' justifyContent='space-between'>
 
-                            <Typography variant="subtitle2">
-                                {dateTime}
-                            </Typography>
-                        </Box>
+                        <Stack direction='row' spacing={2} alignItems='center'>
+                            <UserAvatar name={announcement.author.name} />
+
+                            <Box>
+                                <Typography variant="subtitle1">
+                                    {announcement.author.name}
+                                </Typography>
+
+                                <Typography variant="subtitle2">
+                                    {dateTime}
+                                </Typography>
+                            </Box>
+                        </Stack>
 
                         {menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
-                    </Box>
+                    </Stack>
 
                     <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
                         <Typography variant="subtitle1">

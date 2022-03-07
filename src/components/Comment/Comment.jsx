@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Typography } from "@mui/material"
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import useDeleteComment from "../../hooks/api/useDeleteComment"
@@ -6,6 +6,7 @@ import useCreateDateTime from "../../hooks/useCreateDateTime"
 import useUser from "../../hooks/api/useUser"
 import useUserRole from "../../hooks/api/useUserRole"
 import ThreeDotMenu from "../ThreeDotMenu"
+import UserAvatar from "../UserAvatar"
 
 function Comment({ comment, announcementId }) {
     const [menuOptions, setMenuOptions] = useState([])
@@ -40,15 +41,19 @@ function Comment({ comment, announcementId }) {
         >
             <CardContent>
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <Box>
-                        <Typography variant="subtitle1">
-                            {comment.author.name}
-                        </Typography>
+                    <Stack direction='row' spacing={2} alignItems='center'>
+                        <UserAvatar name={comment.author.name} />
 
-                        <Typography variant="subtitle2" gutterBottom>
-                            {dateTime}
-                        </Typography>
-                    </Box>
+                        <Stack>
+                            <Typography variant="subtitle1">
+                                {comment.author.name}
+                            </Typography>
+
+                            <Typography variant="caption" >
+                                {dateTime}
+                            </Typography>
+                        </Stack>
+                    </Stack>
 
                     {showMenu && menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
                 </Box>
