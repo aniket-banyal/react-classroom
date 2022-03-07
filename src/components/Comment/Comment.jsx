@@ -53,9 +53,11 @@ function Comment({ comment, announcementId }) {
                     {showMenu && menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
                 </Box>
 
-                <Typography variant="subtitle1">
-                    {comment.text}
-                </Typography>
+                <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
+                    <Typography variant="subtitle1">
+                        {comment.text}
+                    </Typography>
+                </pre>
 
             </CardContent>
         </Card>

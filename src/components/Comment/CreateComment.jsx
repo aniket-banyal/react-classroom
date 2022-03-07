@@ -27,6 +27,7 @@ function CreateComment({ announcementId, onCreate }) {
             <form onSubmit={handleSubmit}>
                 <Stack direction='row' spacing={2}>
                     <TextField
+                        multiline
                         sx={{ flexGrow: 1 }}
                         variant="outlined"
                         size="small"
@@ -36,13 +37,14 @@ function CreateComment({ announcementId, onCreate }) {
                         required
                         onChange={e => setText(e.target.value)}
                     />
-                    <Button
-                        size="small"
-                        type="submit"
-                        variant="contained"
-                    >
-                        Post
-                    </Button>
+                    <Stack justifyContent='flex-end' >
+                        <Button
+                            type="submit"
+                            variant="contained"
+                        >
+                            Post
+                        </Button>
+                    </Stack>
                 </Stack>
             </form>
         </Box>
