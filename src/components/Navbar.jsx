@@ -105,7 +105,10 @@ function Navbar() {
                             size='small'
                             onClick={handleAccountMenu}
                         >
-                            <UserAvatar name={user.name} />
+                            <UserAvatar
+                                size='small'
+                                name={user.name}
+                            />
                         </IconButton>
                     }
 

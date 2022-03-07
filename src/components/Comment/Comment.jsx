@@ -42,7 +42,10 @@ function Comment({ comment, announcementId }) {
             <CardContent>
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <Stack direction='row' spacing={2} alignItems='center'>
-                        <UserAvatar name={comment.author.name} />
+                        <UserAvatar
+                            size='small'
+                            name={comment.author.name}
+                        />
 
                         <Stack>
                             <Typography variant="subtitle1">
