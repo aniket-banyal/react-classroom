@@ -50,7 +50,7 @@ function CommentSection({ announcementId }) {
                         </Stack>
                     }
 
-                    <CreateComment announcementId={announcementId} />
+                    <CreateComment onCreate={() => setCollapsed(false)} announcementId={announcementId} />
                 </>
             }
         </>

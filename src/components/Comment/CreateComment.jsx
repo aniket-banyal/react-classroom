@@ -5,7 +5,7 @@ import { Button, Stack, TextField } from "@mui/material"
 import { Box } from "@mui/system"
 
 
-function CreateComment({ announcementId }) {
+function CreateComment({ announcementId, onCreate }) {
     const [text, setText] = useState('')
     const { code } = useParams()
     const { mutate } = useCreateComment()
@@ -16,6 +16,7 @@ function CreateComment({ announcementId }) {
         const body = { text }
         mutate({ code, announcementId, body }, {
             onSuccess: () => {
+                onCreate()
                 setText('')
             }
         })
