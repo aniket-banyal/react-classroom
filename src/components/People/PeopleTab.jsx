@@ -1,44 +1,58 @@
 import { useParams } from "react-router-dom"
 import useStudents from "../../hooks/api/useStudents"
-import { DataGrid } from '@mui/x-data-grid';
-import { useEffect, useState } from "react";
-import { Stack, Typography } from "@mui/material";
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { useEffect, useMemo, useState } from "react";
+import { Typography } from "@mui/material";
 import useRemoveStudent from "../../hooks/api/useRemoveStudent";
 import useUserRole from "../../hooks/api/useUserRole";
-import { LoadingButton } from "@mui/lab";
-
-
-const columns = [
-    {
-        field: 'fullName',
-        headerName: 'Full name',
-        width: 160,
-    },
-    {
-        field: 'email',
-        headerName: 'Email',
-        type: 'string',
-        width: 300,
-    }
-]
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function PeopleTab() {
     const { code } = useParams()
     const { data: students, isLoading } = useStudents(code)
     const [rows, setRows] = useState([])
-    const [selectedRows, setSelectedRows] = useState([])
-    const { mutate, isLoading: isRemoving } = useRemoveStudent()
+    const { mutate } = useRemoveStudent()
     const { data: userRole } = useUserRole(code)
 
-    const handleSelectionChange = (selectionModel) => {
-        setSelectedRows(rows.filter(row => selectionModel.includes(row.id)))
-    }
 
-    const handleDelete = () => {
-        selectedRows.forEach(selectedRow => mutate({ code, email: selectedRow.email }))
-        setRows(rows.filter(row => !selectedRows.includes(row)))
-    }
+    const columns = useMemo(() => {
+
+        let cols = [
+            {
+                field: 'fullName',
+                headerName: 'Full name',
+                width: 160,
+            },
+            {
+                field: 'email',
+                headerName: 'Email',
+                type: 'string',
+                width: 300,
+            },
+        ]
+
+        if (userRole === 'teacher')
+            cols.push(
+                {
+                    field: 'actions',
+                    type: 'actions',
+                    width: 80,
+                    getActions: (params) => [
+                        <GridActionsCellItem
+                            icon={<DeleteIcon />}
+                            label="Remove"
+                            onClick={() => {
+                                mutate({ code, email: params.id })
+                            }}
+                        />
+                    ]
+                }
+            )
+
+        return cols
+    }, [mutate, userRole, code])
+
 
     useEffect(() => {
         if (!students)
@@ -60,39 +74,16 @@ function PeopleTab() {
 
     return (
         <>
-            <Stack
-                direction='row'
-                justifyContent='space-between'
-                alignItems='center'
-                sx={{ mb: 2 }}
-            >
-                <Typography variant='h6'>
-                    Students
-                </Typography>
-
-                <>
-                    {userRole === 'teacher' &&
-                        selectedRows.length > 0 &&
-                        <LoadingButton
-                            variant="contained"
-                            loadingIndicator="Removing..."
-                            loading={isRemoving}
-                            onClick={handleDelete}
-                        >
-                            Remove
-                        </LoadingButton >
-                    }
-                </>
-            </Stack>
+            <Typography variant='h6'>
+                Students
+            </Typography>
 
             <DataGrid
                 rows={rows}
                 columns={columns}
-                checkboxSelection={userRole === 'teacher'}
                 disableSelectionOnClick
                 disableColumnMenu
                 autoHeight
-                onSelectionModelChange={handleSelectionChange}
             />
         </>
     )
