@@ -102,7 +102,6 @@ function Submissions() {
                 <DataGrid
                     rows={rows}
                     columns={columns}
-                    disableSelectionOnClick
                     disableColumnMenu
                     autoHeight
                 />
