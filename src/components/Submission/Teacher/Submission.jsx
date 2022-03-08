@@ -46,9 +46,9 @@ function Submission({ submission }) {
             <CardContent>
                 <Stack spacing={2}>
                     <Stack direction='row' alignItems='center' spacing={2}>
-                        <UserAvatar name={submission.fullName} />
+                        <UserAvatar name={submission.student.name} />
                         <Typography variant='h6'>
-                            {submission.fullName}
+                            {submission.student.name}
                         </Typography>
                     </Stack>
 

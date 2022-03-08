@@ -10,7 +10,7 @@ import Submission from "./Submission"
 
 function Submissions() {
     const [rows, setRows] = useState([])
-    const [selectedSubmission, setSelectedSubmission] = useState(null)
+    const [selectedSubmissionId, setSelectedSubmissionId] = useState(null)
     const { code, assignment_id } = useParams()
     const { data: submissions, isLoading } = useSubmissions(code, assignment_id)
     const { data: userRole } = useUserRole(code)
@@ -55,7 +55,7 @@ function Submissions() {
                     if (row.status === 'Done' || row.status === 'Submitted Late' || row.status === 'Graded') {
                         return (
                             <Button
-                                onClick={() => setSelectedSubmission(row)}
+                                onClick={() => setSelectedSubmissionId(row.id)}
                             >
                                 Submission
                             </Button>
@@ -109,8 +109,9 @@ function Submissions() {
             </Grid>
 
             <Grid item xs={4}>
-                {selectedSubmission &&
-                    <Submission submission={selectedSubmission} />
+                {selectedSubmissionId &&
+                    <Submission submission={submissions.find(submission => submission.student.email === selectedSubmissionId
+                    )} />
                 }
             </Grid >
         </Grid >
