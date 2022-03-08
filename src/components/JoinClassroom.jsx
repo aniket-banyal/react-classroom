@@ -17,14 +17,17 @@ function JoinClassroom({ onSubmit }) {
 
         mutate(code, {
             onSuccess: (data) => {
-                onSubmit()
                 navigate(`${data.code}/dashboard`)
+                onSubmit()
             },
             onError: (error) => {
                 const status = error.response.status
 
-                if (status === 409)
+                if (status === 409) {
                     navigate(`/${code}/dashboard`)
+                    onSubmit()
+                }
+
                 else if (status === 404)
                     addErrorToast('Invalid Classroom Code')
             }
