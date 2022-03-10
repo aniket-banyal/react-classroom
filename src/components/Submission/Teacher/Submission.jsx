@@ -1,4 +1,5 @@
-import { Box, Button, Card, CardContent, Stack, Typography } from "@mui/material"
+import { LoadingButton } from "@mui/lab"
+import { Box, Button, Card, CardContent, Divider, Stack, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { addErrorToast } from "../../../helpers/addToast"
@@ -14,7 +15,7 @@ function Submission({ submission }) {
     const { code, assignment_id } = useParams()
     const submittedAt = useCreateDateTime(submission.submission?.created_at)
     const { data: totalPoints } = useAssignmentPoints(code, assignment_id)
-    const { mutate } = useGradeSubmission()
+    const { mutate, isLoading } = useGradeSubmission()
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -53,9 +54,17 @@ function Submission({ submission }) {
                     </Stack>
 
                     <Box>
-                        <Typography variant='subtitle1'>
-                            {submission.status}
-                        </Typography>
+                        <Stack direction='row' justifyContent='space-between' >
+                            <Typography variant='subtitle1'>
+                                {submission.status}
+                            </Typography>
+
+                            {submission.submission.points &&
+                                <Typography variant='subtitle2'>
+                                    {`${submission.submission.points}/${totalPoints}`}
+                                </Typography>
+                            }
+                        </Stack>
 
                         <Typography variant='subtitle2'>
                             {submittedAt}
@@ -64,7 +73,8 @@ function Submission({ submission }) {
                 </Stack>
 
                 {submission.submission &&
-                    <Box
+                    <Stack
+                        spacing={2}
                         sx={{ mt: 2 }}
                     >
                         <Button
@@ -76,23 +86,38 @@ function Submission({ submission }) {
                         </Button>
 
                         {showGradingInp &&
-                            <form onSubmit={handleSubmit}>
-                                <label> {`Grade (out of ${totalPoints})`} : </label>
-                                <input
-                                    type="number"
-                                    placeholder='Points'
-                                    min={0}
-                                    max={totalPoints}
-                                    value={points}
-                                    onChange={e => setPoints(e.target.value)}
-                                />
+                            <>
+                                <Divider />
 
-                                <input type="submit" value='Grade' />
-                            </form>
+                                <Typography>
+                                    Grade Submission
+                                </Typography>
+
+                                <form onSubmit={handleSubmit}>
+                                    <Stack spacing={2}>
+                                        <TextField
+                                            variant="outlined"
+                                            type="number"
+                                            inputProps={{ min: "0", max: totalPoints }}
+                                            placeholder='Points'
+                                            required
+                                            value={points}
+                                            onChange={e => setPoints(e.target.value)}
+                                        />
+
+                                        <LoadingButton
+                                            type="submit"
+                                            variant="contained"
+                                            loadingIndicator="Grading..."
+                                            loading={isLoading}
+                                        >
+                                            Grade
+                                        </LoadingButton >
+                                    </Stack>
+                                </form>
+                            </>
                         }
-
-                        {submission.submission.points && <p> Graded: {`${submission.submission.points}/${totalPoints}`} points</p>}
-                    </Box>
+                    </Stack>
                 }
             </CardContent>
         </Card >
