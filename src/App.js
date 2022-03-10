@@ -65,7 +65,7 @@ function App() {
                     <Route path='people' element={<PeopleTab />} />
                   </Route>
 
-                  <Route path='assignments/:assignment_id' element={<AssignmentDetailAndSubmissionBase />} >
+                  <Route path='assignments/:assignmentId' element={<AssignmentDetailAndSubmissionBase />} >
                     <Route index element={<AssignmentDetail />} />
                     <Route path='submissions' element={<Submissions />} />
                   </Route>

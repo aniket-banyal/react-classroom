@@ -6,14 +6,14 @@ import useCreateSubmission from "../../../hooks/api/useCreateSubmission"
 
 function CreateSubmission() {
     const [url, setUrl] = useState('')
-    const { code, assignment_id } = useParams()
+    const { code, assignmentId } = useParams()
     const { mutate, isLoading } = useCreateSubmission()
 
     const handleSubmit = e => {
         e.preventDefault()
 
         const body = { url }
-        mutate({ code, assignmentId: assignment_id, body })
+        mutate({ code, assignmentId, body })
         setUrl('')
     }
 

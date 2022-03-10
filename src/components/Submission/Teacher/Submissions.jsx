@@ -9,8 +9,8 @@ import Submission from "./Submission"
 function Submissions() {
     const [rows, setRows] = useState([])
     const [selectedSubmissionId, setSelectedSubmissionId] = useState(null)
-    const { code, assignment_id } = useParams()
-    const { data: submissions, isLoading } = useSubmissions(code, assignment_id)
+    const { code, assignmentId } = useParams()
+    const { data: submissions, isLoading } = useSubmissions(code, assignmentId)
     const [selectedStatus, setSelectedStatus] = useState('All')
 
     const filteredRows = useMemo(() => {

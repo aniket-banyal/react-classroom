@@ -8,8 +8,8 @@ import { CircularProgress, Typography } from '@mui/material';
 
 
 function StudentSubmission({ totalPoints }) {
-    const { code, assignment_id } = useParams()
-    const { data: submission, isLoading } = useStudentSubmission(code, assignment_id)
+    const { code, assignmentId } = useParams()
+    const { data: submission, isLoading } = useStudentSubmission(code, assignmentId)
     const submittedDateTime = useCreateDateTime(submission?.created_at)
 
 

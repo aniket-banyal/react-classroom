@@ -8,9 +8,9 @@ import useUserRole from "../../hooks/api/useUserRole";
 
 
 function AssignmentDetail() {
-    const { code, assignment_id } = useParams()
+    const { code, assignmentId } = useParams()
     const { data: userRole } = useUserRole(code)
-    const { data: assignment, isLoading } = useAssignment(code, assignment_id)
+    const { data: assignment, isLoading } = useAssignment(code, assignmentId)
     const createdDateTime = useCreateEditDateTime(assignment?.created_at, assignment?.edited_at)
     const dueDateTime = useCreateDateTime(assignment?.due_date_time)
 

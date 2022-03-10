@@ -12,16 +12,16 @@ import UserAvatar from '../../UserAvatar';
 function Submission({ submission }) {
     const [showGradingInp, setShowGradingInp] = useState(false)
     const [points, setPoints] = useState('')
-    const { code, assignment_id } = useParams()
+    const { code, assignmentId } = useParams()
     const submittedAt = useCreateDateTime(submission.submission?.created_at)
-    const { data: totalPoints } = useAssignmentPoints(code, assignment_id)
+    const { data: totalPoints } = useAssignmentPoints(code, assignmentId)
     const { mutate, isLoading } = useGradeSubmission()
 
     const handleSubmit = async e => {
         e.preventDefault()
         const body = { points }
 
-        mutate({ code, assignmentId: assignment_id, submissionId: submission.submission.id, body }, {
+        mutate({ code, assignmentId, submissionId: submission.submission.id, body }, {
             onSuccess: () => {
                 setShowGradingInp(false)
             },
