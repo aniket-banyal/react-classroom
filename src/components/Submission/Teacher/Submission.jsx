@@ -89,7 +89,7 @@ function Submission({ submission }) {
                             <>
                                 <Divider />
 
-                                <Typography>
+                                <Typography variant='body1'>
                                     Grade Submission
                                 </Typography>
 

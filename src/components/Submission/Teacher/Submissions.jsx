@@ -1,10 +1,8 @@
-import { Button, Grid, Typography } from "@mui/material"
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material"
 import { DataGrid } from "@mui/x-data-grid"
 import { useEffect, useMemo, useState } from "react"
 import { useParams } from "react-router-dom"
-import useGradeSubmission from "../../../hooks/api/useGradeSubmission"
 import useSubmissions from "../../../hooks/api/useSubmissions"
-import useUserRole from "../../../hooks/api/useUserRole"
 import Submission from "./Submission"
 
 
@@ -13,8 +11,14 @@ function Submissions() {
     const [selectedSubmissionId, setSelectedSubmissionId] = useState(null)
     const { code, assignment_id } = useParams()
     const { data: submissions, isLoading } = useSubmissions(code, assignment_id)
-    const { data: userRole } = useUserRole(code)
-    const { mutate } = useGradeSubmission()
+    const [selectedStatus, setSelectedStatus] = useState('All')
+
+    const filteredRows = useMemo(() => {
+        if (selectedStatus === 'All')
+            return rows
+
+        return rows.filter(row => row.status === selectedStatus)
+    }, [rows, selectedStatus])
 
     const columns = useMemo(() => {
         let cols = [
@@ -67,7 +71,7 @@ function Submissions() {
         ]
 
         return cols
-    }, [mutate, userRole, code])
+    })
 
     useEffect(() => {
         if (!submissions)
@@ -97,23 +101,45 @@ function Submissions() {
     }
 
     return (
-        <Grid container spacing={5}>
-            <Grid item xs={8}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    disableColumnMenu
-                    autoHeight
-                />
+        <Grid container spacing={2}>
+            <Grid item xs={2}>
+                <FormControl fullWidth>
+                    <InputLabel id="select-label">Status</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        value={selectedStatus}
+                        label="Status"
+                        onChange={(e) => setSelectedStatus(e.target.value)}
+                    >
+                        <MenuItem value='All'>All</MenuItem>
+                        <MenuItem value='Graded'>Graded</MenuItem>
+                        <MenuItem value='Done'>Done</MenuItem>
+                        <MenuItem value='Submitted Late'>Submitted Late</MenuItem>
+                        <MenuItem value='Missing'>Missing</MenuItem>
+                        <MenuItem value='Assigned'>Assigned</MenuItem>
+                    </Select>
+                </FormControl>
             </Grid>
+            <Grid item xs={10} />
 
-            <Grid item xs={4}>
-                {selectedSubmissionId &&
-                    <Submission submission={submissions.find(submission => submission.student.email === selectedSubmissionId
-                    )} />
-                }
-            </Grid >
-        </Grid >
+            <Grid item container spacing={4}>
+                <Grid item xs={8}>
+                    <DataGrid
+                        rows={filteredRows}
+                        columns={columns}
+                        disableColumnMenu
+                        autoHeight
+                    />
+                </Grid>
+
+                <Grid item xs={4}>
+                    {selectedSubmissionId &&
+                        <Submission submission={submissions.find(submission => submission.student.email === selectedSubmissionId
+                        )} />
+                    }
+                </Grid>
+            </Grid>
+        </Grid>
     )
 }
 
