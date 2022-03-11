@@ -1,3 +1,6 @@
+import { CircularProgress } from '@mui/material'
+import { Box } from '@mui/system'
+import { useState } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import { api } from '../api/api'
@@ -5,10 +8,13 @@ import useAuth from '../hooks/useAuth'
 
 
 function Login() {
+    const [loggingIn, setLoggingIn] = useState(false)
     const navigate = useNavigate()
     const { setIsAuth } = useAuth()
 
     const onGoogleLoginSuccess = async res => {
+        setLoggingIn(true)
+
         const body = {
             token: res.accessToken,
             backend: 'google-oauth2',
@@ -42,6 +48,17 @@ function Login() {
         localStorage.setItem('is_auth', false)
     }
 
+    if (loggingIn) {
+        return (
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <CircularProgress />
+            </Box>
+        )
+    }
 
     return (
         <GoogleLogin
