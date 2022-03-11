@@ -1,25 +1,11 @@
-import { Fab, Stack, Typography } from "@mui/material"
-import { useState } from "react"
+import { Stack, Typography } from "@mui/material"
 import { useParams } from "react-router-dom"
 import useAnnouncements from "../../hooks/api/useAnnouncements"
-import BasicModal from "../BasicModal"
 import Announcement from "./Announcement"
 import CreateAnnouncement from "./CreateAnnouncement"
-import AddIcon from '@mui/icons-material/Add';
-
-const style = {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-    zIndex: 10
-}
 
 
 function AnnouncementsTab() {
-    const [creating, setCreating] = useState(false)
     const { code } = useParams()
     const { data: announcements, isLoading } = useAnnouncements(code)
 
@@ -30,24 +16,7 @@ function AnnouncementsTab() {
 
     return (
         <>
-            <Fab
-                color="primary"
-                variant='extended'
-                style={style}
-                onClick={() => setCreating(true)}
-                focusRipple={false}
-            >
-                <AddIcon />
-                New Announcement
-            </Fab>
-
-            <BasicModal
-                open={creating}
-                setOpen={setCreating}
-                title='Create Announcement'
-            >
-                <CreateAnnouncement onSubmit={() => setCreating(false)} />
-            </BasicModal>
+            <CreateAnnouncement />
 
             {announcements.length > 0 ?
                 <Stack spacing={3}>
@@ -63,7 +32,6 @@ function AnnouncementsTab() {
             }
         </>
     )
-
 }
 
 export default AnnouncementsTab
