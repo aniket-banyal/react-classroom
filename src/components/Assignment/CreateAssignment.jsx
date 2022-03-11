@@ -3,8 +3,11 @@ import { useParams } from "react-router-dom"
 import BaseDateTimePicker from "../BasicDateTimePicker"
 import useCreateAssignment from "../../hooks/api/useCreateAssignment"
 import { addErrorToast } from "../../helpers/addToast"
-import { Stack, TextField } from "@mui/material"
+import { Fab, Stack, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
+import BasicModal from "../BasicModal"
+import AddIcon from '@mui/icons-material/Add';
+
 
 const initialAssignment = {
     title: '',
@@ -13,8 +16,20 @@ const initialAssignment = {
     due_date_time: new Date()
 }
 
-function CreateAssignment({ onSubmit }) {
+const style = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+    zIndex: 10
+}
+
+
+function CreateAssignment() {
     const [assignment, setAssignment] = useState(initialAssignment)
+    const [creating, setCreating] = useState(false)
     const { code } = useParams()
     const { mutate, isLoading } = useCreateAssignment()
 
@@ -31,7 +46,7 @@ function CreateAssignment({ onSubmit }) {
 
         mutate({ code, body }, {
             onSuccess: () => {
-                onSubmit()
+                setCreating(false)
                 setAssignment(initialAssignment)
             },
             onError: (error) => {
@@ -43,67 +58,85 @@ function CreateAssignment({ onSubmit }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-                <TextField
-                    autoFocus
-                    variant="outlined"
-                    type="text"
-                    placeholder='Title'
-                    required
-                    value={assignment.title}
-                    onChange={e => setAssignment({
-                        ...assignment,
-                        title: e.target.value,
-                    })}
-                />
+        <>
+            <Fab
+                color="primary"
+                variant='extended'
+                style={style}
+                onClick={() => setCreating(true)}
+                focusRipple={false}
+            >
+                <AddIcon />
+                New Assignment
+            </Fab>
 
-                <TextField
-                    multiline
-                    rows={10}
-                    type="text"
-                    placeholder="New Assignment"
-                    required
-                    value={assignment.text}
-                    onChange={e => setAssignment({
-                        ...assignment,
-                        text: e.target.value,
-                    })}
-                />
+            <BasicModal
+                open={creating}
+                setOpen={setCreating}
+                title='Create Assignment'
+            >
+                <form onSubmit={handleSubmit}>
+                    <Stack spacing={2}>
+                        <TextField
+                            autoFocus
+                            variant="outlined"
+                            type="text"
+                            placeholder='Title'
+                            required
+                            value={assignment.title}
+                            onChange={e => setAssignment({
+                                ...assignment,
+                                title: e.target.value,
+                            })}
+                        />
 
-                <TextField
-                    variant="outlined"
-                    type="number"
-                    inputProps={{ min: "0" }}
-                    placeholder='Points'
-                    required
-                    value={assignment.points}
-                    onChange={e => setAssignment({
-                        ...assignment,
-                        points: e.target.value,
-                    })}
-                />
+                        <TextField
+                            multiline
+                            rows={10}
+                            type="text"
+                            placeholder="New Assignment"
+                            required
+                            value={assignment.text}
+                            onChange={e => setAssignment({
+                                ...assignment,
+                                text: e.target.value,
+                            })}
+                        />
 
-                <BaseDateTimePicker
-                    value={assignment.due_date_time}
-                    onChange={value => setAssignment({
-                        ...assignment,
-                        due_date_time: value,
-                    })}
-                />
+                        <TextField
+                            variant="outlined"
+                            type="number"
+                            inputProps={{ min: "0" }}
+                            placeholder='Points'
+                            required
+                            value={assignment.points}
+                            onChange={e => setAssignment({
+                                ...assignment,
+                                points: e.target.value,
+                            })}
+                        />
 
-                <LoadingButton
-                    type="submit"
-                    variant="contained"
-                    loadingIndicator="Posting..."
-                    loading={isLoading}
-                >
-                    Post
-                </LoadingButton >
-            </Stack>
-        </form>
+                        <BaseDateTimePicker
+                            value={assignment.due_date_time}
+                            onChange={value => setAssignment({
+                                ...assignment,
+                                due_date_time: value,
+                            })}
+                        />
+
+                        <LoadingButton
+                            type="submit"
+                            variant="contained"
+                            loadingIndicator="Posting..."
+                            loading={isLoading}
+                        >
+                            Post
+                        </LoadingButton >
+                    </Stack>
+                </form>
+            </BasicModal>
+        </>
     )
-
 }
 
 export default CreateAssignment
