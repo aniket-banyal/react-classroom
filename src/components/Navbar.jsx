@@ -11,6 +11,7 @@ import JoinClassroom from './JoinClassroom';
 import CreateClassroom from './CreateClassroom';
 import BasicModal from "./BasicModal"
 import UserAvatar from './UserAvatar';
+import { useQueryClient } from 'react-query';
 
 
 function Navbar() {
@@ -22,14 +23,19 @@ function Navbar() {
     const navigate = useNavigate()
     const { isAuth, setIsAuth } = useAuth()
     const { data: user } = useUser()
+    const queryClient = useQueryClient()
 
     const toggleDrawer = () => { setDrawerOpen(!drawerOpen) }
 
     const onGoogleLogoutSuccess = (res) => {
         setIsAuth(false)
+
         localStorage.setItem('is_auth', false)
         localStorage.removeItem('access_token')
         localStorage.removeItem('refresh_token')
+
+        queryClient.removeQueries()
+
         navigate('/login')
     }
 

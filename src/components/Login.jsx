@@ -27,12 +27,12 @@ function Login() {
         const response = await fetch('http://localhost:8000/auth/convert-token', options)
         const data = await response.json()
 
-        setIsAuth(true)
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('refresh_token', data.refresh_token)
         localStorage.setItem('is_auth', true)
 
         api.defaults.headers['Authorization'] = `Bearer ${data.access_token}`
+        setIsAuth(true)
         navigate('/')
     }
 
