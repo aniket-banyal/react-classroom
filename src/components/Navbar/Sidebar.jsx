@@ -4,10 +4,10 @@ import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
 import { CircularProgress, ListItemButton, ListItemText, Typography } from '@mui/material';
-import useUser from '../hooks/api/useUser';
+import useUser from '../../hooks/api/useUser';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
-import useClassrooms from '../hooks/api/useClassrooms';
+import useClassrooms from '../../hooks/api/useClassrooms';
 
 
 function Sidebar({ toggleDrawer }) {

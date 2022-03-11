@@ -1,48 +1,25 @@
-import { GoogleLogout } from 'react-google-login'
-import { useNavigate } from "react-router-dom"
-import useAuth from '../hooks/useAuth'
-import useUser from '../hooks/api/useUser'
+import useAuth from '../../hooks/useAuth'
+import useUser from '../../hooks/api/useUser'
 import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import TemporaryDrawer from './TemporaryDrawer';
-import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import JoinClassroom from './JoinClassroom';
-import CreateClassroom from './CreateClassroom';
-import BasicModal from "./BasicModal"
-import UserAvatar from './UserAvatar';
-import { useQueryClient } from 'react-query';
+import UserAvatar from '../UserAvatar';
+import { useState } from 'react';
+import JoinClassroom from '../JoinClassroom';
+import CreateClassroom from '../CreateClassroom';
+import BasicModal from "../BasicModal"
+import LogoutButton from "../LogoutButton";
 
 
-function Navbar() {
-    const [drawerOpen, setDrawerOpen] = useState(false)
+function NavbarAppBar({ toggleDrawer, drawerOpen }) {
     const [anchorEl, setAnchorEl] = useState(null)
     const [accountAnchorEl, setAccountAnchorEl] = useState(null)
     const [joining, setJoining] = useState(false)
     const [creating, setCreating] = useState(false)
-    const navigate = useNavigate()
-    const { isAuth, setIsAuth } = useAuth()
+    const { isAuth } = useAuth()
     const { data: user } = useUser()
-    const queryClient = useQueryClient()
 
-    const toggleDrawer = () => { setDrawerOpen(!drawerOpen) }
-
-    const onGoogleLogoutSuccess = (res) => {
-        setIsAuth(false)
-
-        localStorage.setItem('is_auth', false)
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('refresh_token')
-
-        queryClient.removeQueries()
-
-        navigate('/login')
-    }
-
-    const handleMenu = event => setAnchorEl(event.currentTarget)
     const handleClose = () => setAnchorEl(null)
-    const handleAccountMenu = event => setAccountAnchorEl(event.currentTarget)
-    const handleAccountMenuClose = () => setAccountAnchorEl(null)
 
     const handleJoinClass = () => {
         setJoining(true)
@@ -55,8 +32,13 @@ function Navbar() {
     }
 
 
+    const handleMenu = event => setAnchorEl(event.currentTarget)
+    const handleAccountMenu = event => setAccountAnchorEl(event.currentTarget)
+    const handleAccountMenuClose = () => setAccountAnchorEl(null)
+
+
     return (
-        <div>
+        <>
             <BasicModal
                 open={joining}
                 setOpen={setJoining}
@@ -125,22 +107,14 @@ function Navbar() {
                         onClose={handleAccountMenuClose}
                     >
                         <MenuItem onClick={handleAccountMenuClose}>
-                            <GoogleLogout
-                                clientId='411542087259-8ets43a5n6tu5qkmrfnauep52kh9uij0.apps.googleusercontent.com'
-                                buttonText="Logout"
-                                onLogoutSuccess={onGoogleLogoutSuccess}
-                            >
-                            </GoogleLogout>
+                            <LogoutButton />
                         </MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>
             <Toolbar />
-
-            <TemporaryDrawer toggleDrawer={toggleDrawer} open={drawerOpen} />
-        </div>
+        </>
     )
-
 }
 
-export default Navbar
+export default NavbarAppBar

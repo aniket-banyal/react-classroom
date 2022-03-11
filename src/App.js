@@ -5,7 +5,7 @@ import AssignmentDetail from "./components/Assignment/AssignmentDetail";
 import AnnouncementsTab from "./components/Announcement/AnnouncementsTab";
 import Home from './components/Home'
 import LoginPage from "./components/LoginPage";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./context/AuthContext";
 import Submissions from "./components/Submission/Teacher/Submissions";
