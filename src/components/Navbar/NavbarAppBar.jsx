@@ -1,23 +1,17 @@
-import useAuth from '../../hooks/useAuth'
-import useUser from '../../hooks/api/useUser'
 import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
-import UserAvatar from '../UserAvatar';
 import { useState } from 'react';
 import JoinClassroom from '../JoinClassroom';
 import CreateClassroom from '../CreateClassroom';
 import BasicModal from "../BasicModal"
-import LogoutButton from "../LogoutButton";
+import UserIconMenu from './UserIconMenu';
 
 
 function NavbarAppBar({ toggleDrawer, drawerOpen }) {
     const [anchorEl, setAnchorEl] = useState(null)
-    const [accountAnchorEl, setAccountAnchorEl] = useState(null)
     const [joining, setJoining] = useState(false)
     const [creating, setCreating] = useState(false)
-    const { isAuth } = useAuth()
-    const { data: user } = useUser()
 
     const handleClose = () => setAnchorEl(null)
 
@@ -33,8 +27,6 @@ function NavbarAppBar({ toggleDrawer, drawerOpen }) {
 
 
     const handleMenu = event => setAnchorEl(event.currentTarget)
-    const handleAccountMenu = event => setAccountAnchorEl(event.currentTarget)
-    const handleAccountMenuClose = () => setAccountAnchorEl(null)
 
 
     return (
@@ -88,28 +80,8 @@ function NavbarAppBar({ toggleDrawer, drawerOpen }) {
                         <MenuItem onClick={handleCreateClass}>Create Class</MenuItem>
                     </Menu>
 
-                    {isAuth && user &&
-                        <IconButton
-                            size='small'
-                            onClick={handleAccountMenu}
-                        >
-                            <UserAvatar
-                                size='small'
-                                name={user.name}
-                            />
-                        </IconButton>
-                    }
+                    <UserIconMenu />
 
-                    <Menu
-                        anchorEl={accountAnchorEl}
-                        keepMounted
-                        open={Boolean(accountAnchorEl)}
-                        onClose={handleAccountMenuClose}
-                    >
-                        <MenuItem onClick={handleAccountMenuClose}>
-                            <LogoutButton />
-                        </MenuItem>
-                    </Menu>
                 </Toolbar>
             </AppBar>
             <Toolbar />
