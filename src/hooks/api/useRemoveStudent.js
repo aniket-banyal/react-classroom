@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { api } from "../../api/api";
 
 
-const removeStudent = async ({ code, email }) => {
-    const { data } = await api.delete(`/classes/${code}/students/${email}`)
+const removeStudent = async ({ code, id }) => {
+    const { data } = await api.delete(`/classes/${code}/students/${id}`)
     return data
 }
 

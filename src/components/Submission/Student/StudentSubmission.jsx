@@ -5,8 +5,7 @@ import useStudentSubmission from "../../../hooks/api/useStudentSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
 import { Typography } from '@mui/material';
-import CenteredCircularProgress from "../../CenteredCircularProgress"
-
+import CenteredCircularProgress from '../../CenteredCircularProgress'
 
 function StudentSubmission({ totalPoints }) {
     const { code, assignmentId } = useParams()
@@ -26,14 +25,7 @@ function StudentSubmission({ totalPoints }) {
                     </Typography>
 
                     {isLoading ?
-                        <Box
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{ mt: 2 }}
-                        >
-                            <CenteredCircularProgress />
-                        </Box>
+                        <CenteredCircularProgress />
                         :
                         <>
                             <Stack direction='row' justifyContent='space-between' >

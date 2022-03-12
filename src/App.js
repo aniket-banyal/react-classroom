@@ -17,7 +17,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
 import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material"
-import StudentSubmissions from "./StudentSubmissions";
+import StudentSubmissions from "./components/StudentSubmissions";
 
 
 const queryClient = new QueryClient()

@@ -44,7 +44,7 @@ function PeopleTab() {
                             icon={<DeleteIcon />}
                             label="Remove"
                             onClick={() => {
-                                mutate({ code, email: params.id })
+                                mutate({ code, id: params.id })
                             }}
                         />
                     ]
