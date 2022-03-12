@@ -1,10 +1,11 @@
-import { Box, Card, CardContent, CircularProgress, Divider, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Divider, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import StudentSubmission from "../Submission/Student/StudentSubmission";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
 import { useAssignment } from "../../hooks/api/useAssignment";
 import useUserRole from "../../hooks/api/useUserRole";
+import CenteredCircularProgress from "../CenteredCircularProgress";
 
 
 function AssignmentDetail() {
@@ -18,13 +19,7 @@ function AssignmentDetail() {
     return (
         <>
             {isLoading ?
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <CircularProgress />
-                </Box>
+                <CenteredCircularProgress />
                 :
                 <Stack direction='row' spacing={5}>
                     <Card sx={{ flexGrow: 1 }}>

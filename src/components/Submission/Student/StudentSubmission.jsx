@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom"
 import useStudentSubmission from "../../../hooks/api/useStudentSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
-import { CircularProgress, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import CenteredCircularProgress from "../../CenteredCircularProgress"
 
 
 function StudentSubmission({ totalPoints }) {
@@ -31,7 +32,7 @@ function StudentSubmission({ totalPoints }) {
                             alignItems="center"
                             sx={{ mt: 2 }}
                         >
-                            <CircularProgress size={30} />
+                            <CenteredCircularProgress />
                         </Box>
                         :
                         <>

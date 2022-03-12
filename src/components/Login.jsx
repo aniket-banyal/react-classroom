@@ -1,10 +1,9 @@
-import { CircularProgress } from '@mui/material'
-import { Box } from '@mui/system'
 import { useState } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import { api } from '../api/api'
 import useAuth from '../hooks/useAuth'
+import CenteredCircularProgress from './CenteredCircularProgress'
 
 
 function Login() {
@@ -50,13 +49,7 @@ function Login() {
 
     if (loggingIn) {
         return (
-            <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-            >
-                <CircularProgress />
-            </Box>
+            <CenteredCircularProgress />
         )
     }
 
