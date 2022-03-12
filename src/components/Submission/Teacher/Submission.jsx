@@ -13,7 +13,7 @@ function Submission({ submission }) {
     const [showGradingInp, setShowGradingInp] = useState(false)
     const [points, setPoints] = useState('')
     const { code, assignmentId } = useParams()
-    const submittedAt = useCreateDateTime(submission.submission?.created_at)
+    const submittedAt = useCreateDateTime(submission?.submission?.created_at)
     const { data: totalPoints } = useAssignmentPoints(code, assignmentId)
     const { mutate, isLoading } = useGradeSubmission()
 
@@ -34,12 +34,15 @@ function Submission({ submission }) {
     }
 
     useEffect(() => {
-        if (submission.submission)
+        if (submission?.submission)
             setShowGradingInp(
                 !submission.submission.points &&
                 (submission.status === 'Done' || submission.status === 'Submitted Late')
             )
-    }, [submission.status])
+    }, [submission?.status])
+
+    if (!submission || submission.status === 'Assigned' || submission.status === 'Missing')
+        return null
 
 
     return (

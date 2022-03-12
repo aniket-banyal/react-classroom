@@ -8,8 +8,8 @@ import Submission from "./Submission"
 
 function Submissions() {
     const [rows, setRows] = useState([])
-    const [selectedSubmissionId, setSelectedSubmissionId] = useState(null)
-    const { code, assignmentId } = useParams()
+    const { code, assignmentId, studentId } = useParams()
+    const [selectedSubmissionId, setSelectedSubmissionId] = useState(studentId ? Number(studentId) : null)
     const { data: submissions, isLoading } = useSubmissions(code, assignmentId)
     const [selectedStatus, setSelectedStatus] = useState('All')
 
@@ -80,7 +80,7 @@ function Submissions() {
         let rows = []
         submissions.forEach(submission => {
             let newRow = {
-                id: submission.student.email,
+                id: submission.student.id,
                 fullName: submission.student.name,
                 email: submission.student.email,
                 status: submission.status,
@@ -129,13 +129,15 @@ function Submissions() {
                         columns={columns}
                         disableColumnMenu
                         autoHeight
+                        selectionModel={selectedSubmissionId ? selectedSubmissionId : undefined}
                     />
                 </Grid>
 
                 <Grid item xs={4}>
                     {selectedSubmissionId &&
-                        <Submission submission={submissions.find(submission => submission.student.email === selectedSubmissionId
-                        )} />
+                        <Submission
+                            submission={submissions.find(submission => submission.student.id === selectedSubmissionId)}
+                        />
                     }
                 </Grid>
             </Grid>

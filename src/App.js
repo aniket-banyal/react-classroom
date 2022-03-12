@@ -69,6 +69,7 @@ function App() {
                   <Route path='assignments/:assignmentId' element={<AssignmentDetailAndSubmissionBase />} >
                     <Route index element={<AssignmentDetail />} />
                     <Route path='submissions' element={<Submissions />} />
+                    <Route path='submissions/:studentId' element={<Submissions />} />
                   </Route>
 
                   <Route path='students/:studentId' element={<StudentSubmissions />} />
