@@ -1,7 +1,7 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material"
 import { DataGrid } from "@mui/x-data-grid"
 import { useEffect, useMemo, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import useSubmissions from "../../../hooks/api/useSubmissions"
 import Submission from "./Submission"
 
@@ -12,6 +12,7 @@ function Submissions() {
     const [selectedSubmissionId, setSelectedSubmissionId] = useState(studentId ? Number(studentId) : null)
     const { data: submissions, isLoading } = useSubmissions(code, assignmentId)
     const [selectedStatus, setSelectedStatus] = useState('All')
+    const navigate = useNavigate()
 
     const filteredRows = useMemo(() => {
         if (selectedStatus === 'All')
@@ -59,7 +60,10 @@ function Submissions() {
                     if (row.status === 'Done' || row.status === 'Submitted Late' || row.status === 'Graded') {
                         return (
                             <Button
-                                onClick={() => setSelectedSubmissionId(row.id)}
+                                onClick={() => {
+                                    navigate(`${row.id}`)
+                                    setSelectedSubmissionId(row.id)
+                                }}
                             >
                                 Submission
                             </Button>
