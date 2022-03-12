@@ -10,15 +10,14 @@ import AddIcon from '@mui/icons-material/Add';
 import { StyledFab } from "../StyledFab"
 
 
-const initialAssignment = {
-    title: '',
-    text: '',
-    points: '',
-    due_date_time: new Date()
-}
-
-
 function CreateAssignment() {
+    const initialAssignment = {
+        title: '',
+        text: '',
+        points: '',
+        due_date_time: new Date(Date.now() + (2 * 60 * 1000))
+    }
+
     const [assignment, setAssignment] = useState(initialAssignment)
     const [creating, setCreating] = useState(false)
     const { code } = useParams()
@@ -108,6 +107,7 @@ function CreateAssignment() {
 
                         <BaseDateTimePicker
                             value={assignment.due_date_time}
+                            minDateTime={new Date()}
                             onChange={value => setAssignment({
                                 ...assignment,
                                 due_date_time: value,

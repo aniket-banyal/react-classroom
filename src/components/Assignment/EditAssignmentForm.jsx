@@ -51,6 +51,7 @@ function EditAssignmentForm({ initialAssignment, handleSubmit, isEditing }) {
 
                 <BaseDateTimePicker
                     value={assignment.due_date_time}
+                    minDateTime={new Date()}
                     onChange={value => setAssignment({
                         ...assignment,
                         due_date_time: value,
