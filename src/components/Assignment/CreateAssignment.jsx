@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom"
 import BaseDateTimePicker from "../BasicDateTimePicker"
 import useCreateAssignment from "../../hooks/api/useCreateAssignment"
 import { addErrorToast } from "../../helpers/addToast"
-import { Fab, Stack, TextField } from "@mui/material"
+import { Stack, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
 import BasicModal from "../BasicModal"
 import AddIcon from '@mui/icons-material/Add';
+import { StyledFab } from "../StyledFab"
 
 
 const initialAssignment = {
@@ -14,16 +15,6 @@ const initialAssignment = {
     text: '',
     points: '',
     due_date_time: new Date()
-}
-
-const style = {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-    zIndex: 10
 }
 
 
@@ -59,16 +50,15 @@ function CreateAssignment() {
 
     return (
         <>
-            <Fab
+            <StyledFab
                 color="primary"
                 variant='extended'
-                style={style}
                 onClick={() => setCreating(true)}
                 focusRipple={false}
             >
                 <AddIcon />
                 New Assignment
-            </Fab>
+            </StyledFab>
 
             <BasicModal
                 open={creating}

@@ -1,21 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { useState } from "react"
 import useCreateAnnouncement from "../../hooks/api/useCreateAnnouncement"
 import { useParams } from "react-router-dom"
 import { LoadingButton } from "@mui/lab"
 import BasicModal from "../BasicModal"
-
-
-const style = {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-    zIndex: 10
-}
+import { StyledFab } from "../StyledFab"
 
 
 function CreateAnnouncement() {
@@ -37,16 +27,15 @@ function CreateAnnouncement() {
 
     return (
         <>
-            <Fab
+            <StyledFab
                 color="primary"
                 variant='extended'
-                style={style}
                 onClick={() => setCreating(true)}
                 focusRipple={false}
             >
                 <AddIcon />
                 New Announcement
-            </Fab>
+            </StyledFab>
 
 
             <BasicModal
