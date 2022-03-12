@@ -17,6 +17,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
 import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material"
+import StudentSubmissions from "./StudentSubmissions";
 
 
 const queryClient = new QueryClient()
@@ -69,6 +70,9 @@ function App() {
                     <Route index element={<AssignmentDetail />} />
                     <Route path='submissions' element={<Submissions />} />
                   </Route>
+
+                  <Route path='students/:studentId' element={<StudentSubmissions />} />
+
                 </Route>
               </Route>
 

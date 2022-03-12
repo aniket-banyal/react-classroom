@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import useStudents from "../../hooks/api/useStudents"
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { useEffect, useMemo, useState } from "react";
@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function PeopleTab() {
     const { code } = useParams()
+    const navigate = useNavigate()
     const { data: students, isLoading } = useStudents(code)
     const [rows, setRows] = useState([])
     const { mutate } = useRemoveStudent()
@@ -60,7 +61,7 @@ function PeopleTab() {
 
         let rows = []
         students.forEach(student => {
-            rows.push({ id: student.email, fullName: student.name, email: student.email })
+            rows.push({ id: student.id, fullName: student.name, email: student.email })
         })
         setRows(rows)
     }, [students])
@@ -84,6 +85,7 @@ function PeopleTab() {
                 disableSelectionOnClick
                 disableColumnMenu
                 autoHeight
+                onRowClick={row => navigate(`/${code}/students/${row.id}`)}
             />
         </>
     )
