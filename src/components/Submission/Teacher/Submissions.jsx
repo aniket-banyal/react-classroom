@@ -1,8 +1,9 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material"
+import { Button, Grid, } from "@mui/material"
 import { DataGrid } from "@mui/x-data-grid"
 import { useEffect, useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useSubmissions from "../../../hooks/api/useSubmissions"
+import SubmissionStatusSelect from "../../SubmissionStatusSelect"
 import Submission from "./Submission"
 
 
@@ -107,22 +108,10 @@ function Submissions() {
     return (
         <Grid container spacing={2}>
             <Grid item xs={2}>
-                <FormControl fullWidth>
-                    <InputLabel id="select-label">Status</InputLabel>
-                    <Select
-                        labelId="select-label"
-                        value={selectedStatus}
-                        label="Status"
-                        onChange={(e) => setSelectedStatus(e.target.value)}
-                    >
-                        <MenuItem value='All'>All</MenuItem>
-                        <MenuItem value='Graded'>Graded</MenuItem>
-                        <MenuItem value='Done'>Done</MenuItem>
-                        <MenuItem value='Submitted Late'>Submitted Late</MenuItem>
-                        <MenuItem value='Missing'>Missing</MenuItem>
-                        <MenuItem value='Assigned'>Assigned</MenuItem>
-                    </Select>
-                </FormControl>
+                <SubmissionStatusSelect
+                    value={selectedStatus}
+                    onChange={(status) => setSelectedStatus(status)}
+                />
             </Grid>
             <Grid item xs={10} />
 
