@@ -42,7 +42,6 @@ function App() {
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <QueryClientProvider client={queryClient}>
-            {isAuth && <Navbar />}
             <Toaster
               position="top-right"
               toastOptions={{

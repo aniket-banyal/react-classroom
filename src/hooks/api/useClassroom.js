@@ -8,5 +8,5 @@ const getClassroom = async (code) => {
 }
 
 export default function useClassroom(code) {
-    return useQuery(['classroom', code], () => getClassroom(code))
+    return useQuery(['classroom', code], () => getClassroom(code), { enabled: Boolean(code) })
 }
