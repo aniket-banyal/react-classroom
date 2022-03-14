@@ -63,7 +63,7 @@ function Submissions() {
                         return (
                             <Button
                                 onClick={() => {
-                                    navigate(`${row.id}`)
+                                    navigate(`/${code}/assignments/${assignmentId}/submissions/${row.id}`)
                                     setSelectedSubmissionId(row.id)
                                 }}
                             >
