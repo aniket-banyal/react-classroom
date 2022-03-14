@@ -3,15 +3,16 @@ import { DataGrid } from "@mui/x-data-grid"
 import { useEffect, useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useSubmissions from "../../../hooks/api/useSubmissions"
+import useGetDataGridRowsFromSubmissions from "../../../hooks/useGetDataGridRowsFromSubmissions"
 import SubmissionStatusSelect from "../../SubmissionStatusSelect"
 import Submission from "./Submission"
 
 
 function Submissions() {
-    const [rows, setRows] = useState([])
     const { code, assignmentId, studentId } = useParams()
     const [selectedSubmissionId, setSelectedSubmissionId] = useState(studentId ? Number(studentId) : null)
     const { data: submissions, isLoading } = useSubmissions(code, assignmentId)
+    const rows = useGetDataGridRowsFromSubmissions(submissions)
     const [selectedStatus, setSelectedStatus] = useState('All')
     const navigate = useNavigate()
 
@@ -76,27 +77,7 @@ function Submissions() {
         ]
 
         return cols
-    })
-
-    useEffect(() => {
-        if (!submissions)
-            return
-
-        let rows = []
-        submissions.forEach(submission => {
-            let newRow = {
-                id: submission.student.id,
-                fullName: submission.student.name,
-                email: submission.student.email,
-                status: submission.status,
-                grade: submission.submission?.points,
-                submission: submission.submission
-            }
-
-            rows.push(newRow)
-        })
-        setRows(rows)
-    }, [submissions])
+    }, [navigate])
 
 
     if (isLoading) {
