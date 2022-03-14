@@ -85,7 +85,7 @@ function PeopleTab() {
                 disableSelectionOnClick
                 disableColumnMenu
                 autoHeight
-                onRowClick={row => navigate(`/${code}/students/${row.id}`)}
+                onRowClick={userRole === 'teacher' ? row => navigate(`/${code}/students/${row.id}`) : null}
             />
         </>
     )
