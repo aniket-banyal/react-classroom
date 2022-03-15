@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box } from '@mui/system';
 
 
-function BasicModal({ children, open, setOpen, title }) {
+function BasicModal({ children, open, setOpen, title, fullWidth = true }) {
     const handleClose = (e, reason) => {
         if (reason === "backdropClick")
             return
@@ -15,7 +15,7 @@ function BasicModal({ children, open, setOpen, title }) {
         <Dialog
             open={open}
             onClose={handleClose}
-            fullWidth
+            fullWidth={fullWidth}
             maxWidth='md'
         >
             <DialogTitle>
