@@ -1,13 +1,18 @@
 import { Paper, Stack, Typography } from "@mui/material"
 
-const labels = ['Done', 'Graded', 'Missing']
+const labels = ['Turned In', 'Graded', 'Missing']
 
 function SubmissionsStats({ submissions }) {
     if (!submissions) {
         return null
     }
 
-    const getNumberOfSubmissionsFromLabel = (label) => submissions.filter(submission => submission.status === label).length
+    const getNumberOfSubmissionsFromLabel = (label) => {
+        if (label === 'Turned In')
+            return submissions.filter(submission => submission.status === 'Done' || submission.status === 'Submitted Late').length
+
+        return submissions.filter(submission => submission.status === label).length
+    }
 
     return (
         <Stack direction='row' spacing={4}>
