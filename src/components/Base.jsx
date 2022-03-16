@@ -11,7 +11,8 @@ function Base() {
         <Box
             sx={{
                 px: 10,
-                py: 5
+                pt: 5,
+                pb: 12,
             }}
         >
             <Outlet />

@@ -1,14 +1,15 @@
 import { useState } from "react"
 import useCreateComment from "../../hooks/api/useCreateComment"
 import { useParams } from "react-router-dom"
-import { Button, Stack, TextField } from "@mui/material"
+import { Stack, TextField } from "@mui/material"
 import { Box } from "@mui/system"
+import { LoadingButton } from "@mui/lab"
 
 
 function CreateComment({ announcementId, onCreate }) {
     const [text, setText] = useState('')
     const { code } = useParams()
-    const { mutate } = useCreateComment()
+    const { mutate, isLoading } = useCreateComment()
 
 
     const handleSubmit = e => {
@@ -38,12 +39,14 @@ function CreateComment({ announcementId, onCreate }) {
                         onChange={e => setText(e.target.value)}
                     />
                     <Stack justifyContent='flex-end' >
-                        <Button
+                        <LoadingButton
                             type="submit"
-                            variant="contained"
+                            loadingIndicator="Posting..."
+                            loading={isLoading}
+                            size='small'
                         >
                             Post
-                        </Button>
+                        </LoadingButton>
                     </Stack>
                 </Stack>
             </form>
