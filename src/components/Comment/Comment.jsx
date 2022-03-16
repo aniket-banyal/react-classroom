@@ -7,15 +7,17 @@ import useUser from "../../hooks/api/useUser"
 import useUserRole from "../../hooks/api/useUserRole"
 import ThreeDotMenu from "../ThreeDotMenu"
 import UserAvatar from "../UserAvatar"
+import ConfirmationModal from "../ConfirmationModal"
 
 function Comment({ comment, announcementId }) {
     const [menuOptions, setMenuOptions] = useState([])
     const [showMenu, setShowMenu] = useState(false)
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const { code } = useParams()
     const { data: user } = useUser()
     const { data: userRole } = useUserRole(code)
     const dateTime = useCreateDateTime(comment.created_at)
-    const { mutate } = useDeleteComment()
+    const { mutate, isLoading } = useDeleteComment()
 
     const onDelete = () => {
         mutate({ code, announcementId, commentId: comment.id })
@@ -29,46 +31,57 @@ function Comment({ comment, announcementId }) {
         if (allowDelete)
             setMenuOptions(
                 [
-                    { name: 'Delete', onClick: onDelete }
+                    { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
                 ]
             )
     }, [userRole, user?.email, comment.author.email])
 
     return (
-        <Card
-            onMouseOver={() => setShowMenu(true)}
-            onMouseLeave={() => setShowMenu(false)}
-        >
-            <CardContent>
-                <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <Stack direction='row' spacing={2} alignItems='center'>
-                        <UserAvatar
-                            size='small'
-                            name={comment.author.name}
-                        />
+        <>
+            <ConfirmationModal
+                open={deleteConfirmOpen}
+                setOpen={setDeleteConfirmOpen}
+                title={`Delete Comment?`}
+                body={`Are you sure you want to delete this comment?`}
+                isLoading={isLoading}
+                onConfirm={onDelete}
+            />
 
-                        <Stack>
-                            <Typography variant="subtitle1">
-                                {comment.author.name}
-                            </Typography>
+            <Card
+                onMouseOver={() => setShowMenu(true)}
+                onMouseLeave={() => setShowMenu(false)}
+            >
+                <CardContent>
+                    <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                        <Stack direction='row' spacing={2} alignItems='center'>
+                            <UserAvatar
+                                size='small'
+                                name={comment.author.name}
+                            />
 
-                            <Typography variant="caption" >
-                                {dateTime}
-                            </Typography>
+                            <Stack>
+                                <Typography variant="subtitle1">
+                                    {comment.author.name}
+                                </Typography>
+
+                                <Typography variant="caption" >
+                                    {dateTime}
+                                </Typography>
+                            </Stack>
                         </Stack>
-                    </Stack>
 
-                    {showMenu && menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
-                </Box>
+                        {showMenu && menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
+                    </Box>
 
-                <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
-                    <Typography variant="subtitle1">
-                        {comment.text}
-                    </Typography>
-                </pre>
+                    <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
+                        <Typography variant="subtitle1">
+                            {comment.text}
+                        </Typography>
+                    </pre>
 
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </>
     )
 }
 
