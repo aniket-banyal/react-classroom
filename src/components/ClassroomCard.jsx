@@ -15,11 +15,12 @@ function ClassCard({ classroom }) {
     const [menuOptions, setMenuOptions] = useState([])
     const [editing, setEditing] = useState(false)
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
+    const [unenrollConfirmOpen, setUnenrollConfirmOpen] = useState(false)
     const code = classroom.code
     const { data: user } = useUser(code)
     const { data: userRole } = useUserRole(code)
     const { mutate, isLoading } = useDeleteClassroom()
-    const { mutate: unenrollMutate } = useUnenrollStudent()
+    const { mutate: unenrollMutate, isLoading: isLoadingUnenroll } = useUnenrollStudent()
 
     const onEdit = () => setEditing(false)
 
@@ -31,7 +32,7 @@ function ClassCard({ classroom }) {
 
     const editMenuItem = { name: 'Edit', onClick: () => setEditing(true) }
     const deleteMenuItem = { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
-    const unenrollMenuItem = { name: 'Unenroll', onClick: handleUnenroll }
+    const unenrollMenuItem = { name: 'Unenroll', onClick: () => setUnenrollConfirmOpen(true) }
 
 
     useEffect(() => {
@@ -67,6 +68,15 @@ function ClassCard({ classroom }) {
                 body={`You are deleting classroom ${classroom.name}`}
                 isLoading={isLoading}
                 onConfirm={onDelete}
+            />
+
+            <ConfirmationModal
+                open={unenrollConfirmOpen}
+                setOpen={setUnenrollConfirmOpen}
+                title={`Unenroll from Classroom?`}
+                body={`You will be removed from classroom ${classroom.name}`}
+                isLoading={isLoadingUnenroll}
+                onConfirm={handleUnenroll}
             />
 
             <Card>
