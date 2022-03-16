@@ -3,8 +3,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 const statuses = [
     'All',
     'Graded',
-    'Done',
-    'Submitted Late',
+    'Turned In',
     'Missing',
     'Assigned'
 ]

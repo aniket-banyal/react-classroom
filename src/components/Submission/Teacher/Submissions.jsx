@@ -20,6 +20,8 @@ function Submissions() {
     const filteredRows = useMemo(() => {
         if (selectedStatus === 'All')
             return rows
+        if (selectedStatus === 'Turned In')
+            return rows.filter(row => row.status === 'Done' || row.status === 'Submitted Late')
 
         return rows.filter(row => row.status === selectedStatus)
     }, [rows, selectedStatus])

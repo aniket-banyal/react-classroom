@@ -21,6 +21,8 @@ function StudentSubmissions() {
 
         if (selectedStatus === 'All')
             return submissions
+        if (selectedStatus === 'Turned In')
+            return submissions.filter(row => row.status === 'Done' || row.status === 'Submitted Late')
 
         return submissions.filter(submission => submission.status === selectedStatus)
     }, [submissions, selectedStatus])
