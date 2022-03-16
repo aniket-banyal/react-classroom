@@ -31,30 +31,21 @@ function Announcement({ announcement }) {
         mutate({ code, announcement_id: announcement.id })
     }
 
+    const editMenu = { name: 'Edit', onClick: () => setEditing(true) }
+    const deleteMenu = { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
+
+
     useEffect(() => {
         //teacher is allowed to edit his own announcements
         const allowEdit = userRole === 'teacher' && user?.email === announcement.author.email
         //announcement can be deleted by the teacher as well as author of the announcement 
         const allowDelete = userRole === 'teacher' || user?.email === announcement.author.email
 
-        if (allowEdit && allowDelete) {
-            setMenuOptions([
-                { name: 'Edit', onClick: () => setEditing(true) },
-                { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
-            ])
-        }
+        setMenuOptions([
+            ...(allowEdit ? [editMenu] : []),
+            ...(allowDelete ? [deleteMenu] : [])
+        ])
 
-        else if (allowEdit) {
-            setMenuOptions([
-                { name: 'Edit', onClick: () => setEditing(true) },
-            ])
-        }
-
-        else if (allowDelete) {
-            setMenuOptions([
-                { name: 'Delete', onClick: onDelete }
-            ])
-        }
     }, [userRole, user?.email, announcement.author.email])
 
 
