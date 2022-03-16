@@ -31,8 +31,8 @@ function Announcement({ announcement }) {
         mutate({ code, announcement_id: announcement.id })
     }
 
-    const editMenu = { name: 'Edit', onClick: () => setEditing(true) }
-    const deleteMenu = { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
+    const editMenuItem = { name: 'Edit', onClick: () => setEditing(true) }
+    const deleteMenuItem = { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
 
 
     useEffect(() => {
@@ -42,8 +42,8 @@ function Announcement({ announcement }) {
         const allowDelete = userRole === 'teacher' || user?.email === announcement.author.email
 
         setMenuOptions([
-            ...(allowEdit ? [editMenu] : []),
-            ...(allowDelete ? [deleteMenu] : [])
+            ...(allowEdit ? [editMenuItem] : []),
+            ...(allowDelete ? [deleteMenuItem] : [])
         ])
 
     }, [userRole, user?.email, announcement.author.email])

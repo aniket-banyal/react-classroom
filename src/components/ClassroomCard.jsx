@@ -29,21 +29,21 @@ function ClassCard({ classroom }) {
         unenrollMutate({ code, id: user.id })
     }
 
+    const editMenuItem = { name: 'Edit', onClick: () => setEditing(true) }
+    const deleteMenuItem = { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
+    const unenrollMenuItem = { name: 'Unenroll', onClick: handleUnenroll }
+
+
     useEffect(() => {
-        const allowEditAndDelete = userRole === 'teacher'
+        const allowEdit = userRole === 'teacher'
+        const allowDelete = userRole === 'teacher'
         const allowUnenroll = userRole === 'student'
 
-        if (allowEditAndDelete) {
-            setMenuOptions([
-                { name: 'Edit', onClick: () => setEditing(true) },
-                { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
-            ])
-        }
-        if (allowUnenroll) {
-            setMenuOptions([
-                { name: 'Unenroll', onClick: handleUnenroll }
-            ])
-        }
+        setMenuOptions([
+            ...(allowEdit ? [editMenuItem] : []),
+            ...(allowDelete ? [deleteMenuItem] : []),
+            ...(allowUnenroll ? [unenrollMenuItem] : [])
+        ])
 
     }, [userRole])
 
