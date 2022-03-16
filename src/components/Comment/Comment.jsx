@@ -23,17 +23,16 @@ function Comment({ comment, announcementId }) {
         mutate({ code, announcementId, commentId: comment.id })
     }
 
+    const deleteMenuItem = { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
 
     useEffect(() => {
         //comment can be deleted by the teacher as well as author of the comment 
         const allowDelete = userRole === 'teacher' || user?.email === comment.author.email
 
-        if (allowDelete)
-            setMenuOptions(
-                [
-                    { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
-                ]
-            )
+        setMenuOptions([
+            ...(allowDelete ? [deleteMenuItem] : [])
+        ])
+
     }, [userRole, user?.email, comment.author.email])
 
     return (
