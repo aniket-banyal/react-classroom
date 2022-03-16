@@ -5,9 +5,10 @@ import useUnenrollStudent from "../hooks/api/useUnenrollStudent";
 import useUser from "../hooks/api/useUser";
 import useUserRole from "../hooks/api/useUserRole";
 import BasicModal from "./BasicModal";
-import DeleteClassroomModal from "./DeleteClassroomModal";
+import ConfirmationModal from "./ConfirmationModal";
 import EditClassroom from "./EditClassroom";
 import ThreeDotMenu from "./ThreeDotMenu";
+import useDeleteClassroom from "../hooks/api/useDeleteClassroom";
 
 
 function ClassCard({ classroom }) {
@@ -17,10 +18,12 @@ function ClassCard({ classroom }) {
     const code = classroom.code
     const { data: user } = useUser(code)
     const { data: userRole } = useUserRole(code)
+    const { mutate, isLoading } = useDeleteClassroom()
     const { mutate: unenrollMutate } = useUnenrollStudent()
 
     const onEdit = () => setEditing(false)
 
+    const onDelete = () => mutate({ code })
 
     const handleUnenroll = () => {
         unenrollMutate({ code, id: user.id })
@@ -57,10 +60,13 @@ function ClassCard({ classroom }) {
                 </span>
             </BasicModal>
 
-            <DeleteClassroomModal
+            <ConfirmationModal
                 open={deleteConfirmOpen}
                 setOpen={setDeleteConfirmOpen}
-                classroom={classroom}
+                title={`Delete Classroom?`}
+                body={`You are deleting classroom ${classroom.name}`}
+                isLoading={isLoading}
+                onConfirm={onDelete}
             />
 
             <Card>

@@ -10,16 +10,18 @@ import { useParams } from "react-router-dom";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
 import ThreeDotMenu from "../ThreeDotMenu";
 import UserAvatar from "../UserAvatar";
+import ConfirmationModal from "../ConfirmationModal";
 
 
 function Announcement({ announcement }) {
     const [editing, setEditing] = useState(false)
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [menuOptions, setMenuOptions] = useState([])
     const { code } = useParams()
     const { data: user } = useUser()
     const { data: userRole } = useUserRole(code)
     const dateTime = useCreateEditDateTime(announcement.created_at, announcement.edited_at)
-    const { mutate } = useDeleteAnnouncement()
+    const { mutate, isLoading } = useDeleteAnnouncement()
 
     const onEdit = async () => {
         setEditing(false)
@@ -38,7 +40,7 @@ function Announcement({ announcement }) {
         if (allowEdit && allowDelete) {
             setMenuOptions([
                 { name: 'Edit', onClick: () => setEditing(true) },
-                { name: 'Delete', onClick: onDelete }
+                { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
             ])
         }
 
@@ -67,6 +69,15 @@ function Announcement({ announcement }) {
                     <EditAnnouncement announcement={announcement} onSubmit={onEdit} />
                 </span>
             </BasicModal>
+
+            <ConfirmationModal
+                open={deleteConfirmOpen}
+                setOpen={setDeleteConfirmOpen}
+                title={`Delete Announcement?`}
+                body={`You are deleting announcement`}
+                isLoading={isLoading}
+                onConfirm={onDelete}
+            />
 
             <Card>
                 <CardContent>

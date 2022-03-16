@@ -1,18 +1,12 @@
-import useDeleteClassroom from "../hooks/api/useDeleteClassroom";
 import { LoadingButton } from '@mui/lab';
 import { Button, Stack, Typography } from "@mui/material";
 import BasicModal from './BasicModal';
 
-function DeleteClassroomModal({ open, setOpen, classroom }) {
-    const { mutate, isLoading } = useDeleteClassroom()
-
-    const onDelete = () => {
-        mutate({ code: classroom.code })
-    }
+function ConfirmationModal({ open, setOpen, title, body, onConfirm, isLoading }) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        onDelete()
+        onConfirm()
     }
 
 
@@ -20,17 +14,18 @@ function DeleteClassroomModal({ open, setOpen, classroom }) {
         <BasicModal
             open={open}
             setOpen={setOpen}
-            title={`Delete Classroom?`}
+            title={title}
             fullWidth={false}
         >
             <Stack spacing={2}>
                 <Typography>
-                    {`You are deleting classroom ${classroom.name}`}
+                    {body}
                 </Typography>
 
                 <form onSubmit={handleSubmit}>
                     <Stack
                         direction='row'
+                        spacing={2}
                         justifyContent='flex-end'
                     >
                         <LoadingButton
@@ -47,7 +42,7 @@ function DeleteClassroomModal({ open, setOpen, classroom }) {
                             color="secondary"
                             size='small'
                         >
-                            No
+                            Cancel
                         </Button>
                     </Stack>
                 </form>
@@ -56,4 +51,4 @@ function DeleteClassroomModal({ open, setOpen, classroom }) {
     )
 }
 
-export default DeleteClassroomModal
+export default ConfirmationModal
