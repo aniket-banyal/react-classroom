@@ -1,11 +1,12 @@
 import { Button, Grid, } from "@mui/material"
 import { DataGrid } from "@mui/x-data-grid"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useSubmissions from "../../../hooks/api/useSubmissions"
 import useGetDataGridRowsFromSubmissions from "../../../hooks/useGetDataGridRowsFromSubmissions"
 import SubmissionStatusSelect from "../../SubmissionStatusSelect"
 import Submission from "./Submission"
+import SubmissionsStats from "./SubmissionsStats"
 
 
 function Submissions() {
@@ -87,14 +88,16 @@ function Submissions() {
     }
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={6}>
+            <Grid item xs={12}>
+                <SubmissionsStats submissions={submissions} />
+            </Grid>
             <Grid item xs={2}>
                 <SubmissionStatusSelect
                     value={selectedStatus}
                     onChange={(status) => setSelectedStatus(status)}
                 />
             </Grid>
-            <Grid item xs={10} />
 
             <Grid item container spacing={4}>
                 <Grid item xs={8}>
