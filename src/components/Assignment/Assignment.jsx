@@ -8,15 +8,17 @@ import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
 import useDeleteAssignment from "../../hooks/api/useDeleteAssignment";
 import ThreeDotMenu from "../ThreeDotMenu";
+import ConfirmationModal from "../ConfirmationModal";
 
 
 function Assignment({ assignment }) {
     const [editing, setEditing] = useState(false)
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const { code } = useParams()
     const { data: userRole } = useUserRole(code)
     const createdDateTime = useCreateEditDateTime(assignment.created_at, assignment.edited_at)
     const dueDateTime = useCreateDateTime(assignment.due_date_time)
-    const { mutate } = useDeleteAssignment()
+    const { mutate, isLoading } = useDeleteAssignment()
 
     const onEdit = () => setEditing(false)
 
@@ -26,7 +28,7 @@ function Assignment({ assignment }) {
 
     const options = [
         { name: 'Edit', onClick: () => setEditing(true) },
-        { name: 'Delete', onClick: onDelete }
+        { name: 'Delete', onClick: () => setDeleteConfirmOpen(true) }
     ]
 
 
@@ -41,6 +43,15 @@ function Assignment({ assignment }) {
                     <EditAssignment assignmentId={assignment.id} onSubmit={onEdit} />
                 </span>
             </BasicModal>
+
+            <ConfirmationModal
+                open={deleteConfirmOpen}
+                setOpen={setDeleteConfirmOpen}
+                title={`Delete Assignment?`}
+                body={`You are deleting assignment ${assignment.title}`}
+                isLoading={isLoading}
+                onConfirm={onDelete}
+            />
 
             <Card>
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
