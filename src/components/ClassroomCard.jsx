@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material"
+import { Card, CardActionArea, CardContent, Divider, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import useUnenrollStudent from "../hooks/api/useUnenrollStudent";
@@ -9,6 +9,7 @@ import ConfirmationModal from "./ConfirmationModal";
 import EditClassroom from "./EditClassroom";
 import ThreeDotMenu from "./ThreeDotMenu";
 import useDeleteClassroom from "../hooks/api/useDeleteClassroom";
+import UpcomingAssignments from "./UpcomingAssignments";
 
 
 function ClassCard({ classroom }) {
@@ -79,23 +80,35 @@ function ClassCard({ classroom }) {
                 onConfirm={handleUnenroll}
             />
 
-            <Card>
+            <Card
+                sx={{ minHeight: 275 }}
+            >
                 <Stack direction='row' justifyContent='space-between'>
-                    <CardActionArea component={Link} to={`${classroom.code}/dashboard`} >
+                    <Stack sx={{ width: '100%' }}>
+                        <CardActionArea component={Link} to={`${classroom.code}/dashboard`} >
+                            <CardContent>
+                                <Typography variant="h4">
+                                    {classroom.name}
+                                </Typography>
+
+                                <Typography variant="subtitle1">
+                                    Subject: {classroom.subject}
+                                </Typography>
+
+                                <Typography variant="subtitle2">
+                                    Teacher: {classroom.teacher.name}
+                                </Typography>
+
+                                <Divider
+                                    sx={{ mt: 2 }}
+                                />
+                            </CardContent>
+                        </CardActionArea>
+
                         <CardContent>
-                            <Typography variant="h4">
-                                {classroom.name}
-                            </Typography>
-
-                            <Typography variant="subtitle1">
-                                Subject: {classroom.subject}
-                            </Typography>
-
-                            <Typography variant="subtitle2">
-                                Teacher: {classroom.teacher.name}
-                            </Typography>
+                            <UpcomingAssignments code={code} />
                         </CardContent>
-                    </CardActionArea>
+                    </Stack>
 
                     {menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
                 </Stack>

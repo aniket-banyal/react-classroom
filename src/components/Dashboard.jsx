@@ -75,7 +75,6 @@ function Dashboard() {
             <Outlet />
         </>
     )
-
 }
 
 export default Dashboard
