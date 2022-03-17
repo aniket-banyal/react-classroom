@@ -16,52 +16,50 @@ function AssignmentDetail() {
     const dueDateTime = useCreateDateTime(assignment?.due_date_time)
 
 
+    if (isLoading) {
+        return <CenteredCircularProgress />
+    }
+
     return (
-        <>
-            {isLoading ?
-                <CenteredCircularProgress />
-                :
-                <Stack direction='row' spacing={5}>
-                    <Card sx={{ flexGrow: 1 }}>
-                        <CardContent>
-                            <Box style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-                                <Box>
-                                    <Typography
-                                        variant="h5"
-                                        gutterBottom
-                                        color='primary'
-                                    >
-                                        {assignment.title}
-                                    </Typography>
+        <Stack direction='row' spacing={5}>
+            <Card sx={{ flexGrow: 1 }}>
+                <CardContent>
+                    <Box style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+                        <Box>
+                            <Typography
+                                variant="h5"
+                                gutterBottom
+                                color='primary'
+                            >
+                                {assignment.title}
+                            </Typography>
 
-                                    <Typography variant="subtitle2">
-                                        Posted at - {createdDateTime}
-                                    </Typography>
+                            <Typography variant="subtitle2">
+                                Posted at - {createdDateTime}
+                            </Typography>
 
-                                    <Typography variant="subtitle2">
-                                        Due date - {dueDateTime}
-                                    </Typography>
-                                </Box>
+                            <Typography variant="subtitle2">
+                                Due date - {dueDateTime}
+                            </Typography>
+                        </Box>
 
-                                <Typography variant="subtitle2">
-                                    {assignment.points} points
-                                </Typography>
-                            </Box>
+                        <Typography variant="subtitle2">
+                            {assignment.points} points
+                        </Typography>
+                    </Box>
 
-                            <Divider sx={{ my: 2 }} />
+                    <Divider sx={{ my: 2 }} />
 
-                            <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
-                                <Typography variant="subtitle1">
-                                    {assignment.text}
-                                </Typography>
-                            </pre>
-                        </CardContent>
-                    </Card>
+                    <pre style={{ whiteSpace: 'pre-line', marginBottom: 0 }}>
+                        <Typography variant="subtitle1">
+                            {assignment.text}
+                        </Typography>
+                    </pre>
+                </CardContent>
+            </Card>
 
-                    {userRole === 'student' && <StudentSubmission totalPoints={assignment.points} />}
-                </Stack>
-            }
-        </>
+            {userRole === 'student' && <StudentSubmission totalPoints={assignment.points} />}
+        </Stack>
     )
 }
 

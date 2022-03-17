@@ -4,6 +4,7 @@ import { useMemo, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useSubmissions from "../../../hooks/api/useSubmissions"
 import useGetDataGridRowsFromSubmissions from "../../../hooks/useGetDataGridRowsFromSubmissions"
+import CenteredCircularProgress from "../../CenteredCircularProgress"
 import SubmissionStatusSelect from "../../SubmissionStatusSelect"
 import Submission from "./Submission"
 import SubmissionsStats from "./SubmissionsStats"
@@ -83,10 +84,9 @@ function Submissions() {
     }, [navigate])
 
 
+
     if (isLoading) {
-        return (
-            <h1>Loading...</h1>
-        )
+        return <CenteredCircularProgress />
     }
 
     return (
