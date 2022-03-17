@@ -5,6 +5,7 @@ import BasicTabs from "./BasicTabs"
 import { Typography } from '@mui/material';
 import useClassroom from "../hooks/api/useClassroom";
 import { useEffect } from "react";
+import CenteredCircularProgress from './CenteredCircularProgress'
 
 
 const tabs = [
@@ -34,9 +35,7 @@ function Dashboard() {
 
 
     if (isLoading) {
-        return (
-            <h1> Loading... </h1>
-        )
+        return <CenteredCircularProgress />
     }
 
     if (isError)

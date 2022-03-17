@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import useAnnouncements from "../../hooks/api/useAnnouncements"
 import Announcement from "./Announcement"
 import CreateAnnouncement from "./CreateAnnouncement"
+import CenteredCircularProgress from '../CenteredCircularProgress'
 
 
 function AnnouncementsTab() {
@@ -11,7 +12,7 @@ function AnnouncementsTab() {
 
 
     if (isLoading) {
-        return null
+        return <CenteredCircularProgress />
     }
 
     return (

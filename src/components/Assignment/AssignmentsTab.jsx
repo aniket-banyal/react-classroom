@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import useAssignments from "../../hooks/api/useAssignments"
 import useUserRole from "../../hooks/api/useUserRole"
 import { Stack, Typography } from "@mui/material"
+import CenteredCircularProgress from "../CenteredCircularProgress"
 
 
 function AssignmentsTab() {
@@ -13,9 +14,7 @@ function AssignmentsTab() {
 
 
     if (isLoading) {
-        return (
-            <h1>Loading...</h1>
-        )
+        return <CenteredCircularProgress />
     }
 
     return (
