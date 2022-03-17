@@ -1,14 +1,13 @@
 import ClassCard from "./ClassroomCard"
 import useClassrooms from "../hooks/api/useClassrooms"
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, LinearProgress } from "@mui/material"
+
 
 function Home() {
     const { data: classrooms, isLoading, isError, error } = useClassrooms()
 
     if (isLoading) {
-        return (
-            <h1>Loading...</h1>
-        )
+        return <LinearProgress />
     }
 
     if (isError) {
