@@ -12,7 +12,7 @@ function EditAnnouncement({ announcement, onSubmit }) {
     const handleSubmit = e => {
         e.preventDefault()
         const body = { text }
-        mutate({ code, announcement_id: announcement.id, body }, {
+        mutate({ code, announcementId: announcement.id, body }, {
             onSuccess: () => {
                 setText('')
                 onSubmit()

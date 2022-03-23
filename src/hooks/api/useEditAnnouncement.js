@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { api } from "../../api/api";
 
 
-const editAnnouncement = async ({ code, announcement_id, body }) => {
-    const { data } = await api.put(`/classes/${code}/announcements/${announcement_id}`, { ...body })
+const editAnnouncement = async ({ code, announcementId, body }) => {
+    const { data } = await api.put(`/classes/${code}/announcements/${announcementId}`, { ...body })
     return data
 }
 

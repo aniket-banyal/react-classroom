@@ -28,7 +28,7 @@ function Announcement({ announcement }) {
     }
 
     const onDelete = async () => {
-        mutate({ code, announcement_id: announcement.id })
+        mutate({ code, announcementId: announcement.id })
     }
 
     const editMenuItem = { name: 'Edit', onClick: () => setEditing(true) }
