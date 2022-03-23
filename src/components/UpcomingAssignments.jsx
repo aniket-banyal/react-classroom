@@ -10,7 +10,11 @@ function UpcomingAssignments({ code }) {
 
 
     if (isLoading) {
-        return 'Loading...'
+        return (
+            <Typography variant='subtitle2'>
+                Loading...
+            </Typography>
+        )
     }
 
     //if there is no latest assignment
