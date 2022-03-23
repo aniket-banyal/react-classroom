@@ -38,6 +38,9 @@ api.interceptors.response.use(
 
             api.defaults.headers['Authorization'] = `Bearer ${data.access_token}`
         }
+        else {
+            throw error
+        }
     }
 )
 

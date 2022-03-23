@@ -3,8 +3,7 @@ import { api } from "../../api/api";
 
 
 const editAssignment = async ({ code, assignmentId, body }) => {
-    const { data } = await api.put(`/classes/${code}/assignments/${assignmentId}`, { ...body })
-    return data
+    return api.put(`/classes/${code}/assignments/${assignmentId}`, { ...body })
 }
 
 
@@ -12,8 +11,9 @@ export default function useEditAssignment() {
     const queryClient = useQueryClient()
 
     return useMutation(editAssignment, {
-        onSuccess: (data, { code }) => {
+        onSuccess: (data, { code, assignmentId }) => {
             queryClient.invalidateQueries(['assignments', code])
+            queryClient.invalidateQueries(['assignments', code, assignmentId])
         }
     })
 }
