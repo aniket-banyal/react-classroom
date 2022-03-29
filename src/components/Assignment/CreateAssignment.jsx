@@ -41,8 +41,14 @@ function CreateAssignment() {
             },
             onError: (error) => {
                 const { status, data } = error.response
-                if (status === 400)
-                    addErrorToast(data.due_date_time[0])
+                if (status === 400) {
+                    if (data.hasOwnProperty('due_date_time'))
+                        addErrorToast(data.due_date_time[0])
+
+                    if (data.hasOwnProperty('points')) {
+                        addErrorToast(data.points[0])
+                    }
+                }
             }
         })
     }
