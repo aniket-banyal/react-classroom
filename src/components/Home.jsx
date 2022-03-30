@@ -18,9 +18,9 @@ function Home() {
 
     return (
         <Box sx={{ p: 5 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
                 {classrooms.map((classroom) =>
-                    <Grid item key={classroom.code} xs={6}>
+                    <Grid item key={classroom.code} md={3} sm={6} xs={6}>
                         <ClassCard classroom={classroom} />
                     </Grid>
                 )}

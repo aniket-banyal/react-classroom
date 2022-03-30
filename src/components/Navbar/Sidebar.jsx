@@ -35,7 +35,7 @@ function Sidebar({ toggleDrawer }) {
             onClick={toggleDrawer}
         >
             <ListItemButton component={Link} to={`/`}>
-                <HomeIcon sx={{ mr: 2 }} />
+                <HomeIcon sx={{ mr: 2, my: 1 }} />
                 <ListItemText primary='Classes' />
             </ListItemButton>
 
