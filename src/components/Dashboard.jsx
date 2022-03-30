@@ -52,11 +52,11 @@ function Dashboard() {
                 sx={{ mb: 2 }}
             >
                 <CardContent>
-                    <Typography variant="h3">
+                    <Typography variant="h4" color='primary'>
                         {classroom.name}
                     </Typography>
 
-                    <Typography variant='subtitle1' gutterBottom>
+                    <Typography variant='h6' gutterBottom>
                         Subject: {classroom.subject}
                     </Typography>
 
