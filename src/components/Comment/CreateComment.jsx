@@ -41,9 +41,10 @@ function CreateComment({ announcementId, onCreate }) {
                     <Stack justifyContent='flex-end' >
                         <LoadingButton
                             type="submit"
+                            variant='contained'
                             loadingIndicator="Posting..."
                             loading={isLoading}
-                            size='small'
+                            disabled={text === ''}
                         >
                             Post
                         </LoadingButton>
