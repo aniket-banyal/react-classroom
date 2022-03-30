@@ -60,6 +60,7 @@ function CreateAnnouncement() {
                             variant="contained"
                             loadingIndicator="Posting..."
                             loading={isLoading}
+                            disabled={text === ''}
                         >
                             Post
                         </LoadingButton >

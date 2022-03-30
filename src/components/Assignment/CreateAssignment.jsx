@@ -125,6 +125,12 @@ function CreateAssignment() {
                             variant="contained"
                             loadingIndicator="Posting..."
                             loading={isLoading}
+                            disabled={
+                                assignment.title === '' ||
+                                assignment.text === '' ||
+                                assignment.points === '' ||
+                                assignment.due_date_time === ''
+                            }
                         >
                             Post
                         </LoadingButton >
