@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
-import useStudents from "../../hooks/api/useStudents"
+import { useStudents, useStudentsCount } from "../../hooks/api/useStudents"
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { useEffect, useMemo, useState } from "react";
-import { Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import useRemoveStudent from "../../hooks/api/useRemoveStudent";
 import useUserRole from "../../hooks/api/useUserRole";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +13,7 @@ function PeopleTab() {
     const { code } = useParams()
     const navigate = useNavigate()
     const { data: students, isLoading } = useStudents(code)
+    const { data: studentsCount } = useStudentsCount(code)
     const [rows, setRows] = useState([])
     const { mutate } = useRemoveStudent()
     const { data: userRole } = useUserRole(code)
@@ -73,10 +74,22 @@ function PeopleTab() {
     }
 
     return (
-        <>
-            <Typography variant='h6'>
-                Students
-            </Typography>
+        <Stack spacing={2}>
+            <Stack direction='row' alignItems='flex-end' justifyContent='space-between' >
+                <Typography
+                    variant='h4'
+                    color='primary'
+                >
+                    Students
+                </Typography>
+
+                <Typography
+                    variant='subtitle1'
+                    color='primary'
+                >
+                    {studentsCount} students
+                </Typography>
+            </Stack>
 
             <DataGrid
                 rows={rows}
@@ -86,7 +99,7 @@ function PeopleTab() {
                 autoHeight
                 onRowClick={userRole === 'teacher' ? row => navigate(`/${code}/students/${row.id}`) : null}
             />
-        </>
+        </Stack>
     )
 }
 

@@ -8,6 +8,10 @@ const getStudents = async ({ queryKey }) => {
     return data
 }
 
-export default function useStudents(code) {
-    return useQuery(['students', code], getStudents)
+export function useStudents(code, select) {
+    return useQuery(['students', code], getStudents, { select })
+}
+
+export function useStudentsCount(code) {
+    return useStudents(code, (students) => students.length)
 }
