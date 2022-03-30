@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import useClassrooms from '../../hooks/api/useClassrooms';
 import CenteredCircularProgress from '../CenteredCircularProgress';
+import SidebarClassroom from './SidebarClassroom';
 
 
 function Sidebar({ toggleDrawer }) {
@@ -32,7 +33,7 @@ function Sidebar({ toggleDrawer }) {
             role="presentation"
             onClick={toggleDrawer}
         >
-            <ListItemButton component={Link} to={`/`} sx={{ mb: 2 }}>
+            <ListItemButton component={Link} to={`/`}>
                 <HomeIcon sx={{ mr: 2 }} />
                 <ListItemText primary='Classes' />
             </ListItemButton>
@@ -43,27 +44,17 @@ function Sidebar({ toggleDrawer }) {
                 <CenteredCircularProgress />
                 :
                 <>
-                    <Typography sx={{ margin: 1 }}> Enrolled </Typography>
-                    <List>
-                        {classrooms.enrolledClassrooms.map(classroom =>
-                            <SidebarClassroomCard
-                                key={classroom.code}
-                                classroom={classroom}
-                            />
-                        )}
-                    </List>
+                    <SidebarClassroom
+                        classrooms={classrooms.enrolledClassrooms}
+                        title='Enrolled'
+                    />
 
                     <Divider />
 
-                    <Typography sx={{ margin: 1 }}> Teaching </Typography>
-                    <List>
-                        {classrooms.teachingClassrooms.map(classroom =>
-                            <SidebarClassroomCard
-                                key={classroom.code}
-                                classroom={classroom}
-                            />
-                        )}
-                    </List>
+                    <SidebarClassroom
+                        classrooms={classrooms.teachingClassrooms}
+                        title='Teaching'
+                    />
                 </>
             }
 
