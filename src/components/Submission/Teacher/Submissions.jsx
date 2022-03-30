@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import useSubmissions from "../../../hooks/api/useSubmissions"
 import useGetDataGridRowsFromSubmissions from "../../../hooks/useGetDataGridRowsFromSubmissions"
 import CenteredCircularProgress from "../../CenteredCircularProgress"
+import SubmissionStatus from "../../SubmissionStatus"
 import SubmissionStatusSelect from "../../SubmissionStatusSelect"
 import Submission from "./Submission"
 import SubmissionsStats from "./SubmissionsStats"
@@ -45,6 +46,12 @@ function Submissions() {
                 headerName: 'Status',
                 type: 'string',
                 width: 150,
+                renderCell: ({ row }) => {
+                    return <SubmissionStatus
+                        status={row.status}
+                        variant='subtitle2'
+                    />
+                }
             },
             {
                 field: 'grade',

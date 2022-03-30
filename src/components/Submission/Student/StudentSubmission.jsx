@@ -6,6 +6,7 @@ import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
 import { Typography } from '@mui/material';
 import CenteredCircularProgress from '../../CenteredCircularProgress'
+import SubmissionStatus from "../../SubmissionStatus"
 
 function StudentSubmission({ totalPoints }) {
     const { code, assignmentId } = useParams()
@@ -29,9 +30,7 @@ function StudentSubmission({ totalPoints }) {
                         :
                         <>
                             <Stack direction='row' justifyContent='space-between' >
-                                <Typography variant='subtitle1' >
-                                    {submission.status}
-                                </Typography>
+                                <SubmissionStatus status={submission.status} />
 
                                 {submission.points &&
                                     <Typography variant='subtitle2' >

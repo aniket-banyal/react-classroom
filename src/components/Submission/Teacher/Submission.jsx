@@ -6,6 +6,7 @@ import { addErrorToast } from "../../../helpers/addToast"
 import { useAssignmentPoints } from "../../../hooks/api/useAssignment"
 import useGradeSubmission from "../../../hooks/api/useGradeSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
+import SubmissionStatus from "../../SubmissionStatus"
 import UserAvatar from '../../UserAvatar';
 
 
@@ -58,9 +59,7 @@ function Submission({ submission }) {
 
                     <Box>
                         <Stack direction='row' justifyContent='space-between' >
-                            <Typography variant='subtitle1'>
-                                {submission.status}
-                            </Typography>
+                            <SubmissionStatus status={submission.status} />
 
                             {submission.submission.points &&
                                 <Typography variant='subtitle2'>

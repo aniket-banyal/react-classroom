@@ -1,5 +1,6 @@
 import { Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material"
 import { Link, useParams } from "react-router-dom"
+import SubmissionStatus from "./SubmissionStatus"
 
 
 function StudentSubmissionCard({ submission }) {
@@ -17,13 +18,13 @@ function StudentSubmissionCard({ submission }) {
                             {submission.assignment.title}
                         </Typography>
 
-                        <Typography>
-                            {submission.status === 'Graded' ?
-                                `${submission.submission.points}/${submission.assignment.points}`
-                                :
-                                submission.status
-                            }
-                        </Typography>
+                        {submission.status === 'Graded' ?
+                            <Typography>
+                                {`${submission.submission.points}/${submission.assignment.points}`}
+                            </Typography>
+                            :
+                            <SubmissionStatus status={submission.status} />
+                        }
                     </Stack>
                 </CardContent>
             </CardActionArea>
