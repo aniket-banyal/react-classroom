@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import UserAvatar from '../UserAvatar';
+import NameAvatar from '../NameAvatar';
 import LogoutButton from "../LogoutButton";
 import useUser from '../../hooks/api/useUser';
 import { IconButton, Menu, MenuItem } from '@mui/material';
@@ -27,7 +27,7 @@ function UserIconMenu() {
                     size='small'
                     onClick={handleAccountMenu}
                 >
-                    <UserAvatar
+                    <NameAvatar
                         size='small'
                         name={user.name}
                     />

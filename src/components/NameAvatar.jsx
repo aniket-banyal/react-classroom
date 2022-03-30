@@ -1,12 +1,12 @@
 import { Avatar } from "@mui/material"
 
 const sizeMappings = {
-    'small': { width: 34, height: 34 },
+    'small': { width: 36, height: 36 },
     'medium': { width: 40, height: 40 },
     'large': { width: 46, height: 46 }
 }
 
-function UserAvatar({ name, size = 'medium' }) {
+function NameAvatar({ name, size = 'medium' }) {
     if (name === '')
         return null
 
@@ -20,4 +20,4 @@ function UserAvatar({ name, size = 'medium' }) {
 }
 
 
-export default UserAvatar
+export default NameAvatar

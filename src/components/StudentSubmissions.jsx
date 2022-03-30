@@ -4,7 +4,7 @@ import CenteredCircularProgress from "./CenteredCircularProgress"
 import useStudent from "../hooks/api/useStudent"
 import useStudentSubmissions from "../hooks/api/useStudentSubmissions"
 import StudentSubmissionCard from "./StudentSubmissionCard"
-import UserAvatar from "./UserAvatar";
+import NameAvatar from "./NameAvatar";
 import { useMemo, useState } from "react"
 import SubmissionStatusSelect from "./SubmissionStatusSelect"
 
@@ -35,7 +35,7 @@ function StudentSubmissions() {
     return (
         <Stack spacing={4}>
             <Stack direction='row' alignItems='center' spacing={4}>
-                <UserAvatar size="large" name={student.name} />
+                <NameAvatar size="large" name={student.name} />
 
                 <Typography variant='h5'>
                     {student.name}

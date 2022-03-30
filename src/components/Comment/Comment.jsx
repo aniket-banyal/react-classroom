@@ -6,7 +6,7 @@ import useCreateDateTime from "../../hooks/useCreateDateTime"
 import useUser from "../../hooks/api/useUser"
 import useUserRole from "../../hooks/api/useUserRole"
 import ThreeDotMenu from "../ThreeDotMenu"
-import UserAvatar from "../UserAvatar"
+import NameAvatar from "../NameAvatar"
 import ConfirmationModal from "../ConfirmationModal"
 
 function Comment({ comment, announcementId }) {
@@ -53,7 +53,7 @@ function Comment({ comment, announcementId }) {
                 <CardContent>
                     <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                         <Stack direction='row' spacing={2} alignItems='center'>
-                            <UserAvatar
+                            <NameAvatar
                                 size='small'
                                 name={comment.author.name}
                             />

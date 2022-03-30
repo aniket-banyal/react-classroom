@@ -12,6 +12,7 @@ import CenteredCircularProgress from '../CenteredCircularProgress';
 import SidebarClassroom from './SidebarClassroom';
 
 
+const width = 250
 function Sidebar({ toggleDrawer }) {
     const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
     const { data: allClassrooms, isLoading, isError, error } = useClassrooms()
@@ -29,7 +30,7 @@ function Sidebar({ toggleDrawer }) {
 
     return (
         <Box
-            sx={{ width: 250 }}
+            sx={{ width }}
             role="presentation"
             onClick={toggleDrawer}
         >
@@ -47,6 +48,7 @@ function Sidebar({ toggleDrawer }) {
                     <SidebarClassroom
                         classrooms={classrooms.enrolledClassrooms}
                         title='Enrolled'
+                        maxWidth={width / 1.6}
                     />
 
                     <Divider />
@@ -54,6 +56,7 @@ function Sidebar({ toggleDrawer }) {
                     <SidebarClassroom
                         classrooms={classrooms.teachingClassrooms}
                         title='Teaching'
+                        maxWidth={width / 1.6}
                     />
                 </>
             }

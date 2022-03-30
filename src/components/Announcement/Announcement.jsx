@@ -9,7 +9,7 @@ import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import { useParams } from "react-router-dom";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
 import ThreeDotMenu from "../ThreeDotMenu";
-import UserAvatar from "../UserAvatar";
+import NameAvatar from "../NameAvatar";
 import ConfirmationModal from "../ConfirmationModal";
 
 
@@ -75,7 +75,7 @@ function Announcement({ announcement }) {
                     <Stack direction='row' justifyContent='space-between'>
 
                         <Stack direction='row' spacing={2} alignItems='center'>
-                            <UserAvatar name={announcement.author.name} />
+                            <NameAvatar name={announcement.author.name} />
 
                             <Box>
                                 <Typography variant="subtitle1">

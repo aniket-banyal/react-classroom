@@ -7,7 +7,7 @@ import { useAssignmentPoints } from "../../../hooks/api/useAssignment"
 import useGradeSubmission from "../../../hooks/api/useGradeSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import SubmissionStatus from "../../SubmissionStatus"
-import UserAvatar from '../../UserAvatar';
+import NameAvatar from '../../NameAvatar';
 
 
 function Submission({ submission }) {
@@ -51,7 +51,7 @@ function Submission({ submission }) {
             <CardContent>
                 <Stack spacing={2}>
                     <Stack direction='row' alignItems='center' spacing={2}>
-                        <UserAvatar name={submission.student.name} />
+                        <NameAvatar name={submission.student.name} />
                         <Typography variant='h6'>
                             {submission.student.name}
                         </Typography>

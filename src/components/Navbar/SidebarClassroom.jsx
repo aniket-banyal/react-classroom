@@ -1,7 +1,7 @@
 import { List, Typography } from '@mui/material';
 import SidebarClassroomCard from './SidebarClassroomCard';
 
-function SidebarClassroom({ title, classrooms }) {
+function SidebarClassroom({ title, classrooms, maxWidth }) {
 
     return (
         <>
@@ -15,6 +15,7 @@ function SidebarClassroom({ title, classrooms }) {
             <List>
                 {classrooms.map(classroom =>
                     <SidebarClassroomCard
+                        maxWidth={maxWidth}
                         key={classroom.code}
                         classroom={classroom}
                     />
