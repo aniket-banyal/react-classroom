@@ -17,32 +17,34 @@ function StudentSubmission({ totalPoints }) {
     return (
         <Stack>
             <Card sx={{
-                minWidth: 275
+                minWidth: 350
             }}
             >
                 <CardContent>
-                    <Typography variant='h5' gutterBottom>
-                        Your Work
-                    </Typography>
-
                     {isLoading ?
                         <CenteredCircularProgress />
                         :
-                        <>
-                            <Stack direction='row' justifyContent='space-between' >
-                                <SubmissionStatus status={submission.status} />
+                        <Stack spacing={2}>
+                            <Box>
+                                <Stack direction='row' justifyContent='space-between' >
+                                    <Typography variant='h5' gutterBottom>
+                                        Your Work
+                                    </Typography>
+
+                                    <SubmissionStatus status={submission.status} />
+                                </Stack>
 
                                 {submission.points &&
                                     <Typography variant='subtitle2' >
                                         {`${submission.points}/${totalPoints}`}
                                     </Typography>
                                 }
-                            </Stack>
+                            </Box>
 
                             {(submission.status === 'Done' ||
                                 submission.status === 'Submitted Late' ||
                                 submission.status === 'Graded') &&
-                                <>
+                                <Stack spacing={3}>
                                     <Typography variant='subtitle2'>
                                         {submittedDateTime}
                                     </Typography>
@@ -51,19 +53,16 @@ function StudentSubmission({ totalPoints }) {
                                         variant="contained"
                                         target="_blank"
                                         href={submission.url}
-                                        sx={{ mt: 4 }}
                                     >
                                         Submission
                                     </Button>
-                                </>
+                                </Stack>
                             }
 
                             {(submission.status === 'Assigned' || submission.status === 'Missing') &&
-                                <Box sx={{ my: 2 }}>
-                                    <CreateSubmission />
-                                </Box>
+                                <CreateSubmission />
                             }
-                        </>
+                        </Stack>
                     }
                 </CardContent>
             </Card>
