@@ -81,13 +81,13 @@ function ClassCard({ classroom }) {
             />
 
             <Card
-                sx={{ minHeight: 275 }}
+                sx={{ height: 300 }}
             >
                 <Stack direction='row' justifyContent='space-between'>
                     <Stack sx={{ width: '100%' }}>
                         <CardActionArea component={Link} to={`${classroom.code}/dashboard`} >
                             <CardContent>
-                                <Typography variant="h4">
+                                <Typography variant="h5">
                                     {classroom.name}
                                 </Typography>
 
