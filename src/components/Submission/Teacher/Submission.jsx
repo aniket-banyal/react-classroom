@@ -25,6 +25,7 @@ function Submission({ submission }) {
         mutate({ code, assignmentId, submissionId: submission.submission.id, body }, {
             onSuccess: () => {
                 setShowGradingInp(false)
+                setPoints('')
             },
             onError: (error) => {
                 const { status, data } = error.response
@@ -50,79 +51,75 @@ function Submission({ submission }) {
         <Card>
             <CardContent>
                 <Stack spacing={2}>
-                    <Stack direction='row' alignItems='center' spacing={2}>
-                        <NameAvatar name={submission.student.name} />
-                        <Typography variant='h6'>
-                            {submission.student.name}
-                        </Typography>
-                    </Stack>
+                    <Stack direction='row' justifyContent='space-between' alignItems='center'>
 
-                    <Box>
-                        <Stack direction='row' justifyContent='space-between' >
-                            <SubmissionStatus status={submission.status} />
-
-                            {submission.submission.points &&
-                                <Typography variant='subtitle2'>
-                                    {`${submission.submission.points}/${totalPoints}`}
-                                </Typography>
-                            }
+                        <Stack direction='row' alignItems='center' spacing={2}>
+                            <NameAvatar name={submission.student.name} />
+                            <Typography variant='h6'>
+                                {submission.student.name}
+                            </Typography>
                         </Stack>
 
-                        <Typography variant='subtitle2'>
-                            {submittedAt}
-                        </Typography>
-                    </Box>
-                </Stack>
-
-                {submission.submission &&
-                    <Stack
-                        spacing={2}
-                        sx={{ mt: 2 }}
-                    >
-                        <Button
-                            variant="contained"
-                            target="_blank"
-                            href={submission.submission.url}
-                        >
-                            Submission
-                        </Button>
-
-                        {showGradingInp &&
-                            <>
-                                <Divider />
-
-                                <Typography variant='body1'>
-                                    Grade Submission
-                                </Typography>
-
-                                <form onSubmit={handleSubmit}>
-                                    <Stack spacing={2}>
-                                        <TextField
-                                            variant="outlined"
-                                            type="number"
-                                            inputProps={{ min: "0", max: totalPoints }}
-                                            placeholder='Points'
-                                            required
-                                            value={points}
-                                            onChange={e => setPoints(e.target.value)}
-                                        />
-
-                                        <LoadingButton
-                                            type="submit"
-                                            variant="contained"
-                                            loadingIndicator="Grading..."
-                                            loading={isLoading}
-                                        >
-                                            Grade
-                                        </LoadingButton >
-                                    </Stack>
-                                </form>
-                            </>
-                        }
+                        <SubmissionStatus status={submission.status} />
                     </Stack>
-                }
+
+                    {submission.submission.points &&
+                        <Typography variant='subtitle2'>
+                            {`${submission.submission.points}/${totalPoints}`}
+                        </Typography>
+                    }
+
+                    <Typography variant='subtitle2'>
+                        {submittedAt}
+                    </Typography>
+
+                    {submission.submission &&
+                        <>
+                            <Button
+                                variant="contained"
+                                target="_blank"
+                                href={submission.submission.url}
+                            >
+                                Submission
+                            </Button>
+
+                            {showGradingInp &&
+                                <>
+                                    <Divider />
+
+                                    <Typography variant='body1'>
+                                        Grade Submission
+                                    </Typography>
+
+                                    <form onSubmit={handleSubmit}>
+                                        <Stack spacing={2}>
+                                            <TextField
+                                                variant="outlined"
+                                                type="number"
+                                                inputProps={{ min: "0", max: totalPoints }}
+                                                placeholder='Points'
+                                                required
+                                                value={points}
+                                                onChange={e => setPoints(e.target.value)}
+                                            />
+
+                                            <LoadingButton
+                                                type="submit"
+                                                variant="contained"
+                                                loadingIndicator="Grading..."
+                                                loading={isLoading}
+                                            >
+                                                Grade
+                                            </LoadingButton >
+                                        </Stack>
+                                    </form>
+                                </>
+                            }
+                        </>
+                    }
+                </Stack>
             </CardContent>
-        </Card >
+        </Card>
     )
 }
 
