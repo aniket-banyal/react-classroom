@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import SidebarClassroomCard from './SidebarClassroomCard';
-import { ListItemButton, ListItemText, Typography } from '@mui/material';
+import { ListItemButton, ListItemText } from '@mui/material';
 import useUser from '../../hooks/api/useUser';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
@@ -12,7 +12,7 @@ import CenteredCircularProgress from '../CenteredCircularProgress';
 import SidebarClassroom from './SidebarClassroom';
 
 
-const width = 250
+const width = 300
 function Sidebar({ toggleDrawer }) {
     const [classrooms, setClassrooms] = useState({ teachingClassrooms: [], enrolledClassrooms: [] })
     const { data: allClassrooms, isLoading, isError, error } = useClassrooms()

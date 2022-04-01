@@ -6,7 +6,7 @@ function SidebarClassroom({ title, classrooms, maxWidth }) {
     return (
         <>
             <Typography
-                color='secondary'
+                color='primary'
                 sx={{ mx: 2, mt: 2 }}
             >
                 {title}
