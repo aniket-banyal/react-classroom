@@ -1,39 +1,19 @@
-import { LoadingButton } from "@mui/lab"
-import { Box, Button, Card, CardContent, Divider, Stack, TextField, Typography } from "@mui/material"
+import { Button, Card, CardContent, Divider, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { addErrorToast } from "../../../helpers/addToast"
 import { useAssignmentPoints } from "../../../hooks/api/useAssignment"
-import useGradeSubmission from "../../../hooks/api/useGradeSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import SubmissionStatus from "../../SubmissionStatus"
 import NameAvatar from '../../NameAvatar';
+import GradeSubmission from "./GradeSubmission"
 
 
 function Submission({ submission }) {
     const [showGradingInp, setShowGradingInp] = useState(false)
-    const [points, setPoints] = useState('')
     const { code, assignmentId } = useParams()
     const submittedAt = useCreateDateTime(submission?.submission?.created_at)
     const { data: totalPoints } = useAssignmentPoints(code, assignmentId)
-    const { mutate, isLoading } = useGradeSubmission()
 
-    const handleSubmit = async e => {
-        e.preventDefault()
-        const body = { points }
-
-        mutate({ code, assignmentId, submissionId: submission.submission.id, body }, {
-            onSuccess: () => {
-                setShowGradingInp(false)
-                setPoints('')
-            },
-            onError: (error) => {
-                const { status, data } = error.response
-                if (status === 400)
-                    addErrorToast(data.points[0])
-            }
-        })
-    }
 
     useEffect(() => {
         if (submission?.submission)
@@ -87,32 +67,10 @@ function Submission({ submission }) {
                                 <>
                                     <Divider />
 
-                                    <Typography variant='body1'>
-                                        Grade Submission
-                                    </Typography>
-
-                                    <form onSubmit={handleSubmit}>
-                                        <Stack spacing={2}>
-                                            <TextField
-                                                variant="outlined"
-                                                type="number"
-                                                inputProps={{ min: "0", max: totalPoints }}
-                                                placeholder='Points'
-                                                required
-                                                value={points}
-                                                onChange={e => setPoints(e.target.value)}
-                                            />
-
-                                            <LoadingButton
-                                                type="submit"
-                                                variant="contained"
-                                                loadingIndicator="Grading..."
-                                                loading={isLoading}
-                                            >
-                                                Grade
-                                            </LoadingButton >
-                                        </Stack>
-                                    </form>
+                                    <GradeSubmission
+                                        submissionId={submission.submission.id}
+                                        onSubmit={() => setShowGradingInp(false)}
+                                    />
                                 </>
                             }
                         </>
