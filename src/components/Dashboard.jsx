@@ -1,11 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { Card, CardContent } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import BasicTabs from "./BasicTabs"
-import { Typography } from '@mui/material';
 import useClassroom from "../hooks/api/useClassroom";
 import { useEffect } from "react";
 import CenteredCircularProgress from './CenteredCircularProgress'
+import ClassroomHeaderCard from "./ClassroomHeaderCard";
 
 
 const tabs = [
@@ -48,27 +47,7 @@ function Dashboard() {
 
     return (
         <>
-            <Card
-                sx={{ mb: 2 }}
-            >
-                <CardContent>
-                    <Typography variant="h4" color='primary'>
-                        {classroom.name}
-                    </Typography>
-
-                    <Typography variant='h6' gutterBottom>
-                        Subject: {classroom.subject}
-                    </Typography>
-
-                    <Typography variant='subtitle2'>
-                        Teacher: {classroom.teacher.name}
-                    </Typography>
-
-                    <Typography variant='subtitle2'>
-                        Code: {classroom.code}
-                    </Typography>
-                </CardContent>
-            </Card>
+            <ClassroomHeaderCard classroom={classroom} />
 
             <BasicTabs tabs={tabs} />
             <Outlet />
