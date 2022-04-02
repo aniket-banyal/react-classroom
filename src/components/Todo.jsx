@@ -14,13 +14,19 @@ function Todo() {
         <Box sx={{ p: 5 }}>
             {
                 assignments.length > 0 ?
-                    <Stack spacing={3}>
-                        {assignments.map(assignment =>
-                            <TodoAssignment
-                                key={assignment.id}
-                                assignment={assignment}
-                            />
-                        )}
+                    <Stack spacing={4}>
+                        <Typography variant='h4' textAlign='center'>
+                            To-do
+                        </Typography>
+
+                        <Stack spacing={3}>
+                            {assignments.map(assignment =>
+                                <TodoAssignment
+                                    key={assignment.id}
+                                    assignment={assignment}
+                                />
+                            )}
+                        </Stack>
                     </Stack>
                     :
                     <Typography variant='h4'>Nothing on your To-do list right now</Typography>

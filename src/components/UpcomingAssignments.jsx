@@ -30,7 +30,7 @@ function UpcomingAssignments({ code }) {
 
             <Box>
                 <Typography variant="subtitle2">
-                    Due date - {dueDateTime}
+                    Due {dueDateTime}
                 </Typography>
 
                 <Link

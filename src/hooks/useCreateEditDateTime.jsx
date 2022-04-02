@@ -20,7 +20,7 @@ export default function useCreateEditDateTime(_createdAt, _editedAt) {
         }
         else {
             const [editedDate, editedTime] = getDateAndTimeInLocale(editedAt)
-            setCreateEditDateTime(`${createdDate} - ${createdTime} (Edited at - ${editedDate} - ${editedTime})`)
+            setCreateEditDateTime(`${createdDate} - ${createdTime} (Edited ${editedDate} - ${editedTime})`)
         }
     }, [_createdAt, _editedAt])
 

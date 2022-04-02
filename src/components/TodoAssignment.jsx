@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import useCreateEditDateTime from "../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../hooks/useCreateDateTime";
@@ -14,7 +14,7 @@ function TodoAssignment({ assignment }) {
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <CardActionArea component={Link} to={`/${assignment.classroom.code}/assignments/${assignment.id}`}>
                         <CardContent>
-                            <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
+                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Box>
                                     <Typography variant="h5" gutterBottom>
                                         {assignment.title}
@@ -23,16 +23,15 @@ function TodoAssignment({ assignment }) {
                                     <Typography variant="body1" gutterBottom>
                                         {assignment.classroom.name}
                                     </Typography>
-
-                                    <Typography variant="subtitle2">
-                                        Posted at - {createdDateTime}
-                                    </Typography>
-
-                                    <Typography variant="subtitle2">
-                                        Due date - {dueDateTime}
-                                    </Typography>
                                 </Box>
-                            </Box>
+
+                                <Typography
+                                    variant="subtitle1"
+                                    color='primary'
+                                >
+                                    Due {dueDateTime}
+                                </Typography>
+                            </Stack>
                         </CardContent>
                     </CardActionArea>
                 </Box>

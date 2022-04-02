@@ -35,11 +35,11 @@ function AssignmentDetail() {
                             </Typography>
 
                             <Typography variant="subtitle2">
-                                Posted at - {createdDateTime}
+                                Posted {createdDateTime}
                             </Typography>
 
                             <Typography variant="subtitle2">
-                                Due date - {dueDateTime}
+                                Due {dueDateTime}
                             </Typography>
                         </Box>
 
