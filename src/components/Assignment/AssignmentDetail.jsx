@@ -24,7 +24,7 @@ function AssignmentDetail() {
         <Stack direction='row' spacing={5}>
             <Card sx={{ flexGrow: 1 }}>
                 <CardContent>
-                    <Box style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+                    <Stack direction='row' alignItems='flex-end' justifyContent='space-between'>
                         <Box>
                             <Typography
                                 variant="h5"
@@ -38,15 +38,17 @@ function AssignmentDetail() {
                                 Posted {createdDateTime}
                             </Typography>
 
-                            <Typography variant="subtitle2">
-                                Due {dueDateTime}
+                            <Typography variant="subtitle1">
+                                {assignment.points} points
                             </Typography>
                         </Box>
 
-                        <Typography variant="subtitle2">
-                            {assignment.points} points
-                        </Typography>
-                    </Box>
+                        <Box>
+                            <Typography variant="subtitle1">
+                                Due {dueDateTime}
+                            </Typography>
+                        </Box>
+                    </Stack>
 
                     <Divider sx={{ my: 2 }} />
 

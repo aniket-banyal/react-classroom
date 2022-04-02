@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useUserRole from "../../hooks/api/useUserRole";
@@ -57,20 +57,27 @@ function Assignment({ assignment }) {
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <CardActionArea component={Link} to={`/${code}/assignments/${assignment.id}`}>
                         <CardContent>
-                            <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }} >
+                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Box>
-                                    <Typography variant="h5" gutterBottom>{assignment.title}
+                                    <Typography
+                                        variant="h5"
+                                        gutterBottom
+                                        color='primary'
+                                    >
+                                        {assignment.title}
                                     </Typography>
 
-                                    <Typography variant="subtitle2">
-                                        Posted {createdDateTime}
+                                    <Typography variant="subtitle1">
+                                        {assignment.points} points
                                     </Typography>
+                                </Box>
 
-                                    <Typography variant="subtitle2">
+                                <Box>
+                                    <Typography variant="subtitle1">
                                         Due {dueDateTime}
                                     </Typography>
                                 </Box>
-                            </Box>
+                            </Stack>
                         </CardContent>
                     </CardActionArea>
 
