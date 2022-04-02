@@ -1,16 +1,14 @@
 import { Box, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import useCreateEditDateTime from "../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../hooks/useCreateDateTime";
 
 
 function TodoAssignment({ assignment }) {
-    const createdDateTime = useCreateEditDateTime(assignment.created_at, assignment.edited_at)
     const dueDateTime = useCreateDateTime(assignment.due_date_time)
 
     return (
         <>
-            <Card>
+            <Card elevation={2}>
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <CardActionArea component={Link} to={`/${assignment.classroom.code}/assignments/${assignment.id}`}>
                         <CardContent>
