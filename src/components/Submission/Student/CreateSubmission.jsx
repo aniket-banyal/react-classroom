@@ -13,8 +13,11 @@ function CreateSubmission() {
         e.preventDefault()
 
         const body = { url }
-        mutate({ code, assignmentId, body })
-        setUrl('')
+        mutate({ code, assignmentId, body }, {
+            onSuccess: () => {
+                setUrl('')
+            }
+        })
     }
 
     return (
