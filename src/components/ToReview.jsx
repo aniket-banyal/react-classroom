@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from 'react';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import SimpleAccordion from './SimpleAccordion';
 import SimpleSelect from './SimpleSelect';
-import useClassrooms from '../hooks/api/useClassrooms';
 import useAllToReview from '../hooks/api/useAllToReview';
 import ToReviewAssignment from './ToReviewAssignment';
+import useTeachingClassrooms from '../hooks/api/useTeachingClassrooms';
 
 
 const accordionLabels = ['On Going', 'Earlier']
@@ -14,7 +14,7 @@ function ToReview() {
     const [weekWiseAssignments, setWeekWiseAssignments] = useState({})
     const [selectedClassroom, setSelectedClassroom] = useState('All')
     const { data: allData, isLoading, isFetching } = useAllToReview()
-    const { data: classrooms } = useClassrooms()
+    const { data: classrooms } = useTeachingClassrooms()
     const options = ['All']
 
     if (classrooms)

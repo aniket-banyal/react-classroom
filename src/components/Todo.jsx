@@ -6,7 +6,7 @@ import SimpleAccordion from './SimpleAccordion';
 import TodoAssignment from './TodoAssignment';
 import { endOfWeek } from 'date-fns';
 import SimpleSelect from './SimpleSelect';
-import useClassrooms from '../hooks/api/useClassrooms';
+import useEnrolledClassrooms from '../hooks/api/useEnrolledClassrooms';
 
 
 const accordionLabels = ['This week', 'Next week', 'Later']
@@ -15,7 +15,7 @@ function Todo() {
     const [weekWiseAssignments, setWeekWiseAssignments] = useState({})
     const [selectedClassroom, setSelectedClassroom] = useState('All')
     const { data: assignments, isLoading, isFetching } = useAllAssignments()
-    const { data: classrooms } = useClassrooms()
+    const { data: classrooms } = useEnrolledClassrooms()
     const options = ['All']
 
     if (classrooms)
