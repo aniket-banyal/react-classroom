@@ -3,6 +3,7 @@ import useClassrooms from "../hooks/api/useClassrooms"
 import { Box, Grid, LinearProgress, Button, Stack, Typography } from "@mui/material"
 import { Link } from 'react-router-dom'
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 
 function Home() {
@@ -20,8 +21,21 @@ function Home() {
 
     return (
         <Box sx={{ p: 5 }}>
-            <Box sx={{ mb: 4 }}>
+            <Stack direction='row' spacing={2} sx={{ mb: 4 }}>
                 <Button component={Link} to='/todo'>
+                    <Stack
+                        direction='row'
+                        spacing={1}
+                    >
+                        <AssignmentIcon />
+
+                        <Typography variant="subtitle1">
+                            To-do
+                        </Typography>
+                    </Stack>
+                </Button>
+
+                <Button component={Link} to='/toreview'>
                     <Stack
                         direction='row'
                         spacing={1}
@@ -29,11 +43,11 @@ function Home() {
                         <ListAltIcon />
 
                         <Typography variant="subtitle1">
-                            To-do
+                            To-Review
                         </Typography>
                     </Stack>
                 </Button>
-            </Box>
+            </Stack>
 
 
             <Grid container spacing={3}>

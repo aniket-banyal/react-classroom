@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 function SimpleAccordion({ title, children, disabled = false, openInitialy = false }) {
@@ -9,6 +9,10 @@ function SimpleAccordion({ title, children, disabled = false, openInitialy = fal
     const handleChange = (event, isExpanded) => {
         setExpanded(isExpanded ? true : false)
     }
+
+    useEffect(() => {
+        setExpanded(openInitialy)
+    }, [openInitialy])
 
 
     return (

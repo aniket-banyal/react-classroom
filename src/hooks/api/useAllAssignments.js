@@ -8,5 +8,5 @@ const getAllAssignments = async () => {
 }
 
 export default function useAllAssignments() {
-    return useQuery(['all_assignments'], getAllAssignments)
+    return useQuery(['allAssignments'], getAllAssignments)
 }

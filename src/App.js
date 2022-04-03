@@ -19,6 +19,7 @@ import { Toaster } from 'react-hot-toast'
 import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material"
 import StudentSubmissions from "./components/StudentSubmissions";
 import Todo from "./components/Todo";
+import ToReview from "./components/ToReview";
 
 
 const queryClient = new QueryClient()
@@ -59,6 +60,7 @@ function App() {
               <Route path="/" element={<RequireAuth />} >
                 <Route index element={<Home />} />
                 <Route path='todo' element={<Todo />} />
+                <Route path='toreview' element={<ToReview />} />
                 <Route path=':code' element={<Base />}>
 
                   <Route path='dashboard' element={<Dashboard />} >

@@ -40,7 +40,10 @@ function Stat({ number, label }) {
                 {number}
             </Typography>
 
-            <Typography variant='subtitle2'>
+            <Typography
+                variant='subtitle2'
+                color='text.secondary'
+            >
                 {label}
             </Typography>
         </Paper>

@@ -9,36 +9,34 @@ function TodoAssignment({ assignment }) {
     return (
         <>
             <Card elevation={2}>
-                <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <CardActionArea component={Link} to={`/${assignment.classroom.code}/assignments/${assignment.id}`}>
-                        <CardContent>
-                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Box sx={{ width: '70%' }}>
-                                    <Typography
-                                        variant="h5"
-                                        noWrap
-                                    >
-                                        {assignment.title}
-                                    </Typography>
-
-                                    <Typography
-                                        variant="body1"
-                                        color={'text.secondary'}
-                                    >
-                                        {assignment.classroom.name}
-                                    </Typography>
-                                </Box>
+                <CardActionArea component={Link} to={`/${assignment.classroom.code}/assignments/${assignment.id}`}>
+                    <CardContent>
+                        <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Box sx={{ width: '70%' }}>
+                                <Typography
+                                    variant="h5"
+                                    noWrap
+                                >
+                                    {assignment.title}
+                                </Typography>
 
                                 <Typography
-                                    variant="subtitle1"
-                                    color='primary'
+                                    variant="body1"
+                                    color={'text.secondary'}
                                 >
-                                    Due {dueDateTime}
+                                    {assignment.classroom.name}
                                 </Typography>
-                            </Stack>
-                        </CardContent>
-                    </CardActionArea>
-                </Box>
+                            </Box>
+
+                            <Typography
+                                variant="subtitle1"
+                                color='primary'
+                            >
+                                Due {dueDateTime}
+                            </Typography>
+                        </Stack>
+                    </CardContent>
+                </CardActionArea>
             </Card>
         </>
     )
