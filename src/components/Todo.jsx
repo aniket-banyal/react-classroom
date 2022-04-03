@@ -68,7 +68,7 @@ function Todo() {
     }
 
     return (
-        <Box sx={{ p: 5 }}>
+        <Box sx={{ px: 10, py: 5 }}>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <Typography variant='h4' textAlign='center'>
