@@ -7,7 +7,7 @@ import NameAvatar from "../NameAvatar"
 function SidebarClassroomCard({ classroom, maxWidth }) {
 
     return (
-        <ListItemButton component={Link} to={`/${classroom.code}/dashboard`} key={classroom.code}>
+        <ListItemButton component={Link} to={`/${classroom.code}/dashboard`}>
             <Stack direction='row' spacing={3} alignItems='center'>
                 <NameAvatar
                     size='small'
