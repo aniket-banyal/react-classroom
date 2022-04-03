@@ -24,7 +24,10 @@ function UpcomingAssignments({ code }) {
 
     return (
         <Stack spacing={2}>
-            <Typography variant="subtitle1">
+            <Typography
+                variant="subtitle1"
+                color={'text.secondary'}
+            >
                 Upcoming
             </Typography>
 

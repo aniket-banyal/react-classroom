@@ -13,12 +13,18 @@ function TodoAssignment({ assignment }) {
                     <CardActionArea component={Link} to={`/${assignment.classroom.code}/assignments/${assignment.id}`}>
                         <CardContent>
                             <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Box>
-                                    <Typography variant="h5" gutterBottom>
+                                <Box sx={{ width: '70%' }}>
+                                    <Typography
+                                        variant="h5"
+                                        noWrap
+                                    >
                                         {assignment.title}
                                     </Typography>
 
-                                    <Typography variant="body1" gutterBottom>
+                                    <Typography
+                                        variant="body1"
+                                        color={'text.secondary'}
+                                    >
                                         {assignment.classroom.name}
                                     </Typography>
                                 </Box>

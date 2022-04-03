@@ -34,7 +34,11 @@ function AssignmentDetail() {
                                 {assignment.title}
                             </Typography>
 
-                            <Typography variant="subtitle2">
+                            <Typography
+                                variant="subtitle2"
+                                color={'text.secondary'}
+                                gutterBottom
+                            >
                                 Posted {createdDateTime}
                             </Typography>
 

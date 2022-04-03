@@ -82,7 +82,10 @@ function Announcement({ announcement }) {
                                     {announcement.author.name}
                                 </Typography>
 
-                                <Typography variant="subtitle2">
+                                <Typography
+                                    variant="subtitle2"
+                                    color={'text.secondary'}
+                                >
                                     {dateTime}
                                 </Typography>
                             </Box>

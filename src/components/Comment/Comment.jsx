@@ -63,7 +63,10 @@ function Comment({ comment, announcementId }) {
                                     {comment.author.name}
                                 </Typography>
 
-                                <Typography variant="caption" >
+                                <Typography
+                                    variant="caption"
+                                    color={'text.secondary'}
+                                >
                                     {dateTime}
                                 </Typography>
                             </Stack>
