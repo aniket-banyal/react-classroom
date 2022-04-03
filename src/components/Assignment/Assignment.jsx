@@ -57,12 +57,13 @@ function Assignment({ assignment }) {
                 <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <CardActionArea component={Link} to={`/${code}/assignments/${assignment.id}`}>
                         <CardContent>
-                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Box>
+                            <Stack direction='row' alignItems='flex-end' justifyContent='space-between'>
+                                <Box sx={{ width: '70%' }}>
                                     <Typography
                                         variant="h5"
-                                        gutterBottom
                                         color='primary'
+                                        noWrap
+                                        gutterBottom
                                     >
                                         {assignment.title}
                                     </Typography>

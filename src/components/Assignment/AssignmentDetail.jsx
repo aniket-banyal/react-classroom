@@ -25,7 +25,7 @@ function AssignmentDetail() {
             <Card sx={{ flexGrow: 1 }}>
                 <CardContent>
                     <Stack direction='row' alignItems='flex-end' justifyContent='space-between'>
-                        <Box>
+                        <Box sx={{ width: '80%' }}>
                             <Typography
                                 variant="h5"
                                 gutterBottom
