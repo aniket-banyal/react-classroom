@@ -110,7 +110,7 @@ function ClassCard({ classroom }) {
                         </CardContent>
                     </Stack>
 
-                    {menuOptions.length > 0 && <ThreeDotMenu options={menuOptions} />}
+                    <ThreeDotMenu options={menuOptions} />
                 </Stack>
             </Card>
         </>
