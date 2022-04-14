@@ -32,19 +32,25 @@ function Sidebar({ toggleDrawer }) {
                 <CenteredCircularProgress />
                 :
                 <>
-                    <SidebarClassroom
-                        classrooms={enrolledClassrooms}
-                        title='Enrolled'
-                        maxWidth={width / 1.6}
-                    />
+                    {
+                        enrolledClassrooms.length > 0 &&
+                        <SidebarClassroom
+                            classrooms={enrolledClassrooms}
+                            title='Enrolled'
+                            maxWidth={width / 1.6}
+                        />
+                    }
 
                     <Divider />
 
-                    <SidebarClassroom
-                        classrooms={teachingClassrooms}
-                        title='Teaching'
-                        maxWidth={width / 1.6}
-                    />
+                    {
+                        teachingClassrooms.length > 0 &&
+                        <SidebarClassroom
+                            classrooms={teachingClassrooms}
+                            title='Teaching'
+                            maxWidth={width / 1.6}
+                        />
+                    }
                 </>
             }
 
