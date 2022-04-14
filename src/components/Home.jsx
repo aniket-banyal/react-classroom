@@ -30,6 +30,7 @@ function Home() {
                                 <Stack
                                     direction='row'
                                     spacing={1}
+                                    alignItems='center'
                                 >
                                     <AssignmentIcon />
 
@@ -43,6 +44,7 @@ function Home() {
                                 <Stack
                                     direction='row'
                                     spacing={1}
+                                    alignItems='center'
                                 >
                                     <ListAltIcon />
 

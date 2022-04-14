@@ -8,20 +8,20 @@ function TodoAssignment({ assignment }) {
 
     return (
         <>
-            <Card elevation={2}>
+            <Card variant='outlined' elevation={0}>
                 <CardActionArea component={Link} to={`/${assignment.classroom.code}/assignments/${assignment.id}`}>
                     <CardContent>
                         <Stack direction='row' alignItems='center' justifyContent='space-between'>
                             <Box sx={{ width: '70%' }}>
                                 <Typography
-                                    variant="h5"
+                                    variant="h6"
                                     noWrap
                                 >
                                     {assignment.title}
                                 </Typography>
 
                                 <Typography
-                                    variant="body1"
+                                    variant="subtitle1"
                                     color={'text.secondary'}
                                 >
                                     {assignment.classroom.name}
