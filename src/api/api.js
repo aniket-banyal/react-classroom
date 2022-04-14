@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = 'http://localhost:8000/api'
+const baseURL = process.env.REACT_APP_DJANGO_API_BASE_URL
 
 const api = axios.create({
     baseURL: baseURL,
@@ -18,8 +18,8 @@ api.interceptors.response.use(
             const body = {
                 refresh_token: localStorage.getItem('refresh_token'),
                 grant_type: 'refresh_token',
-                client_id: 'sz8z14oUhS1fd0yEqWp38vzoM3f9VrJQ2Fe5JEkI',
-                client_secret: '5ZYLS56MgsSftQq4Tn3ISamn9sQ8mBvybfRslK0HCYLTXteCJF9MpXl3RILdrWeXlRAq8tRHtv34hi1xaRkHrtey28FThhZOezSBAGeNRQKEBrp7NRnSoaI0OeWNfX1m'
+                client_id: process.env.REACT_APP_DJANGO_CLIENT_ID,
+                client_secret: process.env.REACT_APP_DJANGO_CLIENT_SECRET
             }
             const options = {
                 method: 'POST',
@@ -29,7 +29,7 @@ api.interceptors.response.use(
                 body: JSON.stringify(body)
             }
 
-            const response = await fetch('http://localhost:8000/auth/token', options)
+            const response = await fetch(`${baseURL}/auth/token`, options)
             const data = await response.json()
 
             localStorage.setItem('access_token', data.access_token)

@@ -18,8 +18,8 @@ function Login() {
             token: res.accessToken,
             backend: 'google-oauth2',
             grant_type: 'convert_token',
-            client_id: 'sz8z14oUhS1fd0yEqWp38vzoM3f9VrJQ2Fe5JEkI',
-            client_secret: '5ZYLS56MgsSftQq4Tn3ISamn9sQ8mBvybfRslK0HCYLTXteCJF9MpXl3RILdrWeXlRAq8tRHtv34hi1xaRkHrtey28FThhZOezSBAGeNRQKEBrp7NRnSoaI0OeWNfX1m'
+            client_id: process.env.REACT_APP_DJANGO_CLIENT_ID,
+            client_secret: process.env.REACT_APP_DJANGO_CLIENT_SECRET
         }
         const options = {
             method: 'POST',
@@ -55,8 +55,7 @@ function Login() {
 
     return (
         <GoogleLogin
-            clientId='411542087259-8ets43a5n6tu5qkmrfnauep52kh9uij0.apps.googleusercontent.com'
-            // clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Sign in with Google"
             onSuccess={onGoogleLoginSuccess}
             onFailure={onGoogleLoginFailure}
