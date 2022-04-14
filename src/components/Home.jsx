@@ -21,42 +21,54 @@ function Home() {
 
     return (
         <Box sx={{ p: 5 }}>
-            <Stack direction='row' spacing={2} sx={{ mb: 4 }}>
-                <Button component={Link} to='/todo'>
-                    <Stack
-                        direction='row'
-                        spacing={1}
-                    >
-                        <AssignmentIcon />
 
-                        <Typography variant="subtitle1">
-                            To-do
+            {
+                classrooms.length > 0 ?
+                    <>
+                        <Stack direction='row' spacing={2} sx={{ mb: 4 }}>
+                            <Button component={Link} to='/todo'>
+                                <Stack
+                                    direction='row'
+                                    spacing={1}
+                                >
+                                    <AssignmentIcon />
+
+                                    <Typography variant="subtitle1">
+                                        To-do
+                                    </Typography>
+                                </Stack>
+                            </Button>
+
+                            <Button component={Link} to='/toreview'>
+                                <Stack
+                                    direction='row'
+                                    spacing={1}
+                                >
+                                    <ListAltIcon />
+
+                                    <Typography variant="subtitle1">
+                                        To-Review
+                                    </Typography>
+                                </Stack>
+                            </Button>
+                        </Stack>
+
+
+                        <Grid container spacing={3}>
+                            {classrooms.map((classroom) =>
+                                <Grid item key={classroom.code} md={3} sm={6} xs={6}>
+                                    <ClassCard classroom={classroom} />
+                                </Grid>
+                            )}
+                        </Grid>
+                    </>
+                    :
+                    <Stack alignItems='center'>
+                        <Typography variant="h5">
+                            No Classrooms
                         </Typography>
                     </Stack>
-                </Button>
-
-                <Button component={Link} to='/toreview'>
-                    <Stack
-                        direction='row'
-                        spacing={1}
-                    >
-                        <ListAltIcon />
-
-                        <Typography variant="subtitle1">
-                            To-Review
-                        </Typography>
-                    </Stack>
-                </Button>
-            </Stack>
-
-
-            <Grid container spacing={3}>
-                {classrooms.map((classroom) =>
-                    <Grid item key={classroom.code} md={3} sm={6} xs={6}>
-                        <ClassCard classroom={classroom} />
-                    </Grid>
-                )}
-            </Grid>
+            }
         </Box>
     )
 }
