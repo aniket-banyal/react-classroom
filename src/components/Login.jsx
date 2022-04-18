@@ -29,7 +29,7 @@ function Login() {
             body: JSON.stringify(body)
         }
 
-        const response = await fetch('http://localhost:8000/auth/convert-token', options)
+        const response = await fetch(`${process.env.REACT_APP_DJANGO_AUTH_URL}/convert-token`, options)
         const data = await response.json()
 
         localStorage.setItem('access_token', data.access_token)

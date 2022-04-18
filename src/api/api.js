@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_DJANGO_API_BASE_URL
 
 const api = axios.create({
-    baseURL: baseURL,
+    baseURL: process.env.REACT_APP_DJANGO_API_BASE_URL,
     headers: {
         Authorization: localStorage.getItem('access_token') ?
             `Bearer ${localStorage.getItem('access_token')}` : undefined,
@@ -29,7 +28,7 @@ api.interceptors.response.use(
                 body: JSON.stringify(body)
             }
 
-            const response = await fetch(`${baseURL}/auth/token`, options)
+            const response = await fetch(`${process.env.REACT_APP_DJANGO_AUTH_URL}/token`, options)
             const data = await response.json()
 
             localStorage.setItem('access_token', data.access_token)
