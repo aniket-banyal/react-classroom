@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import useAllAssignments from '../hooks/api/useAllAssignments';
+import useAllAssignmentsToDo from '../hooks/api/useAllAssignmentsToDo';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import SimpleAccordion from './SimpleAccordion';
 import TodoAssignment from './TodoAssignment';
@@ -14,7 +14,7 @@ const accordionLabels = ['This week', 'Next week', 'Later']
 function Todo() {
     const [weekWiseAssignments, setWeekWiseAssignments] = useState({})
     const [selectedClassroom, setSelectedClassroom] = useState('All')
-    const { data: assignments, isLoading, isFetching } = useAllAssignments()
+    const { data: assignments, isLoading, isFetching } = useAllAssignmentsToDo()
     const { data: classrooms } = useEnrolledClassrooms()
     const options = ['All']
 
