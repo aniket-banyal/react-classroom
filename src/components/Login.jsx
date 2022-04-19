@@ -53,6 +53,8 @@ function Login() {
         )
     }
 
+    console.log(process.env, process.env.REACT_APP_GOOGLE_CLIENT_ID)
+
     return (
         <GoogleLogin
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
