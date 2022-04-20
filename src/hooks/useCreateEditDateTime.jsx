@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getDateAndTimeInLocale } from "../helpers/dateTime"
 
+const BUFFER_TIME = 60 * 1000 //1 minute
+
 export default function useCreateEditDateTime(_createdAt, _editedAt) {
     const [createEditDateTime, setCreateEditDateTime] = useState('')
 
@@ -15,7 +17,7 @@ export default function useCreateEditDateTime(_createdAt, _editedAt) {
 
         const [createdDate, createdTime] = getDateAndTimeInLocale(createdAt)
 
-        if (!_editedAt || (createdAt.getTime() === editedAt.getTime())) {
+        if (!_editedAt || (editedAt.getTime() - createdAt.getTime() < BUFFER_TIME)) {
             setCreateEditDateTime(`${createdDate} - ${createdTime}`)
         }
         else {
