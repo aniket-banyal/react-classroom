@@ -1,7 +1,7 @@
 import { Link, Stack, Typography } from "@mui/material"
 import { Box } from "@mui/system"
-import useUpcomingAssignment from "../hooks/api/useUpcomingAssignment"
-import useCreateDateTime from "../hooks/useCreateDateTime"
+import useUpcomingAssignment from "../../hooks/api/useUpcomingAssignment"
+import useCreateDateTime from "../../hooks/useCreateDateTime"
 import { Link as RouterLink } from 'react-router-dom';
 
 function UpcomingAssignments({ code }) {

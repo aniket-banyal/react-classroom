@@ -1,5 +1,5 @@
-import ClassCard from "./ClassroomCard"
-import useClassrooms from "../hooks/api/useClassrooms"
+import ClassroomCard from "./ClassroomCard"
+import useClassrooms from "../../hooks/api/useClassrooms"
 import { Box, Grid, LinearProgress, Button, Stack, Typography } from "@mui/material"
 import { Link } from 'react-router-dom'
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -59,7 +59,7 @@ function Home() {
                         <Grid container spacing={3}>
                             {classrooms.map((classroom) =>
                                 <Grid item key={classroom.code} md={3} sm={6} xs={6}>
-                                    <ClassCard classroom={classroom} />
+                                    <ClassroomCard classroom={classroom} />
                                 </Grid>
                             )}
                         </Grid>

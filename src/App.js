@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Base from "./components/Base";
 import AssignmentDetail from "./components/Assignment/AssignmentDetail";
 import AnnouncementsTab from "./components/Announcement/AnnouncementsTab";
-import Home from './components/Home'
+import Home from './components/HomePage/Home'
 import LoginPage from "./components/LoginPage";
-import Navbar from "./components/Navbar/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import { AuthContext } from "./context/AuthContext";
 import Submissions from "./components/Submission/Teacher/Submissions";

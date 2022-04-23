@@ -1,18 +1,18 @@
 import { Card, CardActionArea, CardContent, Divider, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import useUnenrollStudent from "../hooks/api/useUnenrollStudent";
-import useUser from "../hooks/api/useUser";
-import useUserRole from "../hooks/api/useUserRole";
-import BasicModal from "./BasicModal";
-import ConfirmationModal from "./ConfirmationModal";
-import EditClassroom from "./EditClassroom";
-import ThreeDotMenu from "./ThreeDotMenu";
-import useDeleteClassroom from "../hooks/api/useDeleteClassroom";
+import useUnenrollStudent from "../../hooks/api/useUnenrollStudent";
+import useUser from "../../hooks/api/useUser";
+import useUserRole from "../../hooks/api/useUserRole";
+import BasicModal from "../BasicModal";
+import ConfirmationModal from "../ConfirmationModal";
+import EditClassroom from "../EditClassroom";
+import ThreeDotMenu from "../ThreeDotMenu";
+import useDeleteClassroom from "../../hooks/api/useDeleteClassroom";
 import UpcomingAssignments from "./UpcomingAssignments";
 
 
-function ClassCard({ classroom }) {
+function ClassroomCard({ classroom }) {
     const [menuOptions, setMenuOptions] = useState([])
     const [editing, setEditing] = useState(false)
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
@@ -117,4 +117,4 @@ function ClassCard({ classroom }) {
     )
 }
 
-export default ClassCard
+export default ClassroomCard
