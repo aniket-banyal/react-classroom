@@ -1,18 +1,17 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import useAllAssignmentsToDo from '../hooks/api/useAllAssignmentsToDo';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import SimpleAccordion from './SimpleAccordion';
 import TodoAssignment from './TodoAssignment';
-import { endOfWeek } from 'date-fns';
 import SimpleSelect from './SimpleSelect';
 import useEnrolledClassrooms from '../hooks/api/useEnrolledClassrooms';
+import useGetWeekWiseAssignmentsToDo from '../hooks/useGetWeekWiseAssignmentsToDo';
 
 
 const accordionLabels = ['This week', 'Next week', 'Later']
 
 function Todo() {
-    const [weekWiseAssignments, setWeekWiseAssignments] = useState({})
     const [selectedClassroom, setSelectedClassroom] = useState('All')
     const { data: assignments, isLoading, isFetching } = useAllAssignmentsToDo()
     const { data: classrooms } = useEnrolledClassrooms()
@@ -29,38 +28,9 @@ function Todo() {
             return assignments
         return assignments.filter(assignment => assignment.classroom.name === selectedClassroom)
 
-    }, [assignments, selectedClassroom])
+    }, [assignments, isFetching, selectedClassroom])
 
-    useEffect(() => {
-        if (isLoading)
-            return
-
-        const now = new Date()
-        const endOfThisWeek = endOfWeek(now, { weekStartsOn: 1 })
-        const endOfNextWeek = new Date(endOfThisWeek.getTime())
-        endOfNextWeek.setDate(endOfNextWeek.getDate() + 7)
-
-        const weekWiseAssignments = {}
-        accordionLabels.forEach(accordionLabel => {
-            weekWiseAssignments[accordionLabel] = []
-        })
-
-        filteredAssignments.forEach(assignment => {
-            const assignmentDueDate = new Date(assignment.due_date_time)
-
-            if (assignmentDueDate.getTime() < endOfThisWeek)
-                weekWiseAssignments[accordionLabels[0]].push(assignment)
-
-            else if (assignmentDueDate.getTime() < endOfNextWeek)
-                weekWiseAssignments[accordionLabels[1]].push(assignment)
-
-            else
-                weekWiseAssignments[accordionLabels[2]].push(assignment)
-        })
-
-        setWeekWiseAssignments(weekWiseAssignments)
-
-    }, [isFetching, filteredAssignments])
+    const weekWiseAssignments = useGetWeekWiseAssignmentsToDo(filteredAssignments, accordionLabels)
 
 
     if (isLoading) {

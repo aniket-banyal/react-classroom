@@ -1,17 +1,17 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import CenteredCircularProgress from './CenteredCircularProgress';
 import SimpleAccordion from './SimpleAccordion';
 import SimpleSelect from './SimpleSelect';
 import useAllToReview from '../hooks/api/useAllToReview';
 import ToReviewAssignment from './ToReviewAssignment';
 import useTeachingClassrooms from '../hooks/api/useTeachingClassrooms';
+import useGetWeekWiseAssignmentsToReview from '../hooks/useGetWeekWiseAssignmentsToReview';
 
 
 const accordionLabels = ['On Going', 'Earlier']
 
 function ToReview() {
-    const [weekWiseAssignments, setWeekWiseAssignments] = useState({})
     const [selectedClassroom, setSelectedClassroom] = useState('All')
     const { data: allData, isLoading, isFetching } = useAllToReview()
     const { data: classrooms } = useTeachingClassrooms()
@@ -30,29 +30,7 @@ function ToReview() {
 
     }, [allData, selectedClassroom])
 
-    useEffect(() => {
-        if (isLoading)
-            return
-
-        const weekWiseAssignments = {}
-        accordionLabels.forEach(accordionLabel => {
-            weekWiseAssignments[accordionLabel] = []
-        })
-
-        const now = new Date()
-        filteredData.forEach(data => {
-            const assignmentDueDate = new Date(data.assignment.due_date_time)
-
-            if (now.getTime() < assignmentDueDate.getTime())
-                weekWiseAssignments[accordionLabels[0]].push(data)
-
-            else
-                weekWiseAssignments[accordionLabels[1]].push(data)
-        })
-
-        setWeekWiseAssignments(weekWiseAssignments)
-
-    }, [isFetching, filteredData])
+    const weekWiseAssignments = useGetWeekWiseAssignmentsToReview(filteredData, accordionLabels)
 
 
     if (isLoading) {
