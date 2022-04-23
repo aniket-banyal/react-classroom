@@ -1,12 +1,12 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
-import CenteredCircularProgress from './CenteredCircularProgress';
-import SimpleAccordion from './SimpleAccordion';
-import SimpleSelect from './SimpleSelect';
-import useAllToReview from '../hooks/api/useAllToReview';
+import CenteredCircularProgress from '../CenteredCircularProgress';
+import SimpleAccordion from '../SimpleAccordion';
+import SimpleSelect from '../SimpleSelect';
+import useAllToReview from '../../hooks/api/useAllToReview';
 import ToReviewAssignment from './ToReviewAssignment';
-import useTeachingClassrooms from '../hooks/api/useTeachingClassrooms';
-import useGetWeekWiseAssignmentsToReview from '../hooks/useGetWeekWiseAssignmentsToReview';
+import useTeachingClassrooms from '../../hooks/api/useTeachingClassrooms';
+import useGetWeekWiseAssignmentsToReview from '../../hooks/useGetWeekWiseAssignmentsToReview';
 
 
 const accordionLabels = ['On Going', 'Earlier']
