@@ -23,12 +23,11 @@ function EditAssignment({ assignmentId, onSubmit }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        newAssignment.due_date_time = new Date(newAssignment.due_date_time).getTime()
 
         const body = {
             title: newAssignment.title,
             text: newAssignment.text,
-            due_date_time: newAssignment.due_date_time,
+            due_date_time: new Date(newAssignment.due_date_time).getTime(),
             points: newAssignment.points
         }
 
@@ -49,7 +48,7 @@ function EditAssignment({ assignmentId, onSubmit }) {
             setNewAssignment(initialAssignment)
 
         else
-            setNewAssignment(assignment)
+            setNewAssignment({ ...assignment, due_date_time: new Date(assignment.due_date_time) })
 
     }, [isLoading])
 
@@ -111,6 +110,13 @@ function EditAssignment({ assignmentId, onSubmit }) {
                         variant="contained"
                         loadingIndicator="Saving..."
                         loading={isEditing}
+                        disabled={
+                            newAssignment.title === '' ||
+                            newAssignment.text === '' ||
+                            newAssignment.points === '' ||
+                            isNaN(newAssignment.due_date_time.getTime()) ||
+                            newAssignment.due_date_time?.getTime() < Date.now()
+                        }
                     >
                         Save
                     </LoadingButton >

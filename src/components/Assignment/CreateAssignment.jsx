@@ -25,12 +25,11 @@ function CreateAssignment() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        assignment.due_date_time = new Date(assignment.due_date_time).getTime()
 
         const body = {
             title: assignment.title,
             text: assignment.text,
-            due_date_time: assignment.due_date_time,
+            due_date_time: new Date(assignment.due_date_time).getTime(),
             points: assignment.points
         }
 
@@ -114,10 +113,12 @@ function CreateAssignment() {
                         <BaseDateTimePicker
                             value={assignment.due_date_time}
                             minDateTime={new Date()}
-                            onChange={value => setAssignment({
-                                ...assignment,
-                                due_date_time: value,
-                            })}
+                            onChange={value =>
+                                setAssignment({
+                                    ...assignment,
+                                    due_date_time: value,
+                                })
+                            }
                         />
 
                         <LoadingButton
@@ -129,7 +130,8 @@ function CreateAssignment() {
                                 assignment.title === '' ||
                                 assignment.text === '' ||
                                 assignment.points === '' ||
-                                assignment.due_date_time === ''
+                                isNaN(assignment.due_date_time.getTime()) ||
+                                assignment.due_date_time?.getTime() < Date.now()
                             }
                         >
                             Post
