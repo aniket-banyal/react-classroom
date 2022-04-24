@@ -6,7 +6,7 @@ import useUser from "../../hooks/api/useUser";
 import useUserRole from "../../hooks/api/useUserRole";
 import BasicModal from "../BasicModal";
 import ConfirmationModal from "../ConfirmationModal";
-import EditClassroom from "../EditClassroom";
+import EditClassroom from "./EditClassroom";
 import ThreeDotMenu from "../ThreeDotMenu";
 import useDeleteClassroom from "../../hooks/api/useDeleteClassroom";
 import UpcomingAssignments from "./UpcomingAssignments";

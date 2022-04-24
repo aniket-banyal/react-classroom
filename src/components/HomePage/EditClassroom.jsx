@@ -1,7 +1,7 @@
 import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
 import { useState } from "react"
-import useEditClassroom from "../hooks/api/useEditClassroom"
+import useEditClassroom from "../../hooks/api/useEditClassroom"
 
 function EditClassroom({ classroom, onSubmit }) {
     const [name, setName] = useState(classroom.name)

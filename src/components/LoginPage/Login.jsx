@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
-import { api } from '../api/api'
-import useAuth from '../hooks/useAuth'
-import CenteredCircularProgress from './CenteredCircularProgress'
+import { api } from '../../api/api'
+import useAuth from '../../hooks/useAuth'
+import CenteredCircularProgress from '../CenteredCircularProgress'
 
 
 function Login() {
