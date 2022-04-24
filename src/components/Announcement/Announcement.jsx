@@ -1,16 +1,15 @@
 import { Box, Card, CardContent, Divider, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import BasicModal from "../BasicModal";
-import CommentSection from "../Comment/CommentSection";
+import BasicModal from "../shared/BasicModal"; import CommentSection from "../Comment/CommentSection";
 import EditAnnouncement from "./EditAnnouncement";
 import useUser from '../../hooks/api/useUser'
 import useUserRole from '../../hooks/api/useUserRole'
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import { useParams } from "react-router-dom";
 import useDeleteAnnouncement from "../../hooks/api/useDeleteAnnouncement";
-import ThreeDotMenu from "../ThreeDotMenu";
-import NameAvatar from "../NameAvatar";
-import ConfirmationModal from "../ConfirmationModal";
+import ThreeDotMenu from "../shared/ThreeDotMenu";
+import NameAvatar from "../shared/NameAvatar";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 
 function Announcement({ announcement }) {

@@ -5,7 +5,7 @@ import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
 import { useAssignment } from "../../hooks/api/useAssignment";
 import useUserRole from "../../hooks/api/useUserRole";
-import CenteredCircularProgress from "../CenteredCircularProgress";
+import CenteredCircularProgress from "../shared/CenteredCircularProgress";
 
 
 function AssignmentDetail() {

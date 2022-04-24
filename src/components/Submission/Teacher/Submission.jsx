@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useAssignmentPoints } from "../../../hooks/api/useAssignment"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
-import SubmissionStatus from "../../SubmissionStatus"
-import NameAvatar from '../../NameAvatar';
+import SubmissionStatus from "../../shared/SubmissionStatus"
+import NameAvatar from '../../shared/NameAvatar';
 import GradeSubmission from "./GradeSubmission"
 
 

@@ -6,7 +6,7 @@ import { Divider, Stack, Typography } from "@mui/material";
 import useRemoveStudent from "../../hooks/api/useRemoveStudent";
 import useUserRole from "../../hooks/api/useUserRole";
 import DeleteIcon from '@mui/icons-material/Delete';
-import CenteredCircularProgress from "../CenteredCircularProgress";
+import CenteredCircularProgress from "../shared/CenteredCircularProgress";
 
 
 function PeopleTab() {

@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material"
 import { Link, useParams } from "react-router-dom"
-import SubmissionStatus from "../SubmissionStatus"
+import SubmissionStatus from "../shared/SubmissionStatus"
 
 
 function StudentSubmissionCard({ submission }) {

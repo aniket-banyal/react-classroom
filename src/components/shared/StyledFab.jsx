@@ -1,7 +1,7 @@
 import { Fab } from "@mui/material";
 import { styled } from "@mui/system";
 
-export const StyledFab = styled(Fab)({
+const StyledFab = styled(Fab)({
     margin: 0,
     top: 'auto',
     right: 20,
@@ -10,3 +10,5 @@ export const StyledFab = styled(Fab)({
     position: 'fixed',
     zIndex: 10
 })
+
+export default StyledFab

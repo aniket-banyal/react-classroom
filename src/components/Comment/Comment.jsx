@@ -5,9 +5,9 @@ import useDeleteComment from "../../hooks/api/useDeleteComment"
 import useCreateDateTime from "../../hooks/useCreateDateTime"
 import useUser from "../../hooks/api/useUser"
 import useUserRole from "../../hooks/api/useUserRole"
-import ThreeDotMenu from "../ThreeDotMenu"
-import NameAvatar from "../NameAvatar"
-import ConfirmationModal from "../ConfirmationModal"
+import ThreeDotMenu from "../shared/ThreeDotMenu"
+import NameAvatar from "../shared/NameAvatar"
+import ConfirmationModal from "../shared/ConfirmationModal"
 
 function Comment({ comment, announcementId }) {
     const [menuOptions, setMenuOptions] = useState([])

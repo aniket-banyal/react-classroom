@@ -1,8 +1,8 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
-import CenteredCircularProgress from '../CenteredCircularProgress';
-import SimpleAccordion from '../SimpleAccordion';
-import SimpleSelect from '../SimpleSelect';
+import CenteredCircularProgress from '../shared/CenteredCircularProgress';
+import SimpleAccordion from '../shared/SimpleAccordion';
+import SimpleSelect from '../shared/SimpleSelect';
 import useAllToReview from '../../hooks/api/useAllToReview';
 import ToReviewAssignment from './ToReviewAssignment';
 import useTeachingClassrooms from '../../hooks/api/useTeachingClassrooms';

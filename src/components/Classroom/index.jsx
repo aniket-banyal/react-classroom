@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom"
-import BasicTabs from "../BasicTabs"
+import BasicTabs from "../shared/BasicTabs"
 import useClassroom from "../../hooks/api/useClassroom";
 import { useEffect } from "react";
-import CenteredCircularProgress from '../CenteredCircularProgress'
+import CenteredCircularProgress from '../shared/CenteredCircularProgress'
 import ClassroomHeaderCard from "./ClassroomHeaderCard";
 
 

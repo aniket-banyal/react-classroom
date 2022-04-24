@@ -4,8 +4,8 @@ import { useState } from "react"
 import useCreateAnnouncement from "../../hooks/api/useCreateAnnouncement"
 import { useParams } from "react-router-dom"
 import { LoadingButton } from "@mui/lab"
-import BasicModal from "../BasicModal"
-import { StyledFab } from "../StyledFab"
+import BasicModal from "../shared/BasicModal"
+import StyledFab from "../shared/StyledFab"
 
 
 function CreateAnnouncement() {

@@ -3,7 +3,7 @@ import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from "react-router-dom"
 import { api } from "../../api"
 import useAuth from '../../hooks/useAuth'
-import CenteredCircularProgress from '../CenteredCircularProgress'
+import CenteredCircularProgress from '../shared/CenteredCircularProgress'
 
 
 function Login() {

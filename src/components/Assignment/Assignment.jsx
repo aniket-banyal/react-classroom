@@ -2,13 +2,12 @@ import { Box, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useUserRole from "../../hooks/api/useUserRole";
-import BasicModal from "../BasicModal";
-import EditAssignment from "./EditAssignment";
+import BasicModal from "../shared/BasicModal"; import EditAssignment from "./EditAssignment";
 import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
 import useDeleteAssignment from "../../hooks/api/useDeleteAssignment";
-import ThreeDotMenu from "../ThreeDotMenu";
-import ConfirmationModal from "../ConfirmationModal";
+import ThreeDotMenu from "../shared/ThreeDotMenu";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 
 function Assignment({ assignment }) {

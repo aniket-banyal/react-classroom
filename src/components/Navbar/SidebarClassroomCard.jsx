@@ -1,7 +1,7 @@
 import ListItemText from '@mui/material/ListItemText';
 import { ListItemButton, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-import NameAvatar from "../NameAvatar"
+import NameAvatar from "../shared/NameAvatar"
 
 
 function SidebarClassroomCard({ classroom, maxWidth }) {

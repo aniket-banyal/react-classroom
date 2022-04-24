@@ -3,7 +3,7 @@ import { useAssignment } from "../../hooks/api/useAssignment"
 import useEditAssignment from "../../hooks/api/useEditAssignment"
 import { addErrorToast } from "../../helpers/addToast"
 import { useEffect, useState } from "react"
-import BaseDateTimePicker from "../BasicDateTimePicker"
+import BaseDateTimePicker from "../shared/BasicDateTimePicker"
 import { Stack, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
 

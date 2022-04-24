@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import JoinClassroom from '../JoinClassroom';
 import CreateClassroom from '../CreateClassroom';
-import BasicModal from "../BasicModal";
-
+import BasicModal from "../shared/BasicModal";
 
 function NavbarMenu() {
     const [anchorEl, setAnchorEl] = useState(null)

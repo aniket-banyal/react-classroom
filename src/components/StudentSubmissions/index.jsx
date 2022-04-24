@@ -1,12 +1,12 @@
 import { Divider, Grid, Stack, Typography } from "@mui/material"
 import { useParams } from "react-router-dom"
-import CenteredCircularProgress from "../CenteredCircularProgress"
+import CenteredCircularProgress from "../shared/CenteredCircularProgress"
 import useStudent from "../../hooks/api/useStudent"
 import useStudentSubmissions from "../../hooks/api/useStudentSubmissions"
 import StudentSubmissionCard from "./StudentSubmissionCard"
-import NameAvatar from "../NameAvatar";
+import NameAvatar from "../shared/NameAvatar";
 import { useMemo, useState } from "react"
-import SubmissionStatusSelect from "../SubmissionStatusSelect"
+import SubmissionStatusSelect from "../shared/SubmissionStatusSelect"
 
 
 function StudentSubmissions() {

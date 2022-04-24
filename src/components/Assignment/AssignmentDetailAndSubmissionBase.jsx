@@ -1,6 +1,6 @@
 import { Outlet, useParams } from "react-router-dom"
 import useUserRole from "../../hooks/api/useUserRole"
-import BasicTabs from "../BasicTabs"
+import BasicTabs from "../shared/BasicTabs"
 
 const tabs = [
     {

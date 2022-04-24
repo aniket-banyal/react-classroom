@@ -4,10 +4,9 @@ import { Link } from "react-router-dom"
 import useUnenrollStudent from "../../hooks/api/useUnenrollStudent";
 import useUser from "../../hooks/api/useUser";
 import useUserRole from "../../hooks/api/useUserRole";
-import BasicModal from "../BasicModal";
-import ConfirmationModal from "../ConfirmationModal";
+import BasicModal from "../shared/BasicModal"; import ConfirmationModal from "../shared/ConfirmationModal";
 import EditClassroom from "./EditClassroom";
-import ThreeDotMenu from "../ThreeDotMenu";
+import ThreeDotMenu from "../shared/ThreeDotMenu";
 import useDeleteClassroom from "../../hooks/api/useDeleteClassroom";
 import UpcomingAssignments from "./UpcomingAssignments";
 

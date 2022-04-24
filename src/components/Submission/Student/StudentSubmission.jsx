@@ -5,8 +5,8 @@ import useStudentSubmission from "../../../hooks/api/useStudentSubmission"
 import useCreateDateTime from "../../../hooks/useCreateDateTime"
 import CreateSubmission from "./CreateSubmission"
 import { Typography } from '@mui/material';
-import CenteredCircularProgress from '../../CenteredCircularProgress'
-import SubmissionStatus from "../../SubmissionStatus"
+import CenteredCircularProgress from '../../shared/CenteredCircularProgress'
+import SubmissionStatus from "../../shared/SubmissionStatus"
 
 function StudentSubmission({ totalPoints }) {
     const { code, assignmentId } = useParams()

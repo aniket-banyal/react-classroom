@@ -1,10 +1,10 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
 import useAllAssignmentsToDo from '../../hooks/api/useAllAssignmentsToDo';
-import CenteredCircularProgress from '../CenteredCircularProgress';
-import SimpleAccordion from '../SimpleAccordion';
+import CenteredCircularProgress from '../shared/CenteredCircularProgress';
+import SimpleAccordion from '../shared/SimpleAccordion';
 import TodoAssignment from './TodoAssignment';
-import SimpleSelect from '../SimpleSelect';
+import SimpleSelect from '../shared/SimpleSelect';
 import useEnrolledClassrooms from '../../hooks/api/useEnrolledClassrooms';
 import useGetWeekWiseAssignmentsToDo from '../../hooks/useGetWeekWiseAssignmentsToDo';
 

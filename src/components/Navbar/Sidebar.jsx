@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import useEnrolledClassrooms from '../../hooks/api/useEnrolledClassrooms';
 import useTeachingClassrooms from '../../hooks/api/useTeachingClassrooms';
-import CenteredCircularProgress from '../CenteredCircularProgress';
+import CenteredCircularProgress from '../shared/CenteredCircularProgress';
 import SidebarClassroom from './SidebarClassroom';
 
 
