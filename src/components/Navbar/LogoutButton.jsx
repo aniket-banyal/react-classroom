@@ -1,7 +1,7 @@
 import { GoogleLogout } from 'react-google-login'
 import { useQueryClient } from 'react-query';
 import { useNavigate } from "react-router-dom"
-import useAuth from "../hooks/useAuth"
+import useAuth from "../../hooks/useAuth"
 
 function LogoutButton() {
     const { setIsAuth } = useAuth()

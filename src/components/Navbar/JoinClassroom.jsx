@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import useJoinClassroom from "../hooks/api/useJoinClassroom"
-import { addErrorToast } from "../helpers/addToast"
+import useJoinClassroom from "../../hooks/api/useJoinClassroom"
+import { addErrorToast } from "../../helpers/addToast"
 import { Stack, TextField } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
 

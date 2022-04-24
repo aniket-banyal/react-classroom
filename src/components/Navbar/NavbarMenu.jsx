@@ -1,8 +1,8 @@
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import JoinClassroom from '../JoinClassroom';
-import CreateClassroom from '../CreateClassroom';
+import JoinClassroom from './JoinClassroom';
+import CreateClassroom from './CreateClassroom';
 import BasicModal from "../shared/BasicModal";
 
 function NavbarMenu() {

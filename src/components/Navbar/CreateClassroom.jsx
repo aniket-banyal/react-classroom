@@ -2,7 +2,7 @@ import { LoadingButton } from "@mui/lab"
 import { Stack, TextField } from "@mui/material"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import useCreateClassroom from "../hooks/api/useCreateClassroom"
+import useCreateClassroom from "../../hooks/api/useCreateClassroom"
 
 
 function CreateClassroom({ onSubmit }) {
