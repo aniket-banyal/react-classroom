@@ -45,6 +45,10 @@ function CreateClassroom({ onSubmit }) {
                     variant="contained"
                     loadingIndicator="Creating..."
                     loading={isLoading}
+                    disabled={
+                        name === '' ||
+                        subject === ''
+                    }
                 >
                     Create
                 </LoadingButton >

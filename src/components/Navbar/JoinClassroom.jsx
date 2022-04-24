@@ -51,6 +51,7 @@ function JoinClassroom({ onSubmit }) {
                         variant="contained"
                         loadingIndicator="Joining..."
                         loading={isLoading}
+                        disabled={code === ''}
                     >
                         Join
                     </LoadingButton >
