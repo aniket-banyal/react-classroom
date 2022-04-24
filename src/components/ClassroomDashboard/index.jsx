@@ -23,7 +23,7 @@ const tabs = [
 ]
 
 
-function Classroom() {
+function ClassroomDashboard() {
     const { code } = useParams()
     const { data: classroom, isLoading, isError } = useClassroom(code)
 
@@ -55,4 +55,4 @@ function Classroom() {
     )
 }
 
-export default Classroom
+export default ClassroomDashboard

@@ -72,7 +72,7 @@ api.interceptors.response.use(
         }
 
         else {
-            throw error
+            throw err
         }
     }
 )

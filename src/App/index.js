@@ -1,24 +1,24 @@
 import { useMemo, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Base from "./components/Base";
-import AssignmentDetail from "./components/Assignment/AssignmentDetail";
-import AnnouncementsTab from "./components/Announcement/AnnouncementsTab";
-import Home from './components/HomePage/Home'
-import LoginPage from "./components/LoginPage";
-import RequireAuth from "./components/RequireAuth";
-import { AuthContext } from "./context/AuthContext";
-import Submissions from "./components/Submission/Teacher/Submissions";
-import AssignmentDetailAndSubmissionBase from "./components/Assignment/AssignmentDetailAndSubmissionBase";
-import PeopleTab from "./components/People/PeopleTab";
-import AssignmentsTab from "./components/Assignment/AssignmentsTab";
-import Classroom from "./components/Classroom";
+import Base from "../components/Base";
+import AssignmentDetail from "../components/Assignment/AssignmentDetail";
+import AnnouncementsTab from "../components/Announcement/AnnouncementsTab";
+import Home from '../components/HomePage/Home'
+import LoginPage from "../components/LoginPage";
+import RequireAuth from "../components/RequireAuth";
+import { AuthContext } from "../context/AuthContext";
+import Submissions from "../components/Submission/Teacher/Submissions";
+import AssignmentDetailAndSubmissionBase from "../components/Assignment/AssignmentDetailAndSubmissionBase";
+import PeopleTab from "../components/People/PeopleTab";
+import AssignmentsTab from "../components/Assignment/AssignmentsTab";
+import Classroom from "../components/ClassroomDashboard";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
 import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material"
-import StudentSubmissions from "./components/StudentSubmissions";
-import Todo from "./components/Todo";
-import ToReview from "./components/ToReview";
+import StudentSubmissions from "../components/StudentSubmissions";
+import Todo from "../components/Todo";
+import ToReview from "../components/ToReview";
 
 
 const queryClient = new QueryClient()
@@ -40,22 +40,23 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          }
+        }}
+      />
+
       <Router>
         <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <QueryClientProvider client={queryClient}>
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                style: {
-                  borderRadius: '10px',
-                  background: '#333',
-                  color: '#fff',
-                }
-              }}
-            />
 
             <Routes>
-
               <Route path="/" element={<RequireAuth />} >
                 <Route index element={<Home />} />
                 <Route path='todo' element={<Todo />} />
