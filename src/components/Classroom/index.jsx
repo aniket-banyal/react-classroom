@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom"
-import BasicTabs from "./BasicTabs"
-import useClassroom from "../hooks/api/useClassroom";
+import BasicTabs from "../BasicTabs"
+import useClassroom from "../../hooks/api/useClassroom";
 import { useEffect } from "react";
-import CenteredCircularProgress from './CenteredCircularProgress'
+import CenteredCircularProgress from '../CenteredCircularProgress'
 import ClassroomHeaderCard from "./ClassroomHeaderCard";
 
 
@@ -23,7 +23,7 @@ const tabs = [
 ]
 
 
-function Dashboard() {
+function Classroom() {
     const { code } = useParams()
     const { data: classroom, isLoading, isError } = useClassroom(code)
 
@@ -55,4 +55,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default Classroom
