@@ -14,16 +14,24 @@ function ThreeDotMenu({ options }) {
         event.preventDefault()
         setAnchorEl(event.currentTarget)
     }
-    const handleClose = () => setAnchorEl(null)
 
-    const handleOptionClick = onClick => {
+    const handleClose = (e) => {
+        setAnchorEl(null)
+        e.stopPropagation()
+    }
+
+    const handleOptionClick = (e, onClick) => {
+        e.stopPropagation()
         onClick()
-        handleClose()
+        handleClose(e)
     }
 
     return (
         <div>
-            <IconButton onClick={handleClick}>
+            <IconButton
+                onClick={handleClick}
+                onMouseDown={(e) => { e.stopPropagation() }}
+            >
                 <MoreVertIcon />
             </IconButton>
 
@@ -33,7 +41,7 @@ function ThreeDotMenu({ options }) {
                 onClose={handleClose}
             >
                 {options.map(option => (
-                    <MenuItem key={option.name} onClick={() => handleOptionClick(option.onClick)}>
+                    <MenuItem key={option.name} onClick={(e) => handleOptionClick(e, option.onClick)}>
                         {option.name}
                     </MenuItem>
                 ))}

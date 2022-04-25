@@ -53,36 +53,37 @@ function Assignment({ assignment }) {
             />
 
             <Card>
-                <Box style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <CardActionArea component={Link} to={`/${code}/assignments/${assignment.id}`}>
-                        <CardContent>
-                            <Stack direction='row' alignItems='flex-end' justifyContent='space-between'>
-                                <Box sx={{ width: '70%' }}>
-                                    <Typography
-                                        variant="h5"
-                                        color='primary'
-                                        noWrap
-                                        gutterBottom
-                                    >
-                                        {assignment.title}
-                                    </Typography>
+                <CardActionArea component={Link} to={`/${code}/assignments/${assignment.id}`}>
+                    <CardContent>
+                        <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Box sx={{ width: '60%' }}>
+                                <Typography
+                                    variant="h5"
+                                    color='primary'
+                                    noWrap
+                                    gutterBottom
+                                >
+                                    {assignment.title}
+                                </Typography>
 
-                                    <Typography variant="subtitle1">
-                                        {assignment.points} points
-                                    </Typography>
-                                </Box>
+                                <Typography variant="subtitle1">
+                                    {assignment.points} points
+                                </Typography>
+                            </Box>
 
-                                <Box>
-                                    <Typography variant="subtitle1">
-                                        Due {dueDateTime}
-                                    </Typography>
-                                </Box>
+                            <Stack direction='row' alignItems='center' spacing={2}>
+                                <Typography
+                                    variant="subtitle1"
+                                    color='text.secondary'
+                                >
+                                    Due {dueDateTime}
+                                </Typography>
+
+                                {userRole === 'teacher' && <ThreeDotMenu options={options} />}
                             </Stack>
-                        </CardContent>
-                    </CardActionArea>
-
-                    {userRole === 'teacher' && <ThreeDotMenu options={options} />}
-                </Box>
+                        </Stack>
+                    </CardContent>
+                </CardActionArea>
             </Card>
         </>
     )
