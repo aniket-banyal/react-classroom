@@ -1,5 +1,4 @@
 import { Link, Stack, Typography } from "@mui/material"
-import { Box } from "@mui/system"
 import useUpcomingAssignment from "../../hooks/api/useUpcomingAssignment"
 import useCreateDateTime from "../../hooks/useCreateDateTime"
 import { Link as RouterLink } from 'react-router-dom';
@@ -25,27 +24,21 @@ function UpcomingAssignments({ code }) {
     return (
         <Stack spacing={2}>
             <Typography
-                variant="subtitle1"
+                variant="subtitle2"
                 color={'text.secondary'}
             >
-                Upcoming
+                Due {dueDateTime}
             </Typography>
 
-            <Box>
-                <Typography variant="subtitle2">
-                    Due {dueDateTime}
-                </Typography>
-
-                <Link
-                    underline="hover"
-                    component={RouterLink}
-                    to={`/${code}/assignments/${assignment.id}`}
-                    color='inherit'
-                    variant="subtitle1"
-                >
-                    {assignment.title}
-                </Link>
-            </Box>
+            <Link
+                underline="hover"
+                component={RouterLink}
+                to={`/${code}/assignments/${assignment.id}`}
+                color='inherit'
+                variant="subtitle1"
+            >
+                {assignment.title}
+            </Link>
         </Stack>
     )
 }
