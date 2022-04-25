@@ -1,6 +1,6 @@
-import { Card, CardActionArea, CardContent, Divider, Stack, Typography } from "@mui/material"
+import { Card, CardContent, Divider, Link, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
+import { Link as RouterLink } from 'react-router-dom';
 import useUnenrollStudent from "../../hooks/api/useUnenrollStudent";
 import useUser from "../../hooks/api/useUser";
 import useUserRole from "../../hooks/api/useUserRole";
@@ -9,6 +9,7 @@ import EditClassroom from "./EditClassroom";
 import ThreeDotMenu from "../shared/ThreeDotMenu";
 import useDeleteClassroom from "../../hooks/api/useDeleteClassroom";
 import UpcomingAssignments from "./UpcomingAssignments";
+import { Box } from "@mui/system";
 
 
 function ClassroomCard({ classroom }) {
@@ -80,36 +81,52 @@ function ClassroomCard({ classroom }) {
             />
 
             <Card
-                sx={{ height: 300 }}
+                sx={{
+                    height: 300,
+                    ':hover': {
+                        boxShadow: "0 2px 5px 4px rgba(150, 150, 150, 0.2)",
+                    }
+                }}
             >
-                <Stack direction='row' justifyContent='space-between'>
-                    <Stack sx={{ width: '100%' }}>
-                        <CardActionArea component={Link} to={`${classroom.code}/dashboard`} >
-                            <CardContent>
-                                <Typography variant="h5">
-                                    {classroom.name}
-                                </Typography>
-
-                                <Typography variant="subtitle1">
-                                    Subject: {classroom.subject}
-                                </Typography>
-
-                                <Typography variant="subtitle2">
-                                    Teacher: {classroom.teacher.name}
-                                </Typography>
-
-                                <Divider
-                                    sx={{ mt: 2 }}
-                                />
-                            </CardContent>
-                        </CardActionArea>
-
+                <Stack>
+                    <Link
+                        underline='none'
+                        component={RouterLink}
+                        color='inherit'
+                        to={`${classroom.code}/dashboard`}
+                    >
                         <CardContent>
-                            <UpcomingAssignments code={code} />
-                        </CardContent>
-                    </Stack>
+                            <Stack direction='row' justifyContent='space-between'>
+                                <Box sx={{ width: '70%' }}>
+                                    <Typography
+                                        variant="h5"
+                                        noWrap
+                                    >
+                                        {classroom.name}
+                                    </Typography>
 
-                    <ThreeDotMenu options={menuOptions} />
+                                    <Typography variant="subtitle1">
+                                        Subject: {classroom.subject}
+                                    </Typography>
+
+                                    <Typography variant="subtitle2">
+                                        Teacher: {classroom.teacher.name}
+                                    </Typography>
+                                </Box>
+
+                                <ThreeDotMenu options={menuOptions} />
+                            </Stack>
+
+                            <Divider
+                                sx={{ mt: 2 }}
+                            />
+                        </CardContent>
+                    </Link>
+
+                    <CardContent>
+                        <UpcomingAssignments code={code} />
+                    </CardContent>
+
                 </Stack>
             </Card>
         </>
