@@ -14,6 +14,7 @@ export default function useDeleteAssignment() {
     return useMutation(deleteAssignment, {
         onSuccess: (data, { code }) => {
             queryClient.invalidateQueries(['assignments', code])
+            queryClient.removeQueries('assignments', code)
         }
     })
 }

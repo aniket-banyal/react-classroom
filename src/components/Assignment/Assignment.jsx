@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useUserRole from "../../hooks/api/useUserRole";
 import BasicModal from "../shared/BasicModal"; import EditAssignment from "./EditAssignment";
-import useCreateEditDateTime from "../../hooks/useCreateEditDateTime";
 import useCreateDateTime from "../../hooks/useCreateDateTime";
 import useDeleteAssignment from "../../hooks/api/useDeleteAssignment";
 import ThreeDotMenu from "../shared/ThreeDotMenu";
@@ -15,7 +14,6 @@ function Assignment({ assignment }) {
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const { code } = useParams()
     const { data: userRole } = useUserRole(code)
-    const createdDateTime = useCreateEditDateTime(assignment.created_at, assignment.edited_at)
     const dueDateTime = useCreateDateTime(assignment.due_date_time)
     const { mutate, isLoading } = useDeleteAssignment()
 
