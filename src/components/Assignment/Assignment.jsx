@@ -53,7 +53,7 @@ function Assignment({ assignment }) {
             <Card>
                 <CardActionArea component={Link} to={`/${code}/assignments/${assignment.id}`}>
                     <CardContent>
-                        <Stack>
+                        <Stack spacing={1}>
                             <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Box sx={{ width: '60%' }}>
                                     <Typography
@@ -69,16 +69,18 @@ function Assignment({ assignment }) {
                                 {userRole === 'teacher' && <ThreeDotMenu options={options} />}
                             </Stack>
 
-                            <Typography variant="subtitle1">
-                                {assignment.points} points
-                            </Typography>
+                            <Stack>
+                                <Typography variant="subtitle1">
+                                    {assignment.points} points
+                                </Typography>
 
-                            <Typography
-                                variant="subtitle2"
-                                color='text.secondary'
-                            >
-                                Due {dueDateTime}
-                            </Typography>
+                                <Typography
+                                    variant="subtitle2"
+                                    color='text.secondary'
+                                >
+                                    Due {dueDateTime}
+                                </Typography>
+                            </Stack>
                         </Stack>
                     </CardContent>
                 </CardActionArea>
