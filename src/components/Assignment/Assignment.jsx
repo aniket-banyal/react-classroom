@@ -53,7 +53,7 @@ function Assignment({ assignment }) {
             <Card>
                 <CardActionArea component={Link} to={`/${code}/assignments/${assignment.id}`}>
                     <CardContent>
-                        <Stack spacing={1}>
+                        <Stack>
                             <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Box sx={{ width: '60%' }}>
                                     <Typography
@@ -69,7 +69,7 @@ function Assignment({ assignment }) {
                                 {userRole === 'teacher' && <ThreeDotMenu options={options} />}
                             </Stack>
 
-                            <Stack>
+                            <Stack direction='row' alignItems='flex-end' justifyContent='space-between'>
                                 <Typography variant="subtitle1">
                                     {assignment.points} points
                                 </Typography>
