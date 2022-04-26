@@ -1,10 +1,13 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom"
 import BasicTabs from "../shared/BasicTabs"
 import useClassroom from "../../hooks/api/useClassroom";
 import { useEffect } from "react";
 import CenteredCircularProgress from '../shared/CenteredCircularProgress'
 import ClassroomHeaderCard from "./ClassroomHeaderCard";
+import NotFound from "../shared/NotFound";
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from "@mui/material";
 
 
 const tabs = [
@@ -39,10 +42,14 @@ function ClassroomDashboard() {
 
     if (isError)
         return (
-            <div>
-                <h1>Invalid class code</h1>
-                <Link to='/'>Back to Classes</Link>
-            </div>
+            <NotFound msg='Invalid class code'>
+                <Link
+                    component={RouterLink}
+                    to={'/'}
+                >
+                    Back to Classes
+                </Link>
+            </NotFound>
         )
 
     return (

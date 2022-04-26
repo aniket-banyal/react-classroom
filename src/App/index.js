@@ -11,7 +11,7 @@ import Submissions from "../components/Submission/Teacher/Submissions";
 import AssignmentDetailAndSubmissionBase from "../components/Assignment/AssignmentDetailAndSubmissionBase";
 import PeopleTab from "../components/People/PeopleTab";
 import AssignmentsTab from "../components/Assignment/AssignmentsTab";
-import Classroom from "../components/ClassroomDashboard";
+import ClassroomDashboard from "../components/ClassroomDashboard";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
@@ -63,7 +63,7 @@ function App() {
                 <Route path='toreview' element={<ToReview />} />
                 <Route path=':code' element={<Base />}>
 
-                  <Route path='dashboard' element={<Classroom />} >
+                  <Route path='dashboard' element={<ClassroomDashboard />} >
                     <Route index element={<AnnouncementsTab />} />
                     <Route path='assignments' element={<AssignmentsTab />} />
                     <Route path='people' element={<PeopleTab />} />

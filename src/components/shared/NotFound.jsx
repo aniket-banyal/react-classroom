@@ -1,10 +1,14 @@
-import { Typography } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
 
-function NotFound({ msg }) {
+function NotFound({ msg, children }) {
     return (
-        <Typography variant="h5">
-            {msg}
-        </Typography>
+        <Stack spacing={2} alignItems='center'>
+            <Typography variant="h5">
+                {msg}
+            </Typography>
+
+            {children}
+        </Stack>
     )
 }
 
