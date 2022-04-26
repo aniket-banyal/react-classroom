@@ -123,7 +123,7 @@ function ClassroomCard({ classroom }) {
                         </CardContent>
                     </Link>
 
-                    <CardContent>
+                    <CardContent sx={{ mt: -2 }}>
                         <UpcomingAssignments code={code} />
                     </CardContent>
 
