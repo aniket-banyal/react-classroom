@@ -1,6 +1,9 @@
 import { Outlet, useParams } from "react-router-dom"
+import { useAssignment } from "../../hooks/api/useAssignment"
 import useUserRole from "../../hooks/api/useUserRole"
 import BasicTabs from "../shared/BasicTabs"
+import CenteredCircularProgress from "../shared/CenteredCircularProgress"
+import NotFound from "../shared/NotFound"
 
 const tabs = [
     {
@@ -14,8 +17,15 @@ const tabs = [
 ]
 
 function AssignmentDetailAndSubmissionBase() {
-    const { code } = useParams()
+    const { code, assignmentId } = useParams()
+    const { isLoading, isError } = useAssignment(code, assignmentId)
     const { data: userRole } = useUserRole(code)
+
+    if (isLoading)
+        return <CenteredCircularProgress />
+
+    if (isError)
+        return <NotFound msg='No such assignment found' />
 
     return (
         <>
