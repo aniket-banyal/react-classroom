@@ -19,6 +19,7 @@ import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/mat
 import StudentSubmissions from "../components/StudentSubmissions";
 import Todo from "../components/Todo";
 import ToReview from "../components/ToReview";
+import Page404 from "../components/shared/Page404";
 
 
 const queryClient = new QueryClient()
@@ -62,6 +63,7 @@ function App() {
                 <Route path='todo' element={<Todo />} />
                 <Route path='toreview' element={<ToReview />} />
                 <Route path=':code' element={<Base />}>
+                  <Route index element={<Page404 />} />
 
                   <Route path='dashboard' element={<ClassroomDashboard />} >
                     <Route index element={<AnnouncementsTab />} />
@@ -76,8 +78,9 @@ function App() {
                   </Route>
 
                   <Route path='students/:studentId' element={<StudentSubmissions />} />
-
                 </Route>
+
+                <Route path='*' element={<Page404 />} />
               </Route>
 
               <Route path="/login" element={<LoginPage />} />

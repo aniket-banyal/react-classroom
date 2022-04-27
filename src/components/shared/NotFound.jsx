@@ -1,13 +1,29 @@
 import { Stack, Typography } from "@mui/material"
+import { Link } from "@mui/material"
+import { Link as RouterLink } from 'react-router-dom';
 
-function NotFound({ msg, children }) {
+
+function NotFound({ msg, redirectLink, redirectMsg }) {
     return (
-        <Stack spacing={2} alignItems='center'>
-            <Typography variant="h5">
+        <Stack
+            sx={{
+                minHeight: "50vh"
+            }}
+            spacing={2}
+            alignItems='center'
+            justifyContent='center'
+        >
+            <Typography variant="h4">
                 {msg}
             </Typography>
 
-            {children}
+            <Link
+                variant="h6"
+                component={RouterLink}
+                to={redirectLink}
+            >
+                {redirectMsg}
+            </Link>
         </Stack>
     )
 }
