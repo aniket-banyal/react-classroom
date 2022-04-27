@@ -9,5 +9,7 @@ const getStudent = async ({ queryKey }) => {
 }
 
 export default function useStudent(code, studentId) {
-    return useQuery(['student', code, studentId], getStudent)
+    return useQuery(['student', code, studentId], getStudent,
+        { retry: 1, refetchOnWindowFocus: false }
+    )
 }

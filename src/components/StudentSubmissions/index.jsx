@@ -7,12 +7,13 @@ import StudentSubmissionCard from "./StudentSubmissionCard"
 import NameAvatar from "../shared/NameAvatar";
 import { useMemo, useState } from "react"
 import SubmissionStatusSelect from "../shared/SubmissionStatusSelect"
+import NotFound from "../shared/NotFound"
 
 
 function StudentSubmissions() {
     const [selectedStatus, setSelectedStatus] = useState('All')
     const { code, studentId } = useParams()
-    const { data: student, isLoading: isLoadingStudent } = useStudent(code, studentId)
+    const { data: student, isLoading: isLoadingStudent, isError } = useStudent(code, studentId)
     const { data: submissions, isLoading: isLoadingSubmissions } = useStudentSubmissions(code, studentId)
 
     const filteredSubmissions = useMemo(() => {
@@ -27,6 +28,16 @@ function StudentSubmissions() {
         return submissions.filter(submission => submission.status === selectedStatus)
     }, [submissions, selectedStatus])
 
+
+    if (isError) {
+        return (
+            <NotFound
+                msg='No such Student'
+                redirectMsg={'Back to PeopleTab'}
+                redirectLink={`/${code}/dashboard/people`}
+            />
+        )
+    }
 
     if (isLoadingStudent || isLoadingSubmissions) {
         return <CenteredCircularProgress />

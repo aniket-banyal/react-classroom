@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useStudents, useStudentsCount } from "../../hooks/api/useStudents"
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { useEffect, useMemo, useState } from "react";
-import { Divider, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import useRemoveStudent from "../../hooks/api/useRemoveStudent";
 import useUserRole from "../../hooks/api/useUserRole";
 import DeleteIcon from '@mui/icons-material/Delete';
