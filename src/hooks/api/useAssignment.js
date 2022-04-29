@@ -10,7 +10,7 @@ const getAssignment = async ({ queryKey }) => {
 
 export function useAssignment(code, assignmentId, select) {
     return useQuery(['assignments', code, assignmentId], getAssignment,
-        { select, retry: 1, refetchOnWindowFocus: false }
+        { select, retry: 1 }
     )
 }
 
