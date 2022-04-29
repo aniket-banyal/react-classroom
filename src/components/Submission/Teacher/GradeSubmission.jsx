@@ -33,7 +33,7 @@ function GradeSubmission({ submissionId, onSubmit }) {
     return (
         <>
             <Typography variant='body1'>
-                Grade Submission
+                Grade Submission (out of {totalPoints})
             </Typography>
 
             <form onSubmit={handleSubmit}>
