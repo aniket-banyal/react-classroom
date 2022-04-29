@@ -3,7 +3,7 @@ import { api } from "../../api";
 
 
 const createAssignment = async ({ code, body }) => {
-    return api.post(`/classes/${code}/assignments`, { ...body })
+    return api.post(`/classes/${code}/assignments/`, { ...body })
 }
 
 

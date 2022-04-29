@@ -3,7 +3,7 @@ import { api } from "../../api";
 
 
 const getUser = async () => {
-    const { data } = await api.get(`/user_details`)
+    const { data } = await api.get(`/users/details`)
     return data
 }
 
