@@ -8,7 +8,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 
 function NavbarAppBar({ toggleDrawer, drawerOpen }) {
     const { code } = useParams()
-    const { data: classroom, } = useClassroom(code)
+    const { data: classroom } = useClassroom(code)
 
     return (
         <>
@@ -23,24 +23,17 @@ function NavbarAppBar({ toggleDrawer, drawerOpen }) {
                         <MenuIcon />
                     </IconButton>
 
-                    <Typography
+                    <Link
+                        underline="hover"
+                        component={RouterLink}
+                        to={code && classroom ? `/${code}/dashboard` : '/'}
+                        color='inherit'
                         variant="h6"
                         noWrap
                         sx={{ flexGrow: 1 }}
                     >
-                        {code ?
-                            <Link
-                                underline="hover"
-                                component={RouterLink}
-                                to={`/${code}/dashboard`}
-                                color='inherit'
-                            >
-                                {classroom?.name}
-                            </Link>
-                            :
-                            'Classroom'
-                        }
-                    </Typography>
+                        {code && classroom ? classroom.name : 'Classroom'}
+                    </Link>
 
                     <NavbarMenu />
                     <UserIconMenu />
