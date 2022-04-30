@@ -37,6 +37,7 @@ function CreateAssignment() {
             onSuccess: () => {
                 setCreating(false)
                 setAssignment(initialAssignment)
+                window.scrollTo({ top: 0 })
             },
             onError: (error) => {
                 const { status, data } = error.response

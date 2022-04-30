@@ -21,6 +21,7 @@ function CreateAnnouncement() {
             onSuccess: () => {
                 setCreating(false)
                 setText('')
+                window.scrollTo({ top: 0 })
             }
         })
     }
