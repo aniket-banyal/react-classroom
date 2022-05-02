@@ -4,9 +4,9 @@ import useCreateDateTime from "../../hooks/useCreateDateTime"
 import { Link as RouterLink } from 'react-router-dom';
 
 function UpcomingAssignments({ code }) {
-    const { data: assignment, isLoading } = useUpcomingAssignment(code)
+    const { data: assignments, isLoading } = useUpcomingAssignment(code)
+    const assignment = assignments && assignments.length > 0 ? assignments[0] : null
     const dueDateTime = useCreateDateTime(assignment?.due_date_time)
-
 
     if (isLoading) {
         return (
@@ -17,7 +17,7 @@ function UpcomingAssignments({ code }) {
     }
 
     //if there is no latest assignment
-    if (assignment.data === null) {
+    if (!assignment) {
         return null
     }
 
