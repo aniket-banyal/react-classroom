@@ -19,7 +19,10 @@ export default function useGetWeekWiseAssignmentsToDo(assignments, accordionLabe
         assignments.forEach(assignment => {
             const assignmentDueDate = new Date(assignment.due_date_time)
 
-            if (assignmentDueDate.getTime() < endOfThisWeek)
+            if (assignmentDueDate.getTime() < now.getTime())
+                weekWiseAssignments[accordionLabels[3]].push(assignment)
+
+            else if (assignmentDueDate.getTime() < endOfThisWeek)
                 weekWiseAssignments[accordionLabels[0]].push(assignment)
 
             else if (assignmentDueDate.getTime() < endOfNextWeek)

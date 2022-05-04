@@ -9,7 +9,7 @@ import useEnrolledClassrooms from '../../hooks/api/useEnrolledClassrooms';
 import useGetWeekWiseAssignmentsToDo from '../../hooks/useGetWeekWiseAssignmentsToDo';
 
 
-const accordionLabels = ['This week', 'Next week', 'Later']
+const accordionLabels = ['This week', 'Next week', 'Later', 'Earlier']
 
 function Todo() {
     const [selectedClassroom, setSelectedClassroom] = useState('All')
