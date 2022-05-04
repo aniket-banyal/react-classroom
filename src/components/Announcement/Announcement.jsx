@@ -35,8 +35,8 @@ function Announcement({ announcement }) {
 
 
     useEffect(() => {
-        //teacher is allowed to edit his own announcements
-        const allowEdit = userRole === 'teacher' && user?.email === announcement.author.email
+        //author is allowed to edit his own announcements
+        const allowEdit = user?.email === announcement.author.email
         //announcement can be deleted by the teacher as well as author of the announcement 
         const allowDelete = userRole === 'teacher' || user?.email === announcement.author.email
 
