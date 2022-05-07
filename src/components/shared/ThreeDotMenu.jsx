@@ -39,6 +39,8 @@ function ThreeDotMenu({ options }) {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
+                onClick={e => e.stopPropagation()}
+                onMouseDown={e => e.stopPropagation()}
             >
                 {options.map(option => (
                     <MenuItem key={option.name} onClick={(e) => handleOptionClick(e, option.onClick)}>
