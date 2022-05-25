@@ -1,10 +1,9 @@
 # React Classroom
 
-- This is a react based clone of google classroom.
-
+- This is a react based clone of google classroom
 - It uses API service from my other project -> [classroom-api](https://github.com/dummy26/classroom-api/)
-
 - It uses react-query for managing server state
+- It uses react-google-login for login functionality
 
 ## Features - 
 
